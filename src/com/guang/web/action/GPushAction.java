@@ -73,6 +73,9 @@ public class GPushAction extends ActionSupport {
 	public String pushSpot()
 	{
 		push(1);
+		
+		
+		
 		ActionContext.getContext().put("pages", "push");
 		return "index";
 	}
