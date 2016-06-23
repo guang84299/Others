@@ -210,7 +210,7 @@ public class GModeUser {
 	//ÐÄÌø¼ì²â
 	public void heartBeat(IoSession session, String data)
 	{
-		GSession gsession = GSessionHandler.getSessions().get(session.getId());
-		gsession.setHeartBeatTime(System.currentTimeMillis());
+//		GSession gsession = GSessionHandler.getSessions().get(session.getId());
+//		gsession.setHeartBeatTime(System.currentTimeMillis());
 	}
 }
