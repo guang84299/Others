@@ -104,8 +104,7 @@ public class GModeUser {
 		if(user != null && user.getName().equals(name) && user.getPassword().equals(password))
 		{			
 			obj.put("result", true);
-			gdata = new GData(GProtocol.MODE_USER_LOGIN_RESULT, obj.toString());
-			logger.info(user.getName()+" 登录成功！");
+			gdata = new GData(GProtocol.MODE_USER_LOGIN_RESULT, obj.toString());			
 			
 			//如果已经在线 关闭
 			if(GSessionHandler.getInstance().judeOnline(name))
@@ -140,7 +139,7 @@ public class GModeUser {
 		
 		GData gdata = new GData(GProtocol.MODE_USER_REGIST_RESULT,"1");
 		session.write(gdata.pack());
-		loginSuccess(session,user.getName());
+		loginSuccess(session,user.getName());		
 	}
 	
 	//登录成功
@@ -148,6 +147,8 @@ public class GModeUser {
 	{
 		final GSession gsession = GSessionHandler.getSessions().get(session.getId());
 		gsession.setName(name);	
+		
+		logger.info(name+" 登录成功！");
 		
 		//自动推送
 		final GSysVal val = sysValService.find();

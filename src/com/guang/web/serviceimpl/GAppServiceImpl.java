@@ -40,6 +40,12 @@ public class GAppServiceImpl implements GAppService{
 		lhm.put("id", "desc");
 		return daoTools.find(GApp.class, null, null, firstindex, 20, lhm);
 	}
+	
+	public QueryResult<GApp> findApps(int firstindex,int maxIndex) {
+		LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
+		lhm.put("id", "desc");
+		return daoTools.find(GApp.class, null, null, firstindex, maxIndex, lhm);
+	}
 
 	public QueryResult<GApp> findAppsByUserId(long userId) {
 		return daoTools.find(GApp.class, "userId", userId+"", 0, 30, null);

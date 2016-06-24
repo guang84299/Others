@@ -15,7 +15,9 @@
 			<th>ID</th>
 			<th>用户ID</th>
 			<th>应用名字</th>
-			<th>包名</th>	
+			<th>包名</th>
+			<th>版本</th>
+			<th>SDK版本</th>	
 			<th>操作</th>
 		</tr>
 	</thead>
@@ -26,6 +28,8 @@
 				<td><s:property value="#val.userId" /></td>
 				<td><s:property value="#val.name" /></td>
 				<td><s:property value="#val.packageName" /></td>
+				<td><s:property value="#val.versionName" /></td>
+				<td><s:property value="#val.sdkVersion" /></td>
 				
 				<td class="thUpdate"><input type="button" value="操作"/></td>
 			</tr>
@@ -76,7 +80,7 @@ $(".thUpdate").click(function(){
 	div.css("left",y + "px"); 
 	div.css("top",x + "px");
 	var preall = $(this).prevAll();
-	var id = preall[preall.length-2].innerHTML;
+	var id = preall[preall.length-1].innerHTML;
 	
 	div.attr("title",id);
 	div.show();

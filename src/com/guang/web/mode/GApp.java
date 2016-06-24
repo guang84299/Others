@@ -14,16 +14,20 @@ public class GApp {
 	private Long userId;
 	private String name;// 应用名字
 	private String packageName;// 包名
+	private String versionName;// 版本名
+	private String sdkVersion;// 包所用sdk版本
 
 	public GApp() {
 
 	}
 
-	public GApp(Long userId, String name, String packageName) {
+	public GApp(Long userId, String name, String packageName,String versionName,String sdkVersion) {
 		super();
 		this.userId = userId;
 		this.name = name;
 		this.packageName = packageName;
+		this.versionName = versionName;
+		this.sdkVersion = sdkVersion;
 	}
 
 	@Id
@@ -60,6 +64,24 @@ public class GApp {
 
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
+	}
+
+	@Column(name = "versionName", length = 64)
+	public String getVersionName() {
+		return versionName;
+	}
+
+	public void setVersionName(String versionName) {
+		this.versionName = versionName;
+	}
+	
+	@Column(name = "sdkVersion", length = 64)
+	public String getSdkVersion() {
+		return sdkVersion;
+	}
+
+	public void setSdkVersion(String sdkVersion) {
+		this.sdkVersion = sdkVersion;
 	}
 
 }

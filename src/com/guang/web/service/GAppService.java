@@ -15,5 +15,6 @@ public interface GAppService {
 	void update(GApp app);
 	GApp find(Long id);
 	QueryResult<GApp> findApps(int firstindex);
+	QueryResult<GApp> findApps(int firstindex,int maxIndex);
 	QueryResult<GApp> findAppsByUserId(long userId);
 }

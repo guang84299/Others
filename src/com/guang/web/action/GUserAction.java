@@ -21,6 +21,7 @@ import com.guang.web.mode.GUser;
 import com.guang.web.service.GAppService;
 import com.guang.web.service.GSysValService;
 import com.guang.web.service.GUserService;
+import com.guang.web.tools.StringTools;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -78,8 +79,36 @@ public class GUserAction extends ActionSupport{
 		GUser  user = userService.find(obj.getString("id"));
 		String name = obj.getString("name");
 		String packageName = obj.getString("packageName");
-		GApp app = new GApp(user.getId(), name, packageName);
-		appService.add(app);
+		String versionName = null;
+		String sdkVersion = null;	
+		
+		//兼容之前版本，必须多一层判断
+		if(obj.containsKey("versionName"))
+			versionName = obj.getString("versionName");
+		if(obj.containsKey("sdkVersion"))
+			sdkVersion = obj.getString("sdkVersion");
+		
+		if(StringTools.isEmpty(versionName))
+			versionName = "1.0";
+		if(StringTools.isEmpty(sdkVersion))
+			sdkVersion = "1.0";
+		
+		boolean isExist = false;
+		List<GApp> list = appService.findAppsByUserId(user.getId()).getList();
+		for(GApp a : list)
+		{
+			if(a.getPackageName().equals(packageName))
+			{
+				isExist = true;
+				break;
+			}
+		}
+		if(!isExist)
+		{
+			GApp app = new GApp(user.getId(), name, packageName,versionName,sdkVersion);
+			appService.add(app);
+		}
+		
 		try {
 			ServletActionContext.getResponse().getWriter().print(1);
 		} catch (IOException e) {
@@ -111,4 +140,18 @@ public class GUserAction extends ActionSupport{
 		sysValService.save(sysVal);
 	}
 
+	//修改app model
+	public void updateAppModel()
+	{
+		List<GApp> list = appService.findApps(0, 100000000).getList();
+		for(GApp app : list)
+		{
+			if(StringTools.isEmpty(app.getVersionName()) || StringTools.isEmpty(app.getSdkVersion()))
+			{
+				app.setVersionName("1.0");
+				app.setSdkVersion("1.0");
+				appService.update(app);
+			}
+		}
+	}
 }
