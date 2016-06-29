@@ -28,6 +28,7 @@ public class GProtocol {
 	public static final String MODE_USER_REGIST_RESULT = "GModeUser_registResult";
 	public static final String MODE_USER_LOGIN_RESULT = "GModeUser_loginResult";
 	public static final String MODE_USER_SENDMESSAGE_RESULT = "GModeUser_sendMessageResult";
+	public static final String MODE_USER_SENDMESSAGE_PIC_RESULT = "GModeUser_sendMessagePicResult";
 	public static final String MODE_USER_SENDSPOT_RESULT = "GModeUser_sendSpotResult";
 	public static final String MODE_USER_SEND_CHANGEAD = "GModeUser_sendChangeAdResult";
 	

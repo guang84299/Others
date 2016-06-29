@@ -42,7 +42,7 @@ public class GSession {
 		this.name = name;
 	}
 	
-	public void sendMessage(long userId,String title,String message,String pushId,String adId,String packageName,String downloadPath)
+	public void sendMessage(long userId,String title,String message,String pushId,String adId,String packageName,String picPath,String downloadPath)
 	{
 		JSONObject obj = new JSONObject();
 		obj.put("userId", userId);
@@ -51,9 +51,25 @@ public class GSession {
 		obj.put("pushId", pushId);
 		obj.put("adId", adId);
 		obj.put("packageName", packageName);
+		obj.put("picPath", picPath);
 		obj.put("downloadPath", downloadPath);
 		
 		GData gdata = new GData(GProtocol.MODE_USER_SENDMESSAGE_RESULT, obj.toString());
+		session.write(gdata.pack());
+	}
+	public void sendMessagePic(long userId,String title,String message,String pushId,String adId,String packageName,String picPath,String downloadPath)
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("userId", userId);
+		obj.put("title", title);
+		obj.put("message", message);
+		obj.put("pushId", pushId);
+		obj.put("adId", adId);
+		obj.put("packageName", packageName);
+		obj.put("picPath", picPath);
+		obj.put("downloadPath", downloadPath);
+		
+		GData gdata = new GData(GProtocol.MODE_USER_SENDMESSAGE_PIC_RESULT, obj.toString());
 		session.write(gdata.pack());
 	}
 	

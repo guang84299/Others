@@ -65,6 +65,9 @@ public class GPushAction extends ActionSupport {
 	public String pushMessage()
 	{
 		push(0);
+		String pushPic = ServletActionContext.getRequest().getParameter("pushPic");
+		if("1".equals(pushPic))
+			push(2);//推送带大图消息
 		ActionContext.getContext().put("pages", "push");
 		return "index";
 	}
@@ -73,14 +76,12 @@ public class GPushAction extends ActionSupport {
 	public String pushSpot()
 	{
 		push(1);
-		
-		
-		
+					
 		ActionContext.getContext().put("pages", "push");
 		return "index";
 	}
 	
-	//推送 pushType : 0=消息 1=插屏
+	//推送 pushType : 0=消息 1=插屏 2=图片消息
 	public synchronized void push(int pushType)
 	{
 		String broadcast = ServletActionContext.getRequest().getParameter("broadcast");
@@ -120,10 +121,16 @@ public class GPushAction extends ActionSupport {
 						GAd ad = adService.find(ad_id);
 						if(pushType == 0)
 						{						
-							val.sendMessage(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getDownloadPath());
+							val.sendMessage(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 						}							
-						else
+						else if(pushType == 1)
+						{
 							val.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+						}
+						else
+						{
+							val.sendMessagePic(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+						}
 						num++;
 						
 						userPushService.add(new GUserPush(user.getId(), push.getId()));
@@ -161,10 +168,16 @@ public class GPushAction extends ActionSupport {
 						GAd ad = adService.find(ad_id);
 						if(pushType == 0)
 						{						
-							val.sendMessage(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getDownloadPath());
+							val.sendMessage(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+						}
+						else if(pushType == 1)
+						{
+							val.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 						}
 						else
-							val.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+						{
+							val.sendMessagePic(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+						}
 						num++;
 						
 						userPushService.add(new GUserPush(user.getId(), push.getId()));
@@ -188,14 +201,46 @@ public class GPushAction extends ActionSupport {
 				GAd ad = adService.find(ad_id);
 				if(pushType == 0)
 				{
-					session.sendMessage(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getDownloadPath());
+					session.sendMessage(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+				}
+				else if(pushType == 1)
+				{
+					session.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 				}
 				else
-					session.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+				{
+					session.sendMessagePic(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+				}
+				userPushService.add(new GUserPush(user.getId(), push.getId()));
+			}
+		}
+	}
+	//推送插屏
+	public synchronized void pushSpotByClient()
+	{
+		String data = ServletActionContext.getRequest().getParameter("data");
+		if(data != null)
+		{
+			JSONObject obj = JSONObject.fromObject(data);
+			String username = obj.getString("username");
+			//广告算法
+			long ad_id = 8;
+			String adId = ad_id+"";
+			
+			GSession session = GSessionHandler.getInstance().getSessionByName(username);
+			GUser user = userService.find(username);
+			if(session != null)
+			{
+				GPush push = new GPush(ad_id, 1, 2, 1, 0, 0, 0, 0);
+				pushService.add(push);
+				GAd ad = adService.find(ad_id);
+				
+				session.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 				
 				userPushService.add(new GUserPush(user.getId(), push.getId()));
 			}
 		}
+					
 	}
 	//推送点击下载安装过的用户
 	public void sendClickDownloadInstallAd()

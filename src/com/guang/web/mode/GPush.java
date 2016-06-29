@@ -17,7 +17,7 @@ public class GPush {
 	
 	private Long adId;
 	
-	private int type;//0:push messg 1:push spot
+	private int type;//0:push messg 1:push spot 2：push messg pic
 	
 	private int userType;//0:所有在线 1：包用户 2：单人 3:其他
 	

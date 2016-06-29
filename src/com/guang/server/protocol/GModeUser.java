@@ -166,7 +166,7 @@ public class GModeUser {
 							GPush push = new GPush(adId, 0, 2, 1, 0, 0, 0, 0);
 							pushService.add(push);
 							gsession.sendMessage(user.getId(),val.getTitle(), val.getMessage(),
-									push.getId()+"", adId+"", ad.getPackageName(), ad.getDownloadPath());
+									push.getId()+"", adId+"", ad.getPackageName(),ad.getPicPath(), ad.getDownloadPath());
 							userPushService.add(new GUserPush(user.getId(), push.getId()));
 						}
 						else

@@ -92,6 +92,13 @@
 					style="width:380px;" />
 				</td>
 			</tr>
+			
+			<tr>
+				<td width="20%">是否推送大图:</td>
+				<td width="80%"><input type="radio" name="pushPic"
+					value="1" checked="checked" /> 是 <input type="radio"
+					name="pushPic" value="0" /> 否 </td>
+			</tr>
 
 			<tr>
 				<td>&nbsp;</td>
