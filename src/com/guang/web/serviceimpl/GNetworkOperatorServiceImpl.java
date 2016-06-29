@@ -19,7 +19,8 @@ public class GNetworkOperatorServiceImpl implements GNetworkOperatorService{
 
 	public void add(GNetworkOperator networkOperator) {
 		try {
-			daoTools.add(networkOperator);
+			if(find(networkOperator.getName()) == null)
+				daoTools.add(networkOperator);
 		} catch (Exception e) {
 		}
 	}

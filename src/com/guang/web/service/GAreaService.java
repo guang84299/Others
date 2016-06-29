@@ -11,6 +11,6 @@ public interface GAreaService {
 	void add(GArea area);
 	
 	GArea find(int id);
-	
+	GArea find(String province,String city);
 	QueryResult<GArea> findAll();
 }

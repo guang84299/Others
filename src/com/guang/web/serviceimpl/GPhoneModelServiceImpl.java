@@ -18,7 +18,8 @@ public class GPhoneModelServiceImpl implements GPhoneModelService {
 
 	public void add(GPhoneModel phoneModel) {
 		try {
-			daoTools.add(phoneModel);
+			if(find(phoneModel.getModel()) == null)
+				daoTools.add(phoneModel);
 		} catch (Exception e) {
 			
 		}
