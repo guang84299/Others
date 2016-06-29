@@ -224,7 +224,7 @@ public class GPushAction extends ActionSupport {
 			JSONObject obj = JSONObject.fromObject(data);
 			String username = obj.getString("username");
 			//π„∏ÊÀ„∑®
-			long ad_id = 8;
+			long ad_id = 2;
 			String adId = ad_id+"";
 			
 			GSession session = GSessionHandler.getInstance().getSessionByName(username);

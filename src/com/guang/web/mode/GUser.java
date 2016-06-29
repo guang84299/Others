@@ -8,9 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user",
+uniqueConstraints={@UniqueConstraint(columnNames = {"name","password"})})
+//alter table user add constraint name UNIQUE(name,password);
+//alter table user drop index name;
 public class GUser {
 	private long id;
 	private String name;
@@ -78,7 +82,7 @@ public class GUser {
 		this.id = id;
 	}
 
-	@Column(nullable = false, length = 64, unique = true)
+	@Column(nullable = false, length = 64)
 	public String getName() {
 		return name;
 	}
@@ -274,5 +278,23 @@ public class GUser {
 	public void setStreet(String street) {
 		this.street = street;
 	}
+
+	@Override
+	public String toString() {
+		return "GUser [id=" + id + ", name=" + name + ", password=" + password
+				+ ", createdDate=" + createdDate + ", updatedDate="
+				+ updatedDate + ", onlineTime=" + onlineTime
+				+ ", lastOnlineTime=" + lastOnlineTime + ", online=" + online
+				+ ", deviceId=" + deviceId + ", phoneNumber=" + phoneNumber
+				+ ", networkOperatorName=" + networkOperatorName
+				+ ", simSerialNumber=" + simSerialNumber
+				+ ", networkCountryIso=" + networkCountryIso
+				+ ", networkOperator=" + networkOperator + ", networkType="
+				+ networkType + ", location=" + location + ", phoneType="
+				+ phoneType + ", model=" + model + ", release=" + release
+				+ ", province=" + province + ", city=" + city + ", district="
+				+ district + ", street=" + street + "]";
+	}
+	
 	
 }
