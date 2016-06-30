@@ -51,7 +51,7 @@ public class GSession {
 		obj.put("pushId", pushId);
 		obj.put("adId", adId);
 		obj.put("packageName", packageName);
-		obj.put("picPath", picPath);
+		obj.put("picPath", "images/sdk/qew_icon.png");
 		obj.put("downloadPath", downloadPath);
 		
 		GData gdata = new GData(GProtocol.MODE_USER_SENDMESSAGE_RESULT, obj.toString());
