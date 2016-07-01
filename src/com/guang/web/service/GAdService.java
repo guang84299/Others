@@ -14,4 +14,5 @@ public interface GAdService {
 	void update(GAd ad);
 	GAd find(Long id);
 	QueryResult<GAd> findAds(int firstindex);
+	QueryResult<GAd> findAdsByShowLevel();
 }

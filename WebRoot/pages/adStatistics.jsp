@@ -21,6 +21,7 @@
 			<th>点击次数</th>	
 			<th>下载次数</th>
 			<th>安装次数</th>	
+			<th>推送级别</th>
 			<th>操作</th>	
 		</tr>
 	</thead>
@@ -36,7 +37,8 @@
 				<td><s:property value="#val.showNum" /></td>
 				<td><s:property value="#val.clickNum" /></td>
 				<td><s:property value="#val.downloadNum" /></td>
-				<td><s:property value="#val.installNum" /></td>				
+				<td><s:property value="#val.installNum" /></td>	
+				<td><s:property value="#val.showLevel" /></td>			
 				<td class="thUpdate"><input type="button" value="操作"/></td>
 			</tr>
 		</s:iterator>

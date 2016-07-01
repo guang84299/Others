@@ -36,6 +36,10 @@ public class GAd {
 	
 	private int installNum;//安装次数
 	
+	private Integer showLevel = 0;//广告显示级别
+	
+	
+
 	public GAd()
 	{
 		
@@ -129,6 +133,12 @@ public class GAd {
 		this.packageName = packageName;
 	}
 	
-	
+	public Integer getShowLevel() {
+		return showLevel;
+	}
+
+	public void setShowLevel(Integer showLevel) {
+		this.showLevel = showLevel;
+	}
 	
 }

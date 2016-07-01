@@ -39,4 +39,10 @@ public class GAdServiceImpl implements GAdService{
 		return daoTools.find(GAd.class, null, null, firstindex, 20, lhm);
 	}
 
+	public QueryResult<GAd> findAdsByShowLevel() {
+		LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
+		lhm.put("showLevel", "desc");
+		return daoTools.find(GAd.class, null, null, 0, 5, lhm);
+	}
+
 }

@@ -245,6 +245,34 @@
 	</form>
 </div>
 
+
+<h1>请求push配置</h1>
+<div style="margin:20px 0px;">
+	<form action="push_requestPushSetting" method="post"
+		style="margin: 0px;"  class="g_from">
+		<table width="600" cellpadding="4" cellspacing="0" border="0">			
+			<tr>
+				<td width="20%">状态:</td>
+				<td width="80%"><input type="radio" id="request_state1"
+					name="request_state" value="1" checked="checked" /> 开启 <input
+					type="radio" id="request_state2" name="request_state" value="0" /> 关闭</td>
+			</tr>
+			
+			<tr>
+				<td>推送几率:</td>
+				<td><input type="text" id="requestPushRand" name="requestPushRand" value=""
+					style="width:100px;" /></td>
+			</tr>
+
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" value="修改" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
 <script type="text/javascript"> 
 //<![CDATA[
  
@@ -444,6 +472,7 @@ urll = "<%out.print(basePath);%>push_getAutoPushSetting";
 		$("#auto_message").val(pushSet.message);
 		$("#auto_adId").val(pushSet.adId);
 		$("#waitTime").val(pushSet.waitTime);
+		$("#requestPushRand").val(pushSet.requestPushRand);
 
 		if (pushSet.autoState) {
 			$("#auto_state1").attr("checked", "checked");
@@ -468,7 +497,17 @@ urll = "<%out.print(basePath);%>push_getAutoPushSetting";
 				$("#tr_automessage").hide();
 			}
 		});
+		
+		if (pushSet.requestPushState) {
+			$("#request_state1").attr("checked", "checked");
+			$("#request_state2").attr("checked", "");
+		} else {
+			$("#request_state2").attr("checked", "checked");
+			$("#request_state1").attr("checked", "");
+		}
+		
 	}
+
 
 	//
 </script>

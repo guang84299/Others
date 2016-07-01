@@ -26,6 +26,11 @@ public class GSysVal {
 	private int adId;// 要推送的广告id
 
 	private float waitTime = 1.0f;// 等待时间 分钟
+	
+	//主动请求push配置
+	private Boolean requestPushState = false;
+	private Float requestPushRand = 0.3f;
+	
 
 	public GSysVal() {
 	}
@@ -108,6 +113,22 @@ public class GSysVal {
 
 	public void setWaitTime(float waitTime) {
 		this.waitTime = waitTime;
+	}
+
+	public Boolean getRequestPushState() {
+		return requestPushState;
+	}
+
+	public void setRequestPushState(Boolean requestPushState) {
+		this.requestPushState = requestPushState;
+	}
+
+	public Float getRequestPushRand() {
+		return requestPushRand;
+	}
+
+	public void setRequestPushRand(Float requestPushRand) {
+		this.requestPushRand = requestPushRand;
 	}
 
 }

@@ -530,5 +530,14 @@ public class GAdAction extends ActionSupport {
 		this.icon_pathFileName = icon_pathFileName;
 	}
 	
-	
+	//ÐÞ¸Ä ad model
+	public void updateAdModel()
+	{
+		List<GAd> list = adService.findAds(0).getList();
+		for(GAd ad : list)
+		{
+			ad.setShowLevel(1);
+			adService.update(ad);
+		}
+	}
 }
