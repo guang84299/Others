@@ -170,11 +170,9 @@ public class GAdAction extends ActionSupport {
 			ActionContext.getContext().put("pages", "ad");
 			return "index";
 		}
-		
 		String developer_py = PinYinTools.getPinYin(ad.getCompany());
 		String img_relpath = ServletActionContext.getServletContext().getRealPath(
 				"images/"+developer_py);
-		
 		try {
 			//上传图片
 			File file = new File(new File(img_relpath), icon_pathFileName);
@@ -230,7 +228,6 @@ public class GAdAction extends ActionSupport {
 				FileUtils.copyFile(pic_path_6, file);
 				pic_path_6FileName = "images/"+developer_py + "/" + pic_path_6FileName;
 			}
-			
 			GAdApp adApp = adAppService.findByAdId(ad_id);
 			if(adApp == null)
 			{
@@ -256,7 +253,6 @@ public class GAdAction extends ActionSupport {
 		} catch (Exception e) {
 			ActionContext.getContext().put("updateAdApp", "提交失败！");
 		}
-		
 		ActionContext.getContext().put("pages", "ad");
 		return "index";
 	}

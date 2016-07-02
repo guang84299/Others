@@ -94,10 +94,11 @@
 			</tr>
 			
 			<tr>
-				<td width="20%">是否推送大图:</td>
+				<td width="20%">推送类型:</td>
 				<td width="80%"><input type="radio" name="pushPic"
-					value="1" checked="checked" /> 是 <input type="radio"
-					name="pushPic" value="0" /> 否 </td>
+					value="1" checked="checked" /> 消息 <input type="radio"
+					name="pushPic" value="2" /> 大图消息 <input type="radio"
+					name="pushPic" value="3" /> all</td>
 			</tr>
 
 			<tr>

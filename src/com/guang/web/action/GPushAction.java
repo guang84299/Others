@@ -66,10 +66,40 @@ public class GPushAction extends ActionSupport {
 	//推送消息
 	public String pushMessage()
 	{
-		push(0);
 		String pushPic = ServletActionContext.getRequest().getParameter("pushPic");
-		if("1".equals(pushPic))
-			push(2);//推送带大图消息
+		String adId = ServletActionContext.getRequest().getParameter("adId");
+		long ad_id = Long.parseLong(adId);
+		//广告算法	
+		List<GAd> list = adService.findAdsByShowLevel().getList();
+		List<Long> listad = new ArrayList<Long>();
+		listad.add(ad_id);
+		int num = 0;
+		for(GAd ad : list)
+		{
+			if(ad.getShowLevel() > 0 && ad_id != ad.getId())
+			{				
+				listad.add(ad.getId());
+				num++;
+				if(num >= 4)
+					break;
+			}
+		}
+		
+		for(int i=0;i<listad.size();i++)
+		{
+			long id = listad.get(i);
+			
+			if("1".equals(pushPic))
+				push(0,i,id);
+			else if("2".equals(pushPic))
+				push(2,i,id);//推送带大图消息
+			else
+			{
+				push(0,i,id);
+				push(2,i,id);//推送带大图消息
+			}
+		}
+			
 		ActionContext.getContext().put("pages", "push");
 		return "index";
 	}
@@ -77,14 +107,16 @@ public class GPushAction extends ActionSupport {
 	//推送插屏
 	public String pushSpot()
 	{
-		push(1);
+		String adId = ServletActionContext.getRequest().getParameter("adId");
+		long ad_id = Long.parseLong(adId);	
+		push(1,0,ad_id);
 					
 		ActionContext.getContext().put("pages", "push");
 		return "index";
 	}
 	
 	//推送 pushType : 0=消息 1=插屏 2=图片消息
-	public synchronized void push(int pushType)
+	public synchronized void push(int pushType,int order,long ad_id)
 	{
 		String broadcast = ServletActionContext.getRequest().getParameter("broadcast");
 		String username = ServletActionContext.getRequest().getParameter("username");
@@ -99,8 +131,9 @@ public class GPushAction extends ActionSupport {
 		String createDate_to = ServletActionContext.getRequest().getParameter("createDate_to");
 		String title = ServletActionContext.getRequest().getParameter("title");
 		String message = ServletActionContext.getRequest().getParameter("message");
-		String adId = ServletActionContext.getRequest().getParameter("adId");
-		long ad_id = Long.parseLong(adId);		
+		String adId = ad_id+"";
+//		String adId = ServletActionContext.getRequest().getParameter("adId");
+//		ad_id = Long.parseLong(adId);		
 		if("all".equals(broadcast))
 		{
 			HashMap<Long, GSession> sessions = GSessionHandler.getSessions();
@@ -123,7 +156,7 @@ public class GPushAction extends ActionSupport {
 						GAd ad = adService.find(ad_id);
 						if(pushType == 0)
 						{						
-							val.sendMessage(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendMessage(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 						}							
 						else if(pushType == 1)
 						{
@@ -131,7 +164,7 @@ public class GPushAction extends ActionSupport {
 						}
 						else
 						{
-							val.sendMessagePic(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendMessagePic(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 						}
 						num++;
 						
@@ -170,7 +203,7 @@ public class GPushAction extends ActionSupport {
 						GAd ad = adService.find(ad_id);
 						if(pushType == 0)
 						{						
-							val.sendMessage(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendMessage(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 						}
 						else if(pushType == 1)
 						{
@@ -178,7 +211,7 @@ public class GPushAction extends ActionSupport {
 						}
 						else
 						{
-							val.sendMessagePic(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendMessagePic(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 						}
 						num++;
 						
@@ -203,7 +236,7 @@ public class GPushAction extends ActionSupport {
 				GAd ad = adService.find(ad_id);
 				if(pushType == 0)
 				{
-					session.sendMessage(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+					session.sendMessage(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 				}
 				else if(pushType == 1)
 				{
@@ -211,7 +244,7 @@ public class GPushAction extends ActionSupport {
 				}
 				else
 				{
-					session.sendMessagePic(user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+					session.sendMessagePic(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
 				}
 				userPushService.add(new GUserPush(user.getId(), push.getId()));
 			}

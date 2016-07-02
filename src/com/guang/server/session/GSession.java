@@ -42,9 +42,10 @@ public class GSession {
 		this.name = name;
 	}
 	
-	public void sendMessage(long userId,String title,String message,String pushId,String adId,String packageName,String picPath,String downloadPath)
+	public void sendMessage(int order,long userId,String title,String message,String pushId,String adId,String packageName,String picPath,String downloadPath)
 	{
 		JSONObject obj = new JSONObject();
+		obj.put("order", order);
 		obj.put("userId", userId);
 		obj.put("title", title);
 		obj.put("message", message);
@@ -57,9 +58,10 @@ public class GSession {
 		GData gdata = new GData(GProtocol.MODE_USER_SENDMESSAGE_RESULT, obj.toString());
 		session.write(gdata.pack());
 	}
-	public void sendMessagePic(long userId,String title,String message,String pushId,String adId,String packageName,String picPath,String downloadPath)
+	public void sendMessagePic(int order,long userId,String title,String message,String pushId,String adId,String packageName,String picPath,String downloadPath)
 	{
 		JSONObject obj = new JSONObject();
+		obj.put("order", order);
 		obj.put("userId", userId);
 		obj.put("title", title);
 		obj.put("message", message);
