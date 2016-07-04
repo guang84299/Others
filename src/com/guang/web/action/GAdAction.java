@@ -269,6 +269,12 @@ public class GAdAction extends ActionSupport {
 		return "index";
 	}
 	
+	public void getAdPlatfrom()
+	{
+		GSysVal sv = sysValService.find();
+		print(sv.getPlatfrom());
+	}
+	
 	public String changeAd()
 	{
 		String broadcast = ServletActionContext.getRequest().getParameter("broadcast");
