@@ -2,6 +2,8 @@ package com.guang.web.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -71,7 +73,10 @@ public class GAdAction extends ActionSupport {
 	private String pic_path_4FileName;
 	private String pic_path_5FileName;
 	private String pic_path_6FileName;
-	
+	private String summary;
+	private String downloads;
+	private String version;
+	private String updatedDate;
 
 	
 
@@ -229,9 +234,12 @@ public class GAdAction extends ActionSupport {
 				pic_path_6FileName = "images/"+developer_py + "/" + pic_path_6FileName;
 			}
 			GAdApp adApp = adAppService.findByAdId(ad_id);
+						
 			if(adApp == null)
 			{
-				 adApp = new GAdApp(ad_id, name, icon_pathFileName, pic_path_1FileName, pic_path_2FileName, pic_path_3FileName, pic_path_4FileName, pic_path_5FileName, pic_path_6FileName, developer, describe, Float.parseFloat(m_size));
+				 adApp = new GAdApp(ad_id, name, icon_pathFileName, pic_path_1FileName, pic_path_2FileName,
+						 pic_path_3FileName, pic_path_4FileName, pic_path_5FileName, pic_path_6FileName,
+						 developer, describe, Float.parseFloat(m_size),summary,Integer.parseInt(downloads),version,updatedDate);
 				 adAppService.add(adApp);				 
 			}
 			else
@@ -246,7 +254,11 @@ public class GAdAction extends ActionSupport {
 				adApp.setPic_path_6(pic_path_6FileName);
 				adApp.setDeveloper(developer);
 				adApp.setDescribe(describe);
-				adApp.setsize_m(Float.parseFloat(m_size));
+				adApp.setSize_m(Float.parseFloat(m_size));
+				adApp.setSummary(summary);
+				adApp.setDownloads(Integer.parseInt(downloads));
+				adApp.setVersion(version);
+				adApp.setUpdatedDate(updatedDate);
 				adAppService.update(adApp);
 			}
 			ActionContext.getContext().put("updateAdApp", "提交成功！");
@@ -526,6 +538,38 @@ public class GAdAction extends ActionSupport {
 		this.icon_pathFileName = icon_pathFileName;
 	}
 	
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public String getDownloads() {
+		return downloads;
+	}
+
+	public void setDownloads(String downloads) {
+		this.downloads = downloads;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(String updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
 	//修改 ad model
 	public void updateAdModel()
 	{

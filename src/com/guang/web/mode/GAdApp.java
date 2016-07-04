@@ -1,5 +1,7 @@
 package com.guang.web.mode;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,11 +25,16 @@ public class GAdApp {
 	private String developer;
 	private String describe;
 	private float size_m;
+	private String summary;
+	private Integer downloads;
+	private String version;
+	private String updatedDate;
 	public GAdApp(){}
 	public GAdApp(long adId, String name, String icon_path, String pic_path_1,
 			String pic_path_2, String pic_path_3, String pic_path_4,
 			String pic_path_5, String pic_path_6, String developer,
-			String describe, float size_m) {
+			String describe, float size_m,String summary,Integer downloads,
+			String version,String updatedDate) {
 		super();
 		this.adId = adId;
 		this.name = name;
@@ -41,6 +48,10 @@ public class GAdApp {
 		this.developer = developer;
 		this.describe = describe;
 		this.size_m = size_m;
+		this.summary = summary;
+		this.downloads = downloads;
+		this.version = version;
+		this.updatedDate = updatedDate;
 	}
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -126,11 +137,38 @@ public class GAdApp {
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
-	public float getsize_m() {
+	public float getSize_m() {
 		return size_m;
 	}
-	public void setsize_m(float size_m) {
+	public void setSize_m(float size_m) {
 		this.size_m = size_m;
+	}
+	@Column(name = "summary",  length = 128) 
+	public String getSummary() {
+		return summary;
+	}
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	public Integer getDownloads() {
+		return downloads;
+	}
+	public void setDownloads(Integer downloads) {
+		this.downloads = downloads;
+	}
+	@Column(name = "version",  length = 64) 
+	public String getVersion() {
+		return version;
+	}
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	@Column(name = "updated_date",length = 64)
+	public String getUpdatedDate() {
+		return updatedDate;
+	}
+	public void setUpdatedDate(String updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 	
 	

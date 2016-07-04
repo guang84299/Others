@@ -5,7 +5,8 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
+<script type="text/javascript"
+	src="<%=basePath%>scripts/laydate.dev.js"></script>
 <h1>切换广告</h1>
 
 <div style="margin:20px 0px;">
@@ -103,7 +104,6 @@
 <div style="margin:20px 0px;">
 <form action="ad_updateAdApp" method="post" style="margin: 0px;" enctype="multipart/form-data" class="g_from">
 <table width="800" cellpadding="4" cellspacing="0" border="0">
-
 <tr >
 	<td>广告ID:</td>
 	<td><input type="text" id="updateAdApp_adId" name="adId" value="" style="width:180px;" /><input type="button" value="查看" id="btn_updateAdApp"/></td>
@@ -116,10 +116,31 @@
 	<td>开发者:</td>
 	<td><input type="text" id="updateAdApp_developer" name="developer" value="" style="width:380px;" /></td>
 </tr>
+
 <tr >
-	<td>应用简介:</td>
+	<td>下载次数:</td>
+	<td><input type="text" id="updateAdApp_downloads" name="downloads" value="" style="width:180px;" /></td>
+</tr>
+<tr >
+	<td>版本:</td>
+	<td><input type="text" id="updateAdApp_version" name="version" value="" style="width:180px;" /></td>
+</tr>
+
+<tr >
+	<td>更新日期:</td>
+	<td><input type="text" id="updateAdApp_updatedDate" name="updatedDate" value="" style="width:180px;" /></td>
+</tr>
+
+<tr  >
+	<td>简介:</td>
+	<td><input type="text" id="updateAdApp_summary" name="summary" value="" style="width:380px;" /></td>
+</tr>
+
+<tr >
+	<td>应用描述:</td>
 	<td><textarea type="text" id="updateAdApp_describe" name="describe" value="" style="width:380px;height:80px;"></textarea></td>
 </tr>
+
 <tr >
 	<td>应用大小:</td>
 	<td><input type="text" id="updateAdApp_m_size" name="m_size" value="" style="width:80px;" />M</td>
@@ -186,6 +207,10 @@ $("#btn_updateAdApp").click(function()
 	$("#updateAdApp_developer").val(arr.developer);
 	$("#updateAdApp_describe").val(arr.describe);
 	$("#updateAdApp_m_size").val(arr.size_m);
+	$("#updateAdApp_summary").val(arr.summary);
+	$("#updateAdApp_downloads").val(arr.downloads);
+	$("#updateAdApp_version").val(arr.version);
+	$("#updateAdApp_updatedDate").val(arr.updatedDate);
 	$("#icon_path").parent().append(arr.icon_path);
 	$("#pic_path_1").parent().append(arr.pic_path_1);
 	$("#pic_path_2").parent().append(arr.pic_path_2);
@@ -243,7 +268,13 @@ $(function() {
 			option.selected = "";
 		}
 	}
-	
+
+//创建日期选择
+laydate({
+			istime: true,
+            elem: '#updateAdApp_updatedDate',
+            format: 'YYYY-MM-DD'
+        });	
 	
 </script>
 
