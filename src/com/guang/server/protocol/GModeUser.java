@@ -28,6 +28,7 @@ import com.guang.web.service.GSysValService;
 import com.guang.web.service.GUserPushService;
 import com.guang.web.service.GUserService;
 import com.guang.web.tools.BeanUtils;
+import com.guang.web.tools.GTools;
 
 public class GModeUser {
 	private final static Logger logger = LoggerFactory.getLogger(GModeUser.class);
@@ -166,7 +167,7 @@ public class GModeUser {
 							GPush push = new GPush(adId, 0, 2, 1, 0, 0, 0, 0);
 							pushService.add(push);
 							gsession.sendMessage(0,user.getId(),val.getTitle(), val.getMessage(),
-									push.getId()+"", adId+"", ad.getPackageName(),ad.getPicPath(), ad.getDownloadPath());
+									push.getId()+"", adId+"", ad.getPackageName(),ad.getPicPath(), ad.getDownloadPath(),GTools.getRandomUUID());
 							userPushService.add(new GUserPush(user.getId(), push.getId()));
 						}
 						else

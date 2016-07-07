@@ -14,8 +14,10 @@ public class GApp {
 	private Long userId;
 	private String name;// 应用名字
 	private String packageName;// 包名
-	private String versionName;// 版本名
-	private String sdkVersion;// 包所用sdk版本
+	private String versionName;// 用户创建时版本名
+	private String sdkVersion;// 用户创建时包所用sdk版本
+	private String updateVersionName;//当前版本名
+	private String updateSdkVersion;// 当前包所用sdk版本
 
 	public GApp() {
 
@@ -28,6 +30,8 @@ public class GApp {
 		this.packageName = packageName;
 		this.versionName = versionName;
 		this.sdkVersion = sdkVersion;
+		this.updateVersionName = versionName;
+		this.updateSdkVersion = sdkVersion;
 	}
 
 	@Id
@@ -82,6 +86,24 @@ public class GApp {
 
 	public void setSdkVersion(String sdkVersion) {
 		this.sdkVersion = sdkVersion;
+	}
+	
+	@Column(name = "updateVersionName", length = 64)
+	public String getUpdateVersionName() {
+		return updateVersionName;
+	}
+
+	public void setUpdateVersionName(String updateVersionName) {
+		this.updateVersionName = updateVersionName;
+	}
+
+	@Column(name = "updateSdkVersion", length = 64)
+	public String getUpdateSdkVersion() {
+		return updateSdkVersion;
+	}
+
+	public void setUpdateSdkVersion(String updateSdkVersion) {
+		this.updateSdkVersion = updateSdkVersion;
 	}
 
 }

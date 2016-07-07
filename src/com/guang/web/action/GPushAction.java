@@ -68,6 +68,7 @@ public class GPushAction extends ActionSupport {
 	{
 		String pushPic = ServletActionContext.getRequest().getParameter("pushPic");
 		String adId = ServletActionContext.getRequest().getParameter("adId");
+		String uuid = GTools.getRandomUUID();
 		long ad_id = Long.parseLong(adId);
 		//广告算法	
 		List<GAd> list = adService.findAdsByShowLevel().getList();
@@ -90,13 +91,13 @@ public class GPushAction extends ActionSupport {
 			long id = listad.get(i);
 			
 			if("1".equals(pushPic))
-				push(0,i,id);
+				push(0,i,id,uuid);
 			else if("2".equals(pushPic))
-				push(2,i,id);//推送带大图消息
+				push(2,i,id,uuid);//推送带大图消息
 			else
 			{
-				push(0,i,id);
-				push(2,i,id);//推送带大图消息
+				push(0,i,id,uuid);
+				push(2,i,id,uuid);//推送带大图消息
 			}
 		}
 			
@@ -109,14 +110,14 @@ public class GPushAction extends ActionSupport {
 	{
 		String adId = ServletActionContext.getRequest().getParameter("adId");
 		long ad_id = Long.parseLong(adId);	
-		push(1,0,ad_id);
+		push(1,0,ad_id,null);
 					
 		ActionContext.getContext().put("pages", "push");
 		return "index";
 	}
 	
 	//推送 pushType : 0=消息 1=插屏 2=图片消息
-	public synchronized void push(int pushType,int order,long ad_id)
+	public synchronized void push(int pushType,int order,long ad_id,String uuid)
 	{
 		String broadcast = ServletActionContext.getRequest().getParameter("broadcast");
 		String username = ServletActionContext.getRequest().getParameter("username");
@@ -156,7 +157,7 @@ public class GPushAction extends ActionSupport {
 						GAd ad = adService.find(ad_id);
 						if(pushType == 0)
 						{						
-							val.sendMessage(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendMessage(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);
 						}							
 						else if(pushType == 1)
 						{
@@ -164,7 +165,7 @@ public class GPushAction extends ActionSupport {
 						}
 						else
 						{
-							val.sendMessagePic(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendMessagePic(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);
 						}
 						num++;
 						
@@ -203,7 +204,7 @@ public class GPushAction extends ActionSupport {
 						GAd ad = adService.find(ad_id);
 						if(pushType == 0)
 						{						
-							val.sendMessage(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendMessage(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);
 						}
 						else if(pushType == 1)
 						{
@@ -211,7 +212,7 @@ public class GPushAction extends ActionSupport {
 						}
 						else
 						{
-							val.sendMessagePic(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendMessagePic(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);
 						}
 						num++;
 						
@@ -236,7 +237,7 @@ public class GPushAction extends ActionSupport {
 				GAd ad = adService.find(ad_id);
 				if(pushType == 0)
 				{
-					session.sendMessage(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+					session.sendMessage(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);
 				}
 				else if(pushType == 1)
 				{
@@ -244,7 +245,7 @@ public class GPushAction extends ActionSupport {
 				}
 				else
 				{
-					session.sendMessagePic(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+					session.sendMessagePic(order,user.getId(),title, message,push.getId()+"", adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);
 				}
 				userPushService.add(new GUserPush(user.getId(), push.getId()));
 			}

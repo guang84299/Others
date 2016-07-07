@@ -100,6 +100,9 @@ public class GUserAction extends ActionSupport{
 			if(a.getPackageName().equals(packageName))
 			{
 				isExist = true;
+				a.setUpdateSdkVersion(sdkVersion);
+				a.setUpdateVersionName(versionName);
+				appService.update(a);
 				break;
 			}
 		}
