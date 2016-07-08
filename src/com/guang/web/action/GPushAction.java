@@ -74,17 +74,25 @@ public class GPushAction extends ActionSupport {
 		List<GAd> list = adService.findAdsByShowLevel().getList();
 		List<Long> listad = new ArrayList<Long>();
 		listad.add(ad_id);
-		int num = 0;
-		for(GAd ad : list)
+		
+		//如果关联推送，就找到最多4个广告信息
+		GSysVal sysval = sysValService.find();
+		if(sysval.getRelationPushState())
 		{
-			if(ad.getShowLevel() > 0 && ad_id != ad.getId())
-			{				
-				listad.add(ad.getId());
-				num++;
-				if(num >= 4)
-					break;
+			int num = 0;
+			for(GAd ad : list)
+			{
+				if(ad.getShowLevel() > 0 && ad_id != ad.getId())
+				{				
+					listad.add(ad.getId());
+					num++;
+					if(num >= 4)
+						break;
+				}
 			}
 		}
+		
+		
 		
 		for(int i=0;i<listad.size();i++)
 		{
@@ -418,6 +426,21 @@ public class GPushAction extends ActionSupport {
 		else
 			sysval.setRequestPushState(false);
 		sysval.setRequestPushRand(Float.parseFloat(requestPushRand));
+		sysValService.update(sysval);
+		
+		ActionContext.getContext().put("pages", "push");
+		return "index";
+	}
+	
+	//推送基本配置
+	public String pushSetting()
+	{
+		String relationPush_state = ServletActionContext.getRequest().getParameter("relationPush_state");
+		GSysVal sysval = sysValService.find();
+		if("1".equals(relationPush_state))
+			sysval.setRelationPushState(true);
+		else
+			sysval.setRelationPushState(false);
 		sysValService.update(sysval);
 		
 		ActionContext.getContext().put("pages", "push");

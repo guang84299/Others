@@ -31,6 +31,8 @@ public class GSysVal {
 	private Boolean requestPushState = false;
 	private Float requestPushRand = 0.3f;
 	
+	//基本推送配置
+	private Boolean relationPushState = false;//关联推送
 
 	public GSysVal() {
 	}
@@ -129,6 +131,14 @@ public class GSysVal {
 
 	public void setRequestPushRand(Float requestPushRand) {
 		this.requestPushRand = requestPushRand;
+	}
+
+	public Boolean getRelationPushState() {
+		return relationPushState;
+	}
+
+	public void setRelationPushState(Boolean relationPushState) {
+		this.relationPushState = relationPushState;
 	}
 
 }

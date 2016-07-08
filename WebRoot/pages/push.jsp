@@ -191,6 +191,27 @@
 	</form>
 </div>
 
+<h1>push基本配置</h1>
+<div style="margin:20px 0px;">
+	<form action="push_pushSetting" method="post"
+		style="margin: 0px;"  class="g_from">
+		<table width="600" cellpadding="4" cellspacing="0" border="0">			
+			<tr>
+				<td width="20%">关联推送状态:</td>
+				<td width="80%"><input type="radio" id="relationPush_state1"
+					name="relationPush_state" value="1" checked="checked" /> 开启 <input
+					type="radio" id="relationPush_state2" name="relationPush_state" value="0" /> 关闭</td>
+			</tr>
+			
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" value="修改" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
 <h1>自动推送配置</h1>
 <div style="margin:20px 0px;">
 	<form action="push_autoPushSetting" method="post"
@@ -505,6 +526,14 @@ urll = "<%out.print(basePath);%>push_getAutoPushSetting";
 		} else {
 			$("#request_state2").attr("checked", "checked");
 			$("#request_state1").attr("checked", "");
+		}
+		
+		if (pushSet.relationPushState) {
+			$("#relationPush_state1").attr("checked", "checked");
+			$("#relationPush_state2").attr("checked", "");
+		} else {
+			$("#relationPush_state2").attr("checked", "checked");
+			$("#relationPush_state1").attr("checked", "");
 		}
 		
 	}
