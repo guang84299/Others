@@ -1,8 +1,11 @@
 package com.guang.web.action;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
@@ -48,6 +51,15 @@ public class GAdStatisticsAction extends ActionSupport{
 		ActionContext.getContext().put("pages", "adStatistics");
 		return "index";
 	}
+	
+	public void print(Object obj)
+	{
+		try {
+			ServletActionContext.getResponse().getWriter().print(obj);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	//删除AdStatistics
 	public void deleteAdStatistics()
 	{
@@ -66,5 +78,34 @@ public class GAdStatisticsAction extends ActionSupport{
 				pushService.delete(push.getId());
 			}
 		}
+	}
+	
+	public void findAdStatistics()
+	{
+		String id = ServletActionContext.getRequest().getParameter("data");
+		if(!StringTools.isEmpty(id))
+		{
+			GAd ad = adService.find(Long.parseLong(id));
+			print(JSONObject.fromObject(ad).toString());
+		}
+	}
+	
+	public String updateAdStatistics()
+	{
+		String id = ServletActionContext.getRequest().getParameter("id");
+		String showLevel = ServletActionContext.getRequest().getParameter("showLevel");
+		
+		if(!StringTools.isEmpty(id) && !StringTools.isEmpty(showLevel))
+		{
+			GAd ad = adService.find(Long.parseLong(id));
+			ad.setShowLevel(Integer.parseInt(showLevel));
+			adService.update(ad);
+			ActionContext.getContext().put("updateAdStatistics","更改成功！");
+			list();
+			return "index";
+		}
+		ActionContext.getContext().put("updateAdStatistics","更改失败！");
+		list();
+		return "index";
 	}
 }

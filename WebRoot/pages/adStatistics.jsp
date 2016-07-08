@@ -6,6 +6,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<div id="t_alluser">
 <h1>广告统计</h1>
 
 <table id="tableList" class="tablesorter" cellspacing="1">
@@ -51,6 +52,36 @@
 
 <a  herf="#">总记录数：${maxNum}</a>
 </div>
+${requestScope.updateAdStatistics }
+</div>
+
+<center id="f_update" style="display: none;">
+<h1>更改广告</h1>
+	<form action="adStatistics_updateAdStatistics" method="post" class="g_from" style="margin-left: auto;margin-right: auto;">
+		<table  cellpadding="4" cellspacing="0" border="0">
+			
+			<tr >
+				<td>广告ID:</td>
+				<td><input type="text" id="f_id" name="id"
+					value="" style="width:180px;" />
+				</td>
+			</tr>
+			<tr >
+				<td>推送级别:</td>
+				<td><input id="f_showLevel" name="showLevel"
+						style="width:180px;"></input>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" value="更改" />
+				  </td>
+			</tr>
+		</table>
+	</form>
+</center>
 
 <div id="div_update" style="display:none;position:absolute;width:100px;">
 <table  class="tablesorter" cellspacing="1">
@@ -59,11 +90,30 @@
 			<th>操作</th>
 		</tr>
 	</thead>		
+	<tr><td><input type="button" value="更改" id="find"/></td></tr>
 	<tr><td><input type="button" value="删除" id="delete"/></td></tr>
 </table>
 </div>
 
 <script lanuage="javascript">
+
+$("#find").click(function()
+{
+	var data = $("#div_update").attr("title");
+	
+	var urll = "<%out.print(basePath); %>adStatistics_findAdStatistics?data=";
+	urll = urll + data;
+	var res = $.ajax({url:urll,async:false});
+	var obj = res.responseText;
+	var jsonobj = eval("("+obj+")");
+	
+	$("#f_id").val(jsonobj.id);
+	$("#f_showLevel").val(jsonobj.showLevel);
+	
+	$("#t_alluser").hide();
+	$("#f_update").show();
+	$("#div_update").hide();
+});
 
 $("#delete").click(function()
 {
