@@ -92,8 +92,6 @@ public class GPushAction extends ActionSupport {
 			}
 		}
 		
-		
-		
 		for(int i=0;i<listad.size();i++)
 		{
 			long id = listad.get(i);
