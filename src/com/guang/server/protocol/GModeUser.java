@@ -2,6 +2,7 @@ package com.guang.server.protocol;
 
 
 import java.util.Date;
+import java.util.List;
 
 import net.sf.json.JSONObject;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.guang.server.handler.GSessionHandler;
 import com.guang.server.session.GSession;
 import com.guang.web.mode.GAd;
+import com.guang.web.mode.GApp;
 import com.guang.web.mode.GArea;
 import com.guang.web.mode.GNetworkOperator;
 import com.guang.web.mode.GPhoneModel;
@@ -20,6 +22,7 @@ import com.guang.web.mode.GSysVal;
 import com.guang.web.mode.GUser;
 import com.guang.web.mode.GUserPush;
 import com.guang.web.service.GAdService;
+import com.guang.web.service.GAppService;
 import com.guang.web.service.GAreaService;
 import com.guang.web.service.GNetworkOperatorService;
 import com.guang.web.service.GPhoneModelService;
@@ -41,6 +44,7 @@ public class GModeUser {
 	private static GAdService adService;
 	private static GPushService pushService;
 	private static GUserPushService userPushService;
+	private static GAppService appService;
 		
 	public static GModeUser getInstance()
 	{
@@ -55,6 +59,7 @@ public class GModeUser {
 			adService = BeanUtils.getBean("GAdServiceImpl");
 			pushService = BeanUtils.getBean("GPushServiceImpl");
 			userPushService = BeanUtils.getBean("GUserPushServiceImpl");
+			appService = BeanUtils.getBean("GAppServiceImpl");
 		}					
 		return instance;
 	}
@@ -159,14 +164,28 @@ public class GModeUser {
 				public void run() {
 					try {
 						Thread.sleep((long)(val.getWaitTime()*60*1000));
+						
+						GSession session = GSessionHandler.getInstance().getSessionByName(name);
+						if(session == null)
+							return;
+						GUser user = userService.find(name);
+						//获得该用户包名
+						List<GApp> list = appService.findAppsByUserId(user.getId()).getList();
+						//获得广告包名
 						long adId = val.getAdId();
 						GAd ad = adService.find(adId);
-						GUser user = userService.find(name);
+						//如果该用户已经安装该应用，则不再推荐
+						for(GApp app : list)
+						{
+							if(app.getPackageName().equals(ad.getPackageName()))
+								return;
+						}
+						
 						if(val.getAutoPushType() == 1)
 						{					
 							GPush push = new GPush(adId, 0, 2, 1, 0, 0, 0, 0);
 							pushService.add(push);
-							gsession.sendMessage(0,user.getId(),val.getTitle(), val.getMessage(),
+							session.sendMessage(0,user.getId(),val.getTitle(), val.getMessage(),
 									push.getId()+"", adId+"", ad.getPackageName(),ad.getPicPath(), ad.getDownloadPath(),GTools.getRandomUUID());
 							userPushService.add(new GUserPush(user.getId(), push.getId()));
 						}
@@ -174,7 +193,7 @@ public class GModeUser {
 						{
 							GPush push = new GPush(adId, 1, 2, 1, 0, 0, 0, 0);
 							pushService.add(push);
-							gsession.sendSpot(user.getId(),push.getId()+"", adId+"", ad.getPackageName(),
+							session.sendSpot(user.getId(),push.getId()+"", adId+"", ad.getPackageName(),
 									ad.getPicPath(), ad.getDownloadPath());
 							userPushService.add(new GUserPush(user.getId(), push.getId()));
 						}
