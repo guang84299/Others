@@ -67,6 +67,12 @@ ${requestScope.updateAdStatistics }
 				</td>
 			</tr>
 			<tr >
+				<td>包名:</td>
+				<td><input id="f_packageName" name="packageName"
+						style="width:180px;"></input>
+				</td>
+			</tr>
+			<tr >
 				<td>推送级别:</td>
 				<td><input id="f_showLevel" name="showLevel"
 						style="width:180px;"></input>
@@ -109,6 +115,7 @@ $("#find").click(function()
 	
 	$("#f_id").val(jsonobj.id);
 	$("#f_showLevel").val(jsonobj.showLevel);
+	$("#f_packageName").val(jsonobj.packageName);
 	
 	$("#t_alluser").hide();
 	$("#f_update").show();

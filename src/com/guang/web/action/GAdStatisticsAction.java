@@ -94,11 +94,13 @@ public class GAdStatisticsAction extends ActionSupport{
 	{
 		String id = ServletActionContext.getRequest().getParameter("id");
 		String showLevel = ServletActionContext.getRequest().getParameter("showLevel");
+		String packageName = ServletActionContext.getRequest().getParameter("packageName");
 		
 		if(!StringTools.isEmpty(id) && !StringTools.isEmpty(showLevel))
 		{
 			GAd ad = adService.find(Long.parseLong(id));
 			ad.setShowLevel(Integer.parseInt(showLevel));
+			ad.setPackageName(packageName);
 			adService.update(ad);
 			ActionContext.getContext().put("updateAdStatistics","更改成功！");
 			list();
