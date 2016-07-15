@@ -1,7 +1,12 @@
 package com.guang.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.guang.web.mode.GAd;
 import com.guang.web.mode.GUser;
 import com.guang.web.tools.ApkTools;
 
@@ -15,6 +20,14 @@ public class GTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		List<Long> listad = new ArrayList<Long>();
+		
+		for (long i=0;i<5;i++) {
+				listad.add(i);				
+		}
+		
+		System.out.println(JSONArray.fromObject(listad).toString());
 	}
 	
 	

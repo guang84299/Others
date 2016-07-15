@@ -67,6 +67,33 @@ public class GPushStatisticsAction extends ActionSupport{
 		}
 	}
 	
+	//É¾³ýpushStatistics
+	public String deletePushStatisticsById()
+	{
+		String from_id = ServletActionContext.getRequest().getParameter("from_id");
+		String to_id = ServletActionContext.getRequest().getParameter("to_id");
+		if(!StringTools.isEmpty(from_id) && !StringTools.isEmpty(to_id))
+		{
+			long f_id = Long.parseLong(from_id);
+			long t_id = Long.parseLong(to_id);
+			while(f_id <= t_id)
+			{
+				GPush push = pushService.find(f_id);
+				if(push != null)
+				{
+					pushService.delete(f_id);
+					List<GUserPush> ups = userPushService.findByPushId(f_id, 0).getList();			
+					for(GUserPush up : ups)
+					{
+						userPushService.delete(up.getId());
+					}
+				}
+				f_id++;
+			}			
+		}
+		return list();
+	}
+	
 	public void updateShowNum()
 	{
 		synchronized (pushService) {

@@ -59,6 +59,32 @@
 <a  herf="#">总记录数：${maxNum}</a>
 </div>
 
+<h1>删除数据</h1>
+<div style="margin:20px 0px;">
+	<form action="pushStatistics_deletePushStatisticsById" method="post"
+		style="margin: 0px;"  class="g_from">
+		<table width="600" cellpadding="4" cellspacing="0" border="0">			
+			<tr>
+				<td>开始ID:</td>
+				<td><input type="text" name="from_id"
+					value="" style="width:80px;" />
+				</td>
+			</tr>
+			<tr>
+				<td>结束ID:</td>
+				<td><input type="text" name="to_id"
+					value="" style="width:80px;" />
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" value="删除" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
 <div id="my_div2" style="display:none;position:absolute;width:100px;">
 <table  class="tablesorter" cellspacing="1">
 	<thead>

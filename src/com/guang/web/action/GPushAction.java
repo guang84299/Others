@@ -92,7 +92,7 @@ public class GPushAction extends ActionSupport {
 			}
 		}
 		
-		for(int i=0;i<listad.size();i++)
+		for(int i=listad.size()-1;i>=0;i--)
 		{
 			long id = listad.get(i);
 			
@@ -443,6 +443,22 @@ public class GPushAction extends ActionSupport {
 		
 		ActionContext.getContext().put("pages", "push");
 		return "index";
+	}
+	
+	//获取级别大于0的广告资源id
+	public void getPushAdIds()
+	{
+		//广告算法	
+		List<GAd> list = adService.findAdsByShowLevel().getList();
+		List<Long> listad = new ArrayList<Long>();
+		
+		for (GAd ad : list) {
+			if (ad.getShowLevel() > 0) {
+				listad.add(ad.getId());				
+			}
+		}
+		
+		print(JSONArray.fromObject(listad).toString());
 	}
 	
 	public boolean isAppName(GUser user,String appname)
