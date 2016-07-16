@@ -2,6 +2,7 @@ package com.guang.server.protocol;
 
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import net.sf.json.JSONObject;
@@ -21,6 +22,7 @@ import com.guang.web.mode.GPush;
 import com.guang.web.mode.GSysVal;
 import com.guang.web.mode.GUser;
 import com.guang.web.mode.GUserPush;
+import com.guang.web.mode.GUserStt;
 import com.guang.web.service.GAdService;
 import com.guang.web.service.GAppService;
 import com.guang.web.service.GAreaService;
@@ -30,6 +32,7 @@ import com.guang.web.service.GPushService;
 import com.guang.web.service.GSysValService;
 import com.guang.web.service.GUserPushService;
 import com.guang.web.service.GUserService;
+import com.guang.web.service.GUserSttService;
 import com.guang.web.tools.BeanUtils;
 import com.guang.web.tools.GTools;
 
@@ -45,6 +48,7 @@ public class GModeUser {
 	private static GPushService pushService;
 	private static GUserPushService userPushService;
 	private static GAppService appService;
+	private static GUserSttService userSttService;
 		
 	public static GModeUser getInstance()
 	{
@@ -60,6 +64,7 @@ public class GModeUser {
 			pushService = BeanUtils.getBean("GPushServiceImpl");
 			userPushService = BeanUtils.getBean("GUserPushServiceImpl");
 			appService = BeanUtils.getBean("GAppServiceImpl");
+			userSttService = BeanUtils.getBean("GUserSttServiceImpl");
 		}					
 		return instance;
 	}
@@ -104,7 +109,6 @@ public class GModeUser {
 		String password = obj.getString("password");
 		String networkType = obj.getString("networkType");
 		GUser user = userService.find(name);
-		
 		obj = new JSONObject();
 		GData gdata = null;
 		if(user != null && user.getName().equals(name) && user.getPassword().equals(password))
@@ -118,11 +122,9 @@ public class GModeUser {
 				GSessionHandler.getInstance().closeSession(name);
 				user = userService.find(name);
 			}
-			
 			user.setNetworkType(networkType);
 			user.setUpdatedDate(new Date());
 			userService.update(user);
-					
 			loginSuccess(session,user.getName());
 		}
 		else
@@ -156,7 +158,72 @@ public class GModeUser {
 		
 		logger.info(name+" 登录成功！");
 		
-		//自动推送
+		updateActive();
+		autoPush(name);
+	}
+	
+	//退出登录
+	public void loginOut(String name)
+	{
+		GUser user = userService.find(name);
+		if(user != null)
+		{
+			Date updated = user.getUpdatedDate();
+       		if(updated == null)
+       			updated =  new Date();
+        	long t = new Date().getTime() - updated.getTime();
+        	String lastOnlineTime = t/1000/60+"";
+        	
+        	String onlineTime = user.getOnlineTime();
+        	if(onlineTime == null)
+        		onlineTime = "0";
+        	long ot = Long.parseLong(onlineTime) + t/1000/60;
+        	user.setLastOnlineTime(lastOnlineTime);
+        	user.setOnlineTime(ot+"");
+        	
+        	userService.update(user);        	
+		}
+	}
+	
+	//心跳检测
+	public void heartBeat(IoSession session, String data)
+	{
+//		GSession gsession = GSessionHandler.getSessions().get(session.getId());
+//		gsession.setHeartBeatTime(System.currentTimeMillis());
+	}
+	
+	//更新日活
+	public synchronized void updateActive()
+	{
+		GUserStt userStt = userSttService.find();
+		Date date = new Date();
+		if(date.getDate() != userStt.getCurrDate().getDate())
+		{
+			userStt.setCurrDate(date);
+			userStt.setYesterdayActive(userStt.getTodayActive());
+			userStt.setYesterdayStartTimes(userStt.getTodayStartTimes());
+			userStt.setTodayActive(1l);
+			userStt.setTodayStartTimes(1l);
+		}
+		else
+		{
+			LinkedHashMap<String, String> colvals = new LinkedHashMap<String, String>();
+			date.setHours(0);
+			date.setMinutes(0);
+			date.setSeconds(0);
+			colvals.put("updatedDate >=", "'"+date.toLocaleString()+"'");
+			date.setDate(date.getDate()+1);
+			colvals.put("updatedDate <", "'"+date.toLocaleString()+"'");
+			long num = userService.find(colvals).getNum();
+			userStt.setTodayActive(num);
+			userStt.setTodayStartTimes(userStt.getTodayStartTimes() + 1l);
+		}
+		userSttService.update(userStt);
+	}
+	
+	//自动推送
+	public void autoPush(final String name)
+	{
 		final GSysVal val = sysValService.find();
 		if(val.isAutoState())
 		{
@@ -203,35 +270,5 @@ public class GModeUser {
 				};
 			}.start();
 		}
-	}
-	
-	//退出登录
-	public void loginOut(String name)
-	{
-		GUser user = userService.find(name);
-		if(user != null)
-		{
-			Date updated = user.getUpdatedDate();
-       		if(updated == null)
-       			updated =  new Date();
-        	long t = new Date().getTime() - updated.getTime();
-        	String lastOnlineTime = t/1000/60+"";
-        	
-        	String onlineTime = user.getOnlineTime();
-        	if(onlineTime == null)
-        		onlineTime = "0";
-        	long ot = Long.parseLong(onlineTime) + t/1000/60;
-        	user.setLastOnlineTime(lastOnlineTime);
-        	user.setOnlineTime(ot+"");
-        	
-        	userService.update(user);        	
-		}
-	}
-	
-	//心跳检测
-	public void heartBeat(IoSession session, String data)
-	{
-//		GSession gsession = GSessionHandler.getSessions().get(session.getId());
-//		gsession.setHeartBeatTime(System.currentTimeMillis());
 	}
 }

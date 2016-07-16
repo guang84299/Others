@@ -1,5 +1,7 @@
 package com.guang.web.service;
 
+import java.util.LinkedHashMap;
+
 import org.springframework.stereotype.Service;
 
 import com.guang.web.dao.QueryResult;
@@ -14,5 +16,6 @@ public interface GUserService {
 	void update(GUser user);
 	GUser find(long id);
 	GUser find(String name);
-	public QueryResult<GUser> findAlls(int firstindex);
+	QueryResult<GUser> findAlls(int firstindex);
+	QueryResult<GUser> find(LinkedHashMap<String, String> colvals);
 }

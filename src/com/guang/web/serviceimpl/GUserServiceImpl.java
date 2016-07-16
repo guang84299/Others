@@ -44,4 +44,8 @@ public class GUserServiceImpl implements GUserService{
 		return daoTools.find(GUser.class, null, null, firstindex, 20, lhm);
 	}
 
+	public QueryResult<GUser> find(LinkedHashMap<String, String> colvals) {
+		return daoTools.find(GUser.class, colvals, 0, 100000000, null);
+	}
+
 }

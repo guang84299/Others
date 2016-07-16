@@ -18,9 +18,11 @@ import com.guang.web.dao.QueryResult;
 import com.guang.web.mode.GApp;
 import com.guang.web.mode.GSysVal;
 import com.guang.web.mode.GUser;
+import com.guang.web.mode.GUserStt;
 import com.guang.web.service.GAppService;
 import com.guang.web.service.GSysValService;
 import com.guang.web.service.GUserService;
+import com.guang.web.service.GUserSttService;
 import com.guang.web.tools.StringTools;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -31,8 +33,8 @@ public class GUserAction extends ActionSupport{
 	private static final long serialVersionUID = -6570772391551890119L;
 	@Resource private  GUserService userService;
 	@Resource private GAppService appService;
-	@Resource
-	private GSysValService sysValService;
+	@Resource private GSysValService sysValService;
+	@Resource private GUserSttService userSttService;
 	
 	public String list()
 	{
@@ -139,8 +141,10 @@ public class GUserAction extends ActionSupport{
 	//初始化基本数据
 	public void init()
 	{
-		GSysVal sysVal = new GSysVal(0, false, 2, "", "", 0, 1.0f);
-		sysValService.save(sysVal);
+//		GSysVal sysVal = new GSysVal(0, false, 2, "", "", 0, 1.0f);
+//		sysValService.save(sysVal);
+		
+		userSttService.add(new GUserStt(0l, 0l, 0l, 0l));
 	}
 
 	//修改app model

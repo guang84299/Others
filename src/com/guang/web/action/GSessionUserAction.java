@@ -14,7 +14,9 @@ import com.guang.server.handler.GSessionHandler;
 import com.guang.server.session.GSession;
 import com.guang.web.mode.GSessionUser;
 import com.guang.web.mode.GUser;
+import com.guang.web.mode.GUserStt;
 import com.guang.web.service.GUserService;
+import com.guang.web.service.GUserSttService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -27,6 +29,7 @@ public class GSessionUserAction extends ActionSupport {
 
 	@Resource
 	private GUserService userService;
+	@Resource private GUserSttService userSttService;
 
 	public String list() {
 		HashMap<Long, GSession> sessions = GSessionHandler.getSessions();
@@ -66,7 +69,9 @@ public class GSessionUserAction extends ActionSupport {
 			}
 			i++;
 		}
+		GUserStt userStt = userSttService.find();
 		ActionContext.getContext().put("list", list);
+		ActionContext.getContext().put("userStt", userStt);
 		ActionContext.getContext().put("maxNum", num);
 		ActionContext.getContext().put("pages", "session");
 		return "index";
