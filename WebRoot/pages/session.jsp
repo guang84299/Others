@@ -17,7 +17,8 @@
 
 <table id="tableList" class="tablesorter" cellspacing="1">
 	<thead>
-		<tr>			
+		<tr>	
+			<th>连接ID</th>		
 			<th>ID</th>
 			<th>用户ID</th>
 			<th>在线</th>
@@ -28,6 +29,7 @@
 	<tbody>
 		<s:iterator value="list" var="user">
 			<tr>
+				<td><s:property value="#user.sessionId" /></td>
 				<td><s:property value="#user.id" /></td>
 				<td><s:property value="#user.name" /></td>
 				<td align="center">				

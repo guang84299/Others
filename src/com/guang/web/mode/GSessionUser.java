@@ -3,20 +3,29 @@ package com.guang.web.mode;
 import java.util.Date;
 
 public class GSessionUser {
+	private long sessionId;
 	private long id;
 	private String name;
 	private boolean online;
 	private String ip;
 	private Date createDate;
 	public GSessionUser(){}
-	public GSessionUser(long id, String name, boolean online, String ip,
+	public GSessionUser(long sessionId,long id, String name, boolean online, String ip,
 			Date createDate) {
 		super();
+		this.sessionId = sessionId;
 		this.id = id;
 		this.name = name;
 		this.online = online;
 		this.ip = ip;
 		this.createDate = createDate;
+	}
+	
+	public long getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(long sessionId) {
+		this.sessionId = sessionId;
 	}
 	public long getId() {
 		return id;
