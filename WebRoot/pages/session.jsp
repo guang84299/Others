@@ -9,9 +9,13 @@
 
 <h1>当前连接用户</h1>
 <div style="width:600px;float:right;font-size: 14px;text-align:right;margin-top: -40px;" >
+今日新增：${userStt.todayAdd}
 今日活跃：${userStt.todayActive}
-昨日活跃：${userStt.yesterdayActive}
 今日启动：${userStt.todayStartTimes}
+ </div>
+ <div style="width:600px;float:right;font-size: 14px;text-align:right;margin-top: -20px;" >
+昨日新增：${userStt.yesterdayAdd}
+昨日活跃：${userStt.yesterdayActive}
 昨日启动：${userStt.yesterdayStartTimes}
  </div>
 

@@ -144,7 +144,7 @@ public class GUserAction extends ActionSupport{
 //		GSysVal sysVal = new GSysVal(0, false, 2, "", "", 0, 1.0f);
 //		sysValService.save(sysVal);
 		
-		userSttService.add(new GUserStt(0l, 0l, 0l, 0l));
+		userSttService.add(new GUserStt(0l,0l,0l, 0l, 0l, 0l));
 	}
 
 	//ÐÞ¸Äapp model

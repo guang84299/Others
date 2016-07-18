@@ -196,10 +196,11 @@ public class GModeUser {
 	public synchronized void updateActive()
 	{
 		GUserStt userStt = userSttService.find();
-		Date date = new Date();
+		Date date = new Date();		
 		if(date.getDate() != userStt.getCurrDate().getDate())
 		{
 			userStt.setCurrDate(date);
+			userStt.setYesterdayAdd(userStt.getTodayAdd());
 			userStt.setYesterdayActive(userStt.getTodayActive());
 			userStt.setYesterdayStartTimes(userStt.getTodayStartTimes());
 			userStt.setTodayActive(1l);
@@ -207,17 +208,30 @@ public class GModeUser {
 		}
 		else
 		{
-			LinkedHashMap<String, String> colvals = new LinkedHashMap<String, String>();
 			date.setHours(0);
 			date.setMinutes(0);
 			date.setSeconds(0);
+			LinkedHashMap<String, String> colvals = new LinkedHashMap<String, String>();			
 			colvals.put("updatedDate >=", "'"+date.toLocaleString()+"'");
 			date.setDate(date.getDate()+1);
 			colvals.put("updatedDate <", "'"+date.toLocaleString()+"'");
 			long num = userService.find(colvals).getNum();
 			userStt.setTodayActive(num);
+			
 			userStt.setTodayStartTimes(userStt.getTodayStartTimes() + 1l);
 		}
+		date = new Date();	
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+		
+		LinkedHashMap<String, String> colvals = new LinkedHashMap<String, String>();			
+		colvals.put("createdDate >=", "'"+date.toLocaleString()+"'");
+		date.setDate(date.getDate()+1);
+		colvals.put("createdDate <", "'"+date.toLocaleString()+"'");
+		long num = userService.find(colvals).getNum();
+		userStt.setTodayAdd(num);
+		
 		userSttService.update(userStt);
 	}
 	

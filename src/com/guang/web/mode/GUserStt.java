@@ -11,15 +11,19 @@ import javax.persistence.Table;
 @Table(name = "userstt")
 public class GUserStt {
 	private Long id;
+	private Long todayAdd = 0l;
+	private Long yesterdayAdd = 0l;
 	private Long todayActive;
 	private Long yesterdayActive;
 	private Long todayStartTimes;
 	private Long yesterdayStartTimes;
 	private Date currDate;
 	public GUserStt(){}
-	public GUserStt(Long todayActive, Long yesterdayActive,
+	public GUserStt(Long todayAdd,Long yesterdayAdd,Long todayActive, Long yesterdayActive,
 			Long todayStartTimes, Long yesterdayStartTimes) {
 		super();
+		this.todayAdd = todayAdd;
+		this.yesterdayAdd = yesterdayAdd;
 		this.todayActive = todayActive;
 		this.yesterdayActive = yesterdayActive;
 		this.todayStartTimes = todayStartTimes;
@@ -33,6 +37,18 @@ public class GUserStt {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}	
+	public Long getTodayAdd() {
+		return todayAdd;
+	}
+	public void setTodayAdd(Long todayAdd) {
+		this.todayAdd = todayAdd;
+	}
+	public Long getYesterdayAdd() {
+		return yesterdayAdd;
+	}
+	public void setYesterdayAdd(Long yesterdayAdd) {
+		this.yesterdayAdd = yesterdayAdd;
 	}
 	public Long getTodayActive() {
 		return todayActive;
