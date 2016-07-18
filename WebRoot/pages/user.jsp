@@ -6,7 +6,32 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<script type="text/javascript"
+	src="<%=basePath%>scripts/laydate.dev.js"></script>
 <h1>当前所有用户</h1>
+
+
+<div>
+	<form action=user_findUser method="post" style="margin:0xp;"class="g_from">
+	<table>
+		<td>
+			<h>登录时间:</h>
+			<input type="text" id="loginDate_from" name=loginDate_from
+				value="",style="width:120px;"/>至<input type="text" id="loginDate_to" name=loginDate_to
+				value="",style="width:120px;"/>
+				&nbsp;&nbsp;&nbsp;
+			<h>注册时间:</h>
+			<input type="text" id="regDate_from" name=regDate_from
+				value="",style="width:120px;"/>至<input type="text" id="regDate_to" name=regDate_to
+				value="",style="width:120px;"/>
+				&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;
+			<input type="submit" value="查询" />
+		</td>
+	</table>
+  </form>
+</div>
+
 
 <table id="tableList" class="tablesorter" cellspacing="1">
 	<thead>
@@ -60,11 +85,11 @@
 </table>
 
 <div id="my_div" title="${maxNum}">
-
+<a id="a_0" href="#"> 首页</a>
 <a id="a_1" href="#" > 上一页    </a>
 <a id="a_2" href="#"> 下一页</a>
-
-<a  herf="#">总记录数：${maxNum}</a>
+<a id="a_3" href="#" > 尾页    </a>
+<a herf="#">总记录数：${maxNum}</a>
 </div>
 
 <div id="div_update" style="display:none;position:absolute;width:100px;">
@@ -73,7 +98,7 @@
 		<tr>			
 			<th>操作</th>
 		</tr>
-	</thead>		
+	</thead>
 	<tr><td><input type="button" value="删除" id="delete"/></td></tr>
 </table>
 </div>
@@ -83,6 +108,31 @@ $(function() {
 	$('#tableList').tablesorter();
 	$('table tr:nth-child(even)').addClass('even');	 
 });
+
+
+//创建日期选择
+laydate({
+			istime: true,
+            elem: '#regDate_from',
+            format: 'YYYY-MM-DD hh:mm:ss'
+        });
+laydate({
+			istime: true,
+            elem: '#regDate_to',
+            format: 'YYYY-MM-DD hh:mm:ss'
+        });        
+laydate({
+			istime: true,
+            elem: '#loginDate_from',
+            format: 'YYYY-MM-DD hh:mm:ss'
+        });
+laydate({
+			istime: true,
+            elem: '#loginDate_to',
+            format: 'YYYY-MM-DD hh:mm:ss'
+        });        
+
+
 
 $("#delete").click(function()
 {
@@ -132,6 +182,8 @@ $("html").mousedown(function(e){
 var div = document.getElementById("my_div");
 var a_1 = document.getElementById("a_1");
 var a_2 = document.getElementById("a_2");
+var a_0 = document.getElementById("a_0");
+var a_3 = document.getElementById("a_3");
 
 var resf = function()
 {
@@ -145,22 +197,29 @@ index = 0;
 if(index == 0)
 {
 	a_1.style.display = "none";
+	a_0.style.dispaly = "none";
 }
 else
 {
 	a_1.style.display = "";
+	a_0.style.dispaly = "";
 }
 if(index >= maxIndex)
 {
 	a_2.style.display = "none";
+	a_3.style.dispaly = "none";
 }
 else
 {
 	a_2.style.display = "";
+	a_3.style.dispaly = "";
 }
 
+a_0.href = "user_list?index=" + 0;
 a_1.href = "user_list?index=" + (parseInt(index)-1);
 a_2.href = "user_list?index=" + (parseInt(index)+1);	
+a_3.href = "user_list?index=" + maxIndex;
+	
 }
 
 resf();

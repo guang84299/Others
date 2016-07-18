@@ -3,6 +3,7 @@ package com.guang.web.action;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -73,7 +74,7 @@ public class GUserAction extends ActionSupport{
 		return "index";
 	}
 	
-	//ÉÏ´«appÐÅÏ¢
+	//ï¿½Ï´ï¿½appï¿½ï¿½Ï¢
 	public void uploadAppInfos()
 	{
 		String data = ServletActionContext.getRequest().getParameter("data");
@@ -84,7 +85,7 @@ public class GUserAction extends ActionSupport{
 		String versionName = null;
 		String sdkVersion = null;	
 		
-		//¼æÈÝÖ®Ç°°æ±¾£¬±ØÐë¶àÒ»²ãÅÐ¶Ï
+		//ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½æ±¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ð¶ï¿½
 		if(obj.containsKey("versionName"))
 			versionName = obj.getString("versionName");
 		if(obj.containsKey("sdkVersion"))
@@ -121,7 +122,7 @@ public class GUserAction extends ActionSupport{
 		}
 	}
 	
-	//É¾³ýuser
+	//É¾ï¿½ï¿½user
 	public void deleteUser()
 	{
 		String id = ServletActionContext.getRequest().getParameter("data");
@@ -138,7 +139,7 @@ public class GUserAction extends ActionSupport{
 		}
 	}
 	
-	//³õÊ¼»¯»ù±¾Êý¾Ý
+	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void init()
 	{
 //		GSysVal sysVal = new GSysVal(0, false, 2, "", "", 0, 1.0f);
@@ -147,7 +148,7 @@ public class GUserAction extends ActionSupport{
 		userSttService.add(new GUserStt(0l,0l,0l, 0l, 0l, 0l));
 	}
 
-	//ÐÞ¸Äapp model
+	//ï¿½Þ¸ï¿½app model
 	public void updateAppModel()
 	{
 		List<GApp> list = appService.findApps(0, 100000000).getList();
@@ -160,5 +161,48 @@ public class GUserAction extends ActionSupport{
 				appService.update(app);
 			}
 		}
+	}
+	public void print(Object data) {
+		try {
+			ServletActionContext.getResponse().getWriter().print(data);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * æŸ¥è¯¢ç”¨æˆ·
+	 */
+	public String findUser(){
+		String regFrom = ServletActionContext.getRequest().getParameter("regDate_from");
+		String loginFrom = ServletActionContext.getRequest().getParameter("loginDate_from");
+		String regTo = ServletActionContext.getRequest().getParameter("regDate_to");
+		String loginTo = ServletActionContext.getRequest().getParameter("loginDate_to");
+		
+		List<GUser> gUser = null ; 
+		//ç™»å½•æ—¶é—´
+		Date date = new Date();
+		if (null!=loginFrom&&!"".equals(loginFrom)) {
+			LinkedHashMap<String, String> colvals = new LinkedHashMap<String, String>();			
+			colvals.put("createdDate >=", "'"+loginFrom+"'");
+			colvals.put("createdDate <", "'"+loginTo+"'");
+			gUser = userService.find(colvals).getList();
+			long m = userService.find(colvals).getNum();
+			ActionContext.getContext().put("maxNum", m);
+			ActionContext.getContext().put("userList", gUser);
+			ActionContext.getContext().put("pages", "user");
+			 
+		}
+		if (null!=regFrom&&!"".equals(regFrom)) {
+			//æ³¨å†Œæ—¶é—´
+			LinkedHashMap<String, String> colvals2 = new LinkedHashMap<String, String>();			
+			colvals2.put("updatedDate >=", "'"+regFrom+"'");
+			colvals2.put("updatedDate <", "'"+regTo+"'");
+			long n = userService.find(colvals2).getNum();
+			gUser = userService.find(colvals2).getList();
+			ActionContext.getContext().put("maxNum", n);
+			ActionContext.getContext().put("userList", gUser);
+			ActionContext.getContext().put("pages", "user");
+		}
+		return "index";
 	}
 }
