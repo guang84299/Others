@@ -274,8 +274,8 @@ public class GModeUser {
 						{
 							GPush push = new GPush(adId, 1, 2, 1, 0, 0, 0, 0);
 							pushService.add(push);
-							session.sendSpot(user.getId(),push.getId()+"", adId+"", ad.getPackageName(),
-									ad.getPicPath(), ad.getDownloadPath());
+							session.sendSpot(0,user.getId(),push.getId()+"", adId+"", ad.getPackageName(),
+									ad.getPicPath(), ad.getDownloadPath(),GTools.getRandomUUID());
 							userPushService.add(new GUserPush(user.getId(), push.getId()));
 						}
 					} catch (InterruptedException e) {

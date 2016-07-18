@@ -116,7 +116,7 @@ public class GPushAction extends ActionSupport {
 	{
 		String adId = ServletActionContext.getRequest().getParameter("adId");
 		long ad_id = Long.parseLong(adId);	
-		push(1,0,ad_id,null);
+		push(1,0,ad_id,GTools.getRandomUUID());
 					
 		ActionContext.getContext().put("pages", "push");
 		return "index";
@@ -167,7 +167,7 @@ public class GPushAction extends ActionSupport {
 						}							
 						else if(pushType == 1)
 						{
-							val.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendSpot(order,user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);
 						}
 						else
 						{
@@ -214,7 +214,7 @@ public class GPushAction extends ActionSupport {
 						}
 						else if(pushType == 1)
 						{
-							val.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+							val.sendSpot(order,user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);
 						}
 						else
 						{
@@ -247,7 +247,7 @@ public class GPushAction extends ActionSupport {
 				}
 				else if(pushType == 1)
 				{
-					session.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+					session.sendSpot(order,user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);
 				}
 				else
 				{
@@ -296,7 +296,7 @@ public class GPushAction extends ActionSupport {
 			{
 				GPush push = new GPush(ad_id, 1, 2, 1, 0, 0, 0, 0);
 				pushService.add(push);				
-				session.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());
+				session.sendSpot(0,user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),GTools.getRandomUUID());
 				
 				userPushService.add(new GUserPush(user.getId(), push.getId()));
 			}
@@ -330,7 +330,7 @@ public class GPushAction extends ActionSupport {
 				if(session != null)
 				{					
 					GAd ad = adService.find(ad_id);
-					session.sendSpot(user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath());					
+					session.sendSpot(0,user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),GTools.getRandomUUID());					
 					userPushService.add(new GUserPush(user.getId(), push.getId()));
 					num++;
 				}

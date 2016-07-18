@@ -77,15 +77,17 @@ public class GSession {
 		session.write(gdata.pack());
 	}
 	
-	public void sendSpot(long userId,String pushId,String adId,String packageName,String picPath,String downloadPath)
+	public void sendSpot(int order,long userId,String pushId,String adId,String packageName,String picPath,String downloadPath,String uuid)
 	{
 		JSONObject obj = new JSONObject();	
+		obj.put("order", order);
 		obj.put("userId", userId);
 		obj.put("pushId", pushId);
 		obj.put("adId", adId);
 		obj.put("packageName", packageName);
 		obj.put("picPath", picPath);
 		obj.put("downloadPath", downloadPath);
+		obj.put("uuid", uuid);
 		
 		GData gdata = new GData(GProtocol.MODE_USER_SENDSPOT_RESULT, obj.toString());
 		session.write(gdata.pack());
