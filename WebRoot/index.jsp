@@ -74,6 +74,12 @@
 						class="<s:if test="#request.pages == 'admin'">current</s:if>">管理员</a>
 						</li>
 					</s:if>
+					
+					<s:if test="#session.admin.permission.model_admin == true">
+						<li><a href="sdk_list"
+						class="<s:if test="#request.pages == 'sdk'">current</s:if>">SDK管理</a>
+						</li>
+					</s:if>
 				
 				</s:if>
 			</ul>

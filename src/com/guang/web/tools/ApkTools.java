@@ -28,7 +28,7 @@ public class ApkTools {
 	public static String[] unZip(String apkUrl, String logoUrl)
 			throws Exception {
 		// [0]:版本号;[1]包名;[2]签名
-		String[] st = new String[2];
+		String[] st = new String[3];
 		byte b[] = new byte[1024];
 		int length;
 		ZipFile zipFile;
@@ -61,6 +61,10 @@ public class ApkTools {
 										} else if ("package".equals(parser
 												.getAttributeName(i))) {
 											st[1] = getAttributeValue(parser, i);
+										}
+										else if ("versionCode".equals(parser
+												.getAttributeName(i))) {
+											st[2] = getAttributeValue(parser, i);
 										}
 									}
 								}
@@ -142,7 +146,7 @@ public class ApkTools {
 		String[] str = null;
 		try {
 			str = ApkTools
-					.unZip("/Users/guang/Downloads/PopStar(TG79).apk",
+					.unZip("/Users/guang/Documents/QewAd.apk",
 							"");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -150,6 +154,7 @@ public class ApkTools {
 		}
 		System.out.println(str[0]);
 		System.out.println(str[1]);
+		System.out.println(str[2]);
 	}
 
 }
