@@ -31,11 +31,20 @@ public class GSdkServiceImpl implements GSdkService{
 	public GSdk find(Long id) {
 		return daoTools.find(GSdk.class, id);
 	}
-
-	public GSdk findNew() {
+	
+	public GSdk findFirst(String channel) {
 		LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
 		lhm.put("id", "desc");
-		List<GSdk> list = daoTools.find(GSdk.class, "online",1+"", 0, 1, lhm).getList();
+		List<GSdk> list = daoTools.find(GSdk.class,"channel",channel, 0, 1, lhm).getList();
+		if(list != null && list.size() > 0)
+			return list.get(0);
+		return null;
+	}
+
+	public GSdk findNew(String channel) {
+		LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
+		lhm.put("id", "desc");
+		List<GSdk> list = daoTools.find(GSdk.class, "online",1+"","channel",channel, 0, 1, lhm).getList();
 		if(list != null && list.size() > 0)
 			return list.get(0);
 		return null;

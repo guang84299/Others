@@ -16,9 +16,11 @@
 			<th>包名</th>
 			<th>版本名</th>
 			<th>版本号</th>
-			<th>下载路径</th>
+			<th>下载路径</th>			
+			<th>更新次数</th>
+			<th>渠道</th>
 			<th>上线</th>
-			<th>更新日期</th>				
+			<th>更新日期</th>								
 			<th>操作</th>
 		</tr>
 	</thead>
@@ -30,6 +32,8 @@
 				<td><s:property value="#val.versionName" /></td>
 				<td><s:property value="#val.versionCode" /></td>
 				<td><s:property value="#val.downloadPath" /></td>
+				<td><s:property value="#val.updateNum" /></td>
+				<td><s:property value="#val.channel" /></td>
 				<td align="center">				
 				<s:if test="#val.online == true"><img src="images/user-online.png" /></s:if>
 				<s:else><img src="images/user-offline.png" /></s:else>			
@@ -64,6 +68,12 @@
 			<tr>
 				<td>apk路径:</td>
 				<td><input type="file" id="apk" name="apk" value="浏览" style="width:180px;" /></td>
+			</tr>
+			<tr >
+				<td>渠道:</td>
+				<td><input type="text" id="channel" name="channel"
+					value="" style="width:180px;" />
+				</td>
 			</tr>
 			<tr >
 				<td>是否上线:</td>

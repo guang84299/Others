@@ -17,6 +17,7 @@ import com.guang.web.dao.QueryResult;
 import com.guang.web.mode.GSdk;
 import com.guang.web.service.GSdkService;
 import com.guang.web.tools.ApkTools;
+import com.guang.web.tools.StringTools;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -28,6 +29,7 @@ public class GSdkAction extends ActionSupport{
 	private File apk;
 	private String apkFileName;
 	private String online_state;
+	private String channel;
 	
 	public String list() {
 
@@ -63,13 +65,13 @@ public class GSdkAction extends ActionSupport{
 	
 	public String addSdk()
 	{
-		if(apk == null)
+		if(apk == null || StringTools.isEmpty(channel))
 		{
 			ActionContext.getContext().put("addSdk", "添加失败！");
 			list();
 			return "index";
 		}
-		GSdk sdk = sdkService.findNew();
+		GSdk sdk = sdkService.findFirst(channel);
 		String code = "1";
 		if(sdk != null)
 		{
@@ -78,7 +80,7 @@ public class GSdkAction extends ActionSupport{
 		}
 			
 		String apk_relpath = ServletActionContext.getServletContext().getRealPath(
-				"sdk/" + code);
+				"sdk/" + channel+code);
 		try {
 			//上传apk		
 			File file = new File(new File(apk_relpath), apkFileName);
@@ -95,8 +97,8 @@ public class GSdkAction extends ActionSupport{
 			{
 				online = true;
 			}
-			downloadPath = "sdk/" + code +  "/" + apkFileName;
-			sdkService.add(new GSdk(packageName, versionName, versionCode, downloadPath, online));
+			downloadPath = "sdk/" + channel+code +  "/" + apkFileName;
+			sdkService.add(new GSdk(packageName, versionName, versionCode, downloadPath, online,0l,channel));
 			ActionContext.getContext().put("addSdk", "添加成功！");
 		} catch (Exception e) {
 			ActionContext.getContext().put("addSdk", "添加失败！");
@@ -149,8 +151,17 @@ public class GSdkAction extends ActionSupport{
 	
 	public void findNewSdk()
 	{		
-		GSdk sdk = sdkService.findNew();
+		String channel = ServletActionContext.getRequest().getParameter("data");
+		GSdk sdk = sdkService.findNew(channel);
 		print(JSONObject.fromObject(sdk).toString());
+	}
+	
+	public synchronized void updateNum()
+	{
+		String channel = ServletActionContext.getRequest().getParameter("data");
+		GSdk sdk = sdkService.findNew(channel);
+		sdk.setUpdateNum(sdk.getUpdateNum()+1);
+		sdkService.update(sdk);
 	}
 	
 	public File getApk() {
@@ -175,6 +186,14 @@ public class GSdkAction extends ActionSupport{
 
 	public void setOnline_state(String online_state) {
 		this.online_state = online_state;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 	
 	

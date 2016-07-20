@@ -17,17 +17,21 @@ public class GSdk {
 	private String versionCode;// 版本号
 	private String downloadPath;//下载路径 
 	private Boolean online;//是否上线
+	private Long updateNum;//更新次数
+	private String channel;//渠道
 	private Date updatedDate;
 	
 	public GSdk(){}
 	public GSdk(String packageName, String versionName,String versionCode, String downloadPath,
-			Boolean online) {
+			Boolean online,Long updateNum,String channel) {
 		super();
 		this.packageName = packageName;
 		this.versionName = versionName;
 		this.versionCode = versionCode;
 		this.downloadPath = downloadPath;
 		this.online = online;
+		this.updateNum = updateNum;
+		this.channel = channel;
 		this.updatedDate = new Date();
 	}
 	@Id
@@ -71,6 +75,19 @@ public class GSdk {
 	}
 	public void setOnline(Boolean online) {
 		this.online = online;
+	}
+	public Long getUpdateNum() {
+		return updateNum;
+	}
+	public void setUpdateNum(Long updateNum) {
+		this.updateNum = updateNum;
+	}
+	@Column(name = "channel", length = 64)
+	public String getChannel() {
+		return channel;
+	}
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 	@Column(name = "updated_date")
 	public Date getUpdatedDate() {

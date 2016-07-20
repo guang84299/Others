@@ -11,6 +11,7 @@ public interface GSdkService {
 	void delete(Long id);
 	void update(GSdk sdk);
 	GSdk find(Long id);
-	GSdk findNew();
+	GSdk findFirst(String channel);
+	GSdk findNew(String channel);
 	QueryResult<GSdk> findAlls(int firstindex);
 }
