@@ -45,6 +45,14 @@ public class GUser {
 	private String district;// 区县
 	private String street;// 街道
 	
+	private Date spotDate = new Date();//插屏时间
+	private String spotAdId;//插屏广告id
+	private Date openSpotDate = new Date();//开屏时间
+	private String openSpotAdId;//开屏广告id
+	private Date pushDate = new Date();//push时间
+	private String pushAdId;//push广告id
+	
+	
 	public GUser() {
 	}
 
@@ -277,6 +285,54 @@ public class GUser {
 
 	public void setStreet(String street) {
 		this.street = street;
+	}
+
+	public Date getSpotDate() {
+		return spotDate;
+	}
+
+	public void setSpotDate(Date spotDate) {
+		this.spotDate = spotDate;
+	}
+	@Column(length = 128)
+	public String getSpotAdId() {
+		return spotAdId;
+	}
+
+	public void setSpotAdId(String spotAdId) {
+		this.spotAdId = spotAdId;
+	}
+
+	public Date getOpenSpotDate() {
+		return openSpotDate;
+	}
+
+	public void setOpenSpotDate(Date openSpotDate) {
+		this.openSpotDate = openSpotDate;
+	}
+	@Column(length = 128)
+	public String getOpenSpotAdId() {
+		return openSpotAdId;
+	}
+
+	public void setOpenSpotAdId(String openSpotAdId) {
+		this.openSpotAdId = openSpotAdId;
+	}
+
+	public Date getPushDate() {
+		return pushDate;
+	}
+
+	public void setPushDate(Date pushDate) {
+		this.pushDate = pushDate;
+	}
+	@Column(length = 128)
+	public String getPushAdId() {
+		return pushAdId;
+	}
+
+	public void setPushAdId(String pushAdId) {
+		this.pushAdId = pushAdId;
 	}
 
 	@Override
