@@ -16,15 +16,11 @@ public class GTest {
 
 	public static void main(String[] args) {
 		
-		Date date = new Date();
-		
-		date.setDate(31);
-		date.setHours(0);
-		date.setMinutes(0);
-		date.setSeconds(0);
-		System.out.println(date.toLocaleString());
-		date.setDate(date.getDate()+1);
-		System.out.println(date);
+		String s = "  825  0   0% S   115 1830792K 175400K  fg system   system_server";
+		s = s.replaceFirst("[\\s]+", "");
+		System.out.println(s);
+		String[] arr = s.split("[\\s]+");
+		System.out.println(arr.length);
 	}
 	
 	public static String getColVals(LinkedHashMap<String, String> colvals)

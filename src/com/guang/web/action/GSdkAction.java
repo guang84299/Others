@@ -14,7 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.guang.web.dao.QueryResult;
+import com.guang.web.mode.GFilterApp;
 import com.guang.web.mode.GSdk;
+import com.guang.web.service.GFilterAppService;
 import com.guang.web.service.GSdkService;
 import com.guang.web.tools.ApkTools;
 import com.guang.web.tools.StringTools;
@@ -25,6 +27,7 @@ public class GSdkAction extends ActionSupport{
 	private static final Logger logger = LoggerFactory.getLogger(GSdkAction.class);
 	private static final long serialVersionUID = 1L;
 	@Resource private GSdkService sdkService;
+	@Resource private GFilterAppService filterAppService;
 	
 	private File apk;
 	private String apkFileName;
@@ -162,6 +165,38 @@ public class GSdkAction extends ActionSupport{
 		GSdk sdk = sdkService.findNew(channel);
 		sdk.setUpdateNum(sdk.getUpdateNum()+1);
 		sdkService.update(sdk);
+	}
+	
+	public void findSdkFilterApp()
+	{
+		GFilterApp app = filterAppService.find();
+		if(app == null)
+		{
+			print("");
+		}
+		else
+		{
+			print(app.getText());
+		}
+	}
+	
+	public String updateSdkFilterApp()
+	{
+		String filterApp = ServletActionContext.getRequest().getParameter("filterApp");
+		GFilterApp app = filterAppService.find();
+		if(app == null)
+		{
+			app = new GFilterApp(filterApp);
+			filterAppService.add(app);
+		}
+		else
+		{
+			app.setText(filterApp);
+			filterAppService.update(app);
+		}
+		list();
+		ActionContext.getContext().put("updateSdkFilterApp","更改成功！");
+		return "index";
 	}
 	
 	public File getApk() {
