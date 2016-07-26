@@ -159,7 +159,7 @@ public class GModeUser {
 		logger.info(name+" µÇÂ¼³É¹¦£¡");
 		
 		updateActive();
-		autoPush(name);
+		//autoPush(name);  
 	}
 	
 	//ÍË³öµÇÂ¼
