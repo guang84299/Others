@@ -47,11 +47,15 @@ public class GAdAction extends ActionSupport {
 	@Resource private GAdAppService adAppService;
 	
 	private File pic;
+	private File picHorizontal;
+	private File picNotify;
 	private File apk;
 	private String company;
 	private String type;
 	private String downloadPath;
 	private String picFileName;
+	private String picHorizontalFileName;
+	private String picNotifyFileName;
 	private String apkFileName;
 	
 	private String adId;
@@ -97,7 +101,7 @@ public class GAdAction extends ActionSupport {
 	}
 
 	public String uploadAd() {		
-		if(StringTools.isEmpty(company) || pic == null ||
+		if(StringTools.isEmpty(company) || pic == null || picHorizontal == null || picNotify == null || 
 				(StringTools.isEmpty(downloadPath) && apk == null))
 		{
 			ActionContext.getContext().put("uploadAd", "上传失败！");
@@ -117,6 +121,18 @@ public class GAdAction extends ActionSupport {
 				file.getParentFile().mkdirs();
 			FileUtils.copyFile(pic, file);
 			String picPath = "images/"+company_py + "/" + picFileName;
+			//上传横图
+			file = new File(new File(img_relpath), picHorizontalFileName);
+			if (!file.getParentFile().exists())
+				file.getParentFile().mkdirs();
+			FileUtils.copyFile(picHorizontal, file);
+			String picHorizontalPath = "images/"+company_py + "/" + picHorizontalFileName;
+			//上传通知图
+			file = new File(new File(img_relpath), picNotifyFileName);
+			if (!file.getParentFile().exists())
+				file.getParentFile().mkdirs();
+			FileUtils.copyFile(picNotify, file);
+			String picNotifyPath = "images/"+company_py + "/" + picNotifyFileName;
 			//上传apk		
 			String packageName = "未知";
 			if(apk != null)
@@ -141,7 +157,8 @@ public class GAdAction extends ActionSupport {
 				}
 			}
 			
-			GAd ad = new GAd(company, Integer.parseInt(type), packageName, picPath, downloadPath);
+			GAd ad = new GAd(company, Integer.parseInt(type), packageName, picPath,
+					picHorizontalPath,picNotifyPath, downloadPath);
 			adService.add(ad);
 			ActionContext.getContext().put("uploadAd", "上传成功！");
 		} catch (Exception e) {
@@ -390,6 +407,38 @@ public class GAdAction extends ActionSupport {
 
 	public void setApkFileName(String apkFileName) {
 		this.apkFileName = apkFileName;
+	}
+
+	public File getPicHorizontal() {
+		return picHorizontal;
+	}
+
+	public void setPicHorizontal(File picHorizontal) {
+		this.picHorizontal = picHorizontal;
+	}
+
+	public File getPicNotify() {
+		return picNotify;
+	}
+
+	public void setPicNotify(File picNotify) {
+		this.picNotify = picNotify;
+	}
+
+	public String getPicHorizontalFileName() {
+		return picHorizontalFileName;
+	}
+
+	public void setPicHorizontalFileName(String picHorizontalFileName) {
+		this.picHorizontalFileName = picHorizontalFileName;
+	}
+
+	public String getPicNotifyFileName() {
+		return picNotifyFileName;
+	}
+
+	public void setPicNotifyFileName(String picNotifyFileName) {
+		this.picNotifyFileName = picNotifyFileName;
 	}
 
 	public String getAdId() {

@@ -418,7 +418,7 @@ public class GPushAction extends ActionSupport {
 						GAd ad2 = listad.get(i);
 						GPush push = new GPush(ad2.getId(),2, 2, 1, 0, 0, 0, 0);
 						pushService.add(push);	
-						session.sendMessagePic(i+1,user.getId(), "title", "message", push.getId()+"", ad2.getId()+"", ad2.getPackageName(), ad2.getPicPath(), ad2.getDownloadPath(), uuid);				
+						session.sendMessagePic(i+1,user.getId(), "title", "message", push.getId()+"", ad2.getId()+"", ad2.getPackageName(), ad2.getPicNotifyPath(), ad2.getDownloadPath(), uuid);				
 						userPushService.add(new GUserPush(user.getId(), push.getId()));						
 					}					
 				}	
@@ -426,7 +426,7 @@ public class GPushAction extends ActionSupport {
 				pushService.add(push);	
 				session.sendMessagePic(0, user.getId(), "title", "message",
 						push.getId() + "", adId, ad.getPackageName(),
-						ad.getPicPath(), ad.getDownloadPath(), uuid);
+						ad.getPicNotifyPath(), ad.getDownloadPath(), uuid);
 				userPushService.add(new GUserPush(user.getId(), push.getId()));
 			}
 		}

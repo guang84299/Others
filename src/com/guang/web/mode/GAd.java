@@ -20,7 +20,9 @@ public class GAd {
 	private int type;//广告类型
 	
 	
-	private String picPath;//图片路径
+	private String picPath;//图片路径 竖屏
+	private String picHorizontalPath;//横屏
+	private String picNotifyPath;//通知图片
 	
 	
 	private String downloadPath;//下载路径
@@ -45,12 +47,15 @@ public class GAd {
 		
 	}
 	
-	public GAd(String company, int type,String packageName, String picPath,String downloadPath) {
+	public GAd(String company, int type,String packageName, String picPath,String picHorizontalPath,
+			String picNotifyPath,String downloadPath) {
 		super();
 		this.company = company;
 		this.type = type;
 		this.packageName = packageName;
 		this.picPath = picPath;
+		this.picHorizontalPath = picHorizontalPath;
+		this.picNotifyPath = picNotifyPath;
 		this.downloadPath = downloadPath;
 		this.showNum = 0;
 		this.clickNum = 0;
@@ -83,6 +88,23 @@ public class GAd {
 	public void setPicPath(String picPath) {
 		this.picPath = picPath;
 	}
+	@Column(length = 64) 
+	public String getPicHorizontalPath() {
+		return picHorizontalPath;
+	}
+
+	public void setPicHorizontalPath(String picHorizontalPath) {
+		this.picHorizontalPath = picHorizontalPath;
+	}
+	@Column(length = 64) 
+	public String getPicNotifyPath() {
+		return picNotifyPath;
+	}
+
+	public void setPicNotifyPath(String picNotifyPath) {
+		this.picNotifyPath = picNotifyPath;
+	}
+
 	@Column(name = "downloadPath",  length = 128) 
 	public String getDownloadPath() {
 		return downloadPath;

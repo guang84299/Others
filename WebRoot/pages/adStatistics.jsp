@@ -13,10 +13,12 @@
 	<thead>
 		<tr>
 			<th>广告ID</th>
-			<th>公司</th>
+			<th>应用名称</th>
 			<th>广告类型</th>
 			<th>包名</th>
-			<th>图片路径</th>
+			<th>竖图路径</th>
+			<th>横图路径</th>
+			<th>通知图路径</th>
 			<th>下载路径</th>	
 			<th>展示次数</th>
 			<th>点击次数</th>	
@@ -34,6 +36,8 @@
 				<td><s:property value="#val.type" /></td>
 				<td><s:property value="#val.packageName" /></td>
 				<td><s:property value="#val.picPath" /></td>
+				<td><s:property value="#val.picHorizontalPath" /></td>
+				<td><s:property value="#val.picNotifyPath" /></td>
 				<td><s:property value="#val.downloadPath" /></td>
 				<td><s:property value="#val.showNum" /></td>
 				<td><s:property value="#val.clickNum" /></td>
@@ -57,7 +61,8 @@ ${requestScope.updateAdStatistics }
 
 <center id="f_update" style="display: none;">
 <h1>更改广告</h1>
-	<form action="adStatistics_updateAdStatistics" method="post" class="g_from" style="margin-left: auto;margin-right: auto;">
+	<form action="adStatistics_updateAdStatistics" method="post" class="g_from" 
+	enctype="multipart/form-data" style="margin-left: auto;margin-right: auto;">
 		<table  cellpadding="4" cellspacing="0" border="0">
 			
 			<tr >
@@ -72,6 +77,22 @@ ${requestScope.updateAdStatistics }
 						style="width:180px;"></input>
 				</td>
 			</tr>
+			
+			<tr  >
+				<td>竖图路径:</td>
+				<td><input type="file" id="f_pic" name="pic" value="浏览" style="width:280px;" /> 建议480*800  </td>
+			</tr>
+			
+			<tr  >
+				<td>横图路径:</td>
+				<td><input type="file" id="f_picHorizontal" name="picHorizontal" value="浏览" style="width:280px;" /> 建议800*480  </td>
+			</tr>
+			
+			<tr  >
+				<td>通知图路径:</td>
+				<td><input type="file" id="f_picNotify" name="picNotify" value="浏览" style="width:280px;" /> 建议480*80  </td>
+			</tr>
+			
 			<tr >
 				<td>推送级别:</td>
 				<td><input id="f_showLevel" name="showLevel"
@@ -116,6 +137,9 @@ $("#find").click(function()
 	$("#f_id").val(jsonobj.id);
 	$("#f_showLevel").val(jsonobj.showLevel);
 	$("#f_packageName").val(jsonobj.packageName);
+	$("#f_pic").parent().append(jsonobj.picPath);
+	$("#f_picHorizontal").parent().append(jsonobj.picHorizontalPath);
+	$("#f_picNotify").parent().append(jsonobj.picNotifyPath);
 	
 	$("#t_alluser").hide();
 	$("#f_update").show();

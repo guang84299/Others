@@ -1,5 +1,6 @@
 package com.guang.web.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import com.guang.web.mode.GUserPush;
 import com.guang.web.service.GAdService;
 import com.guang.web.service.GPushService;
 import com.guang.web.service.GUserPushService;
+import com.guang.web.tools.PinYinTools;
 import com.guang.web.tools.StringTools;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -29,6 +32,16 @@ public class GAdStatisticsAction extends ActionSupport{
 	@Resource private GAdService adService;
 	@Resource private GPushService pushService;
 	@Resource private GUserPushService userPushService;
+	
+//	private String id;
+//	private String packageName;
+//	private String showLevel;
+	private File pic;
+	private File picHorizontal;
+	private File picNotify;
+	private String picFileName;
+	private String picHorizontalFileName;
+	private String picNotifyFileName;
 
 	public String list() {
 
@@ -90,7 +103,7 @@ public class GAdStatisticsAction extends ActionSupport{
 		}
 	}
 	
-	public String updateAdStatistics()
+	public String updateAdStatistics() throws IOException
 	{
 		String id = ServletActionContext.getRequest().getParameter("id");
 		String showLevel = ServletActionContext.getRequest().getParameter("showLevel");
@@ -101,13 +114,103 @@ public class GAdStatisticsAction extends ActionSupport{
 			GAd ad = adService.find(Long.parseLong(id));
 			ad.setShowLevel(Integer.parseInt(showLevel));
 			ad.setPackageName(packageName);
+			
+			String company_py = PinYinTools.getPinYin(ad.getCompany());
+			
+			String img_relpath = ServletActionContext.getServletContext().getRealPath(
+					"images/"+company_py);
+			//上传图片
+			if(pic != null)
+			{
+				File file = new File(new File(img_relpath), picFileName);
+				if (!file.getParentFile().exists())
+					file.getParentFile().mkdirs();
+				FileUtils.copyFile(pic, file);
+				String picPath = "images/"+company_py + "/" + picFileName;
+				ad.setPicPath(picPath);
+			}
+			
+			//上传横图
+			if(picHorizontal != null)
+			{
+				File file = new File(new File(img_relpath), picHorizontalFileName);
+				if (!file.getParentFile().exists())
+					file.getParentFile().mkdirs();
+				FileUtils.copyFile(picHorizontal, file);
+				String picHorizontalPath = "images/"+company_py + "/" + picHorizontalFileName;
+				ad.setPicHorizontalPath(picHorizontalPath);
+			}
+			//上传通知图
+			if(picNotify != null)
+			{
+				File file = new File(new File(img_relpath), picNotifyFileName);
+				if (!file.getParentFile().exists())
+					file.getParentFile().mkdirs();
+				FileUtils.copyFile(picNotify, file);
+				String picNotifyPath = "images/"+company_py + "/" + picNotifyFileName;
+				ad.setPicNotifyPath(picNotifyPath);
+			}
+			
 			adService.update(ad);
 			ActionContext.getContext().put("updateAdStatistics","更改成功！");
 			list();
 			return "index";
 		}
+		
 		ActionContext.getContext().put("updateAdStatistics","更改失败！");
 		list();
 		return "index";
 	}
+
+	
+	public File getPic() {
+		return pic;
+	}
+
+	public void setPic(File pic) {
+		this.pic = pic;
+	}
+
+	public File getPicHorizontal() {
+		return picHorizontal;
+	}
+
+	public void setPicHorizontal(File picHorizontal) {
+		this.picHorizontal = picHorizontal;
+	}
+
+	public File getPicNotify() {
+		return picNotify;
+	}
+
+	public void setPicNotify(File picNotify) {
+		this.picNotify = picNotify;
+	}
+
+	public String getPicFileName() {
+		return picFileName;
+	}
+
+	public void setPicFileName(String picFileName) {
+		this.picFileName = picFileName;
+	}
+
+	public String getPicHorizontalFileName() {
+		return picHorizontalFileName;
+	}
+
+	public void setPicHorizontalFileName(String picHorizontalFileName) {
+		this.picHorizontalFileName = picHorizontalFileName;
+	}
+
+	public String getPicNotifyFileName() {
+		return picNotifyFileName;
+	}
+
+	public void setPicNotifyFileName(String picNotifyFileName) {
+		this.picNotifyFileName = picNotifyFileName;
+	}
+	
+	
+	
 }

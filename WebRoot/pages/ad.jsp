@@ -56,7 +56,7 @@
 <table width="800" cellpadding="4" cellspacing="0" border="0">
 
 <tr >
-	<td>公司名称:</td>
+	<td>应用名称:</td>
 	<td><input type="text" id="company" name="company" value="" style="width:380px;" /></td>
 </tr>
 <tr  >
@@ -70,8 +70,18 @@
 </tr>
 
 <tr  >
-	<td>图片路径:</td>
-	<td><input type="file" id="pic" name="pic" value="浏览" style="width:380px;" /></td>
+	<td>竖图路径:</td>
+	<td><input type="file" id="pic" name="pic" value="浏览" style="width:280px;" /> 建议480*800</td>
+</tr>
+
+<tr  >
+	<td>横图路径:</td>
+	<td><input type="file" id="picHorizontal" name="picHorizontal" value="浏览" style="width:280px;" /> 建议800*480</td>
+</tr>
+
+<tr  >
+	<td>通知图路径:</td>
+	<td><input type="file" id="picNotify" name="picNotify" value="浏览" style="width:280px;" /> 建议480*80</td>
 </tr>
 
 <tr >
