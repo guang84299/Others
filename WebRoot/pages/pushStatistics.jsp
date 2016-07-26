@@ -30,9 +30,9 @@
 				<td><s:property value="#val.id" /></td>
 				<td><s:property value="#val.adId" /></td>
 				<td>
-					<s:if test="#val.type == 0">消息</s:if>
+					<s:if test="#val.type == 0">开屏</s:if>
 					<s:elseif test="#val.type == 1">插屏</s:elseif>
-					<s:elseif test="#val.type == 2">大图消息</s:elseif>
+					<s:elseif test="#val.type == 2">消息</s:elseif>
 				</td>
 				<td>
 					<s:if test="#val.userType == 0">所有在线</s:if>

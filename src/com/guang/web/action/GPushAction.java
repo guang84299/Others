@@ -329,7 +329,6 @@ public class GPushAction extends ActionSupport {
 			//广告算法	
 			List<GAd> list = adService.findAdsByShowLevel().getList();
 			List<GAd> listad = new ArrayList<GAd>();
-			int num = 0;
 			for(GAd ad : list)
 			{
 				if(ad.getShowLevel() > 0)
@@ -346,24 +345,88 @@ public class GPushAction extends ActionSupport {
 			GSession session = GSessionHandler.getInstance().getSessionByName(username);
 			GUser user = userService.find(username);
 			if(session != null && isTimeAdIds(user,type,adId,0))
-			{
-				GPush push = new GPush(ad_id, 1, 2, 1, 0, 0, 0, 0);
-				pushService.add(push);	
+			{		
 				// 如果关联推送，就找到最多4个广告信息
 				if (sysval.getRelationPushState()) {
-					for(int i=0;i>listad.size();i++)
+					for(int i=0;i<listad.size();i++)
+					{
+						if(ad_id == listad.get(i).getId())
+							continue;
+						if(i >= 4)
+						break;						
+						GAd ad2 = listad.get(i);
+						GPush push = new GPush(ad2.getId(), type, 2, 1, 0, 0, 0, 0);
+						pushService.add(push);
+						session.sendSpot(i+1,user.getId(),push.getId()+"",ad2.getId()+"",ad2.getPackageName(),ad2.getPicPath(),ad2.getDownloadPath(),uuid);				
+						userPushService.add(new GUserPush(user.getId(), push.getId()));
+					}					
+				}
+				GPush push = new GPush(ad_id, type, 2, 1, 0, 0, 0, 0);
+				pushService.add(push);					
+				session.sendSpot(0,user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);				
+				userPushService.add(new GUserPush(user.getId(), push.getId()));
+			}
+		}
+					
+	}
+	
+	// 推送通知
+	public synchronized void pushNotifyByClient()
+	{
+		GSysVal sysval = sysValService.find();
+		if(!sysval.getRequestPushState())
+			return;
+		float r = (float) Math.random();
+		if(r > sysval.getRequestPushRand())
+		{
+			return;
+		}
+		String data = ServletActionContext.getRequest().getParameter("data");
+		if(data != null)
+		{
+			JSONObject obj = JSONObject.fromObject(data);
+			String username = obj.getString("username");
+			int type = 2;//0:开屏 1：插屏 2::PUSH
+			//广告算法	
+			List<GAd> list = adService.findAdsByShowLevel().getList();
+			List<GAd> listad = new ArrayList<GAd>();
+			for(GAd ad : list)
+			{
+				if(ad.getShowLevel() > 0)
+				{
+					listad.add(ad);					
+				}
+			}
+			if(listad.size() == 0)
+				return;
+			GAd ad = listad.get(GTools.getRand(0, listad.size()));
+			long ad_id = ad.getId();
+			String adId = ad_id+"";
+			String uuid = GTools.getRandomUUID();
+			GSession session = GSessionHandler.getInstance().getSessionByName(username);
+			GUser user = userService.find(username);
+			if(session != null && isTimeAdIds(user,type,adId,0))
+			{				
+				// 如果关联推送，就找到最多4个广告信息
+				if (sysval.getRelationPushState()) {
+					for(int i=0;i<listad.size();i++)
 					{
 						if(ad_id == listad.get(i).getId())
 							continue;
 						if(i >= 4)
 						break;
 						GAd ad2 = listad.get(i);
-						session.sendSpot(i+1,user.getId(),push.getId()+"",ad2.getId()+"",ad2.getPackageName(),ad2.getPicPath(),ad2.getDownloadPath(),uuid);				
-						userPushService.add(new GUserPush(user.getId(), push.getId()));
+						GPush push = new GPush(ad2.getId(),2, 2, 1, 0, 0, 0, 0);
+						pushService.add(push);	
+						session.sendMessagePic(i+1,user.getId(), "title", "message", push.getId()+"", ad2.getId()+"", ad2.getPackageName(), ad2.getPicPath(), ad2.getDownloadPath(), uuid);				
+						userPushService.add(new GUserPush(user.getId(), push.getId()));						
 					}					
-				}
-								
-				session.sendSpot(0,user.getId(),push.getId()+"",adId,ad.getPackageName(),ad.getPicPath(),ad.getDownloadPath(),uuid);				
+				}	
+				GPush push = new GPush(ad_id, 2, 2, 1, 0, 0, 0, 0);
+				pushService.add(push);	
+				session.sendMessagePic(0, user.getId(), "title", "message",
+						push.getId() + "", adId, ad.getPackageName(),
+						ad.getPicPath(), ad.getDownloadPath(), uuid);
 				userPushService.add(new GUserPush(user.getId(), push.getId()));
 			}
 		}
