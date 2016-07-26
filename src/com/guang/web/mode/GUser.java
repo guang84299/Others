@@ -45,11 +45,11 @@ public class GUser {
 	private String district;// 区县
 	private String street;// 街道
 	
-	private Date spotDate = new Date();//插屏时间
+	private Date spotDate;//插屏时间
 	private String spotAdId;//插屏广告id
-	private Date openSpotDate = new Date();//开屏时间
+	private Date openSpotDate;//开屏时间
 	private String openSpotAdId;//开屏广告id
-	private Date pushDate = new Date();//push时间
+	private Date pushDate;//push时间
 	private String pushAdId;//push广告id
 	
 	

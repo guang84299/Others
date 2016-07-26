@@ -318,7 +318,6 @@ public class GPushAction extends ActionSupport {
 		{
 			return;
 		}
-		
 		String data = ServletActionContext.getRequest().getParameter("data");
 		if(data != null)
 		{
@@ -346,12 +345,10 @@ public class GPushAction extends ActionSupport {
 			String uuid = GTools.getRandomUUID();
 			GSession session = GSessionHandler.getInstance().getSessionByName(username);
 			GUser user = userService.find(username);
-			
 			if(session != null && isTimeAdIds(user,type,adId,0))
 			{
 				GPush push = new GPush(ad_id, 1, 2, 1, 0, 0, 0, 0);
 				pushService.add(push);	
-				
 				// 如果关联推送，就找到最多4个广告信息
 				if (sysval.getRelationPushState()) {
 					for(int i=0;i>listad.size();i++)
@@ -627,7 +624,10 @@ public class GPushAction extends ActionSupport {
 		{
 			Date date = user.getOpenSpotDate();
 			if(date == null)
+			{
 				date = new Date();
+				date.setDate(date.getDate()-1);
+			}
 			Date now_date = new Date();
 			if(date.getDate() != now_date.getDate())
 			{
@@ -635,11 +635,13 @@ public class GPushAction extends ActionSupport {
 			}
 			else
 			{
-				if(now_date.getTime() - date.getTime() > 1000 * 60 * 60)
+				if(now_date.getTime() - date.getTime() > 1000 * 60 * 20)
 				{
 					String ids = user.getOpenSpotAdId();
 					if(ids == null || "".equals(ids))
+					{
 						b = true;
+					}					
 					else
 					{
 						if(!ids.contains(adId))
@@ -650,7 +652,10 @@ public class GPushAction extends ActionSupport {
 			
 			if(b)
 			{
-				user.setOpenSpotAdId(user.getOpenSpotAdId() + adId+",");
+				String ads = user.getOpenSpotAdId();
+				if(ads == null)
+					ads = "";
+				user.setOpenSpotAdId(ads + adId+",");
 				user.setOpenSpotDate(now_date);
 				userService.update(user);
 			}
@@ -660,18 +665,24 @@ public class GPushAction extends ActionSupport {
 			Date date = user.getSpotDate();
 			Date now_date = new Date();
 			if(date == null)
+			{
 				date = new Date();
+				date.setDate(date.getDate()-1);
+			}
+				
 			if(date.getDate() != now_date.getDate())
 			{
 				b = true;
 			}
 			else
 			{
-				if(now_date.getTime() - date.getTime() > 1000 * 60 * 60)
+				if(now_date.getTime() - date.getTime() > 1000 * 60 * 20)
 				{
 					String ids = user.getSpotAdId();
 					if(ids == null || "".equals(ids))
+					{
 						b = true;
+					}
 					else
 					{
 						if(!ids.contains(adId))
@@ -682,7 +693,10 @@ public class GPushAction extends ActionSupport {
 			
 			if(b)
 			{
-				user.setSpotAdId(user.getSpotAdId() + adId+",");
+				String ads = user.getSpotAdId();
+				if(ads == null)
+					ads = "";
+				user.setSpotAdId(ads + adId+",");
 				user.setSpotDate(now_date);
 				userService.update(user);
 			}
@@ -692,18 +706,23 @@ public class GPushAction extends ActionSupport {
 			Date date = user.getPushDate();
 			Date now_date = new Date();
 			if(date == null)
+			{
 				date = new Date();
+				date.setDate(date.getDate()-1);
+			}
 			if(date.getDate() != now_date.getDate())
 			{
 				b = true;
 			}
 			else
 			{
-				if(now_date.getTime() - date.getTime() > 1000 * 60 * 60)
+				if(now_date.getTime() - date.getTime() > 1000 * 60 * 20)
 				{
 					String ids = user.getPushAdId();
 					if(ids == null || "".equals(ids))
+					{
 						b = true;
+					}
 					else
 					{
 						if(!ids.contains(adId))
@@ -714,7 +733,10 @@ public class GPushAction extends ActionSupport {
 			
 			if(b)
 			{
-				user.setPushAdId(user.getPushAdId() + adId+",");
+				String ads = user.getPushAdId();
+				if(ads == null)
+					ads = "";
+				user.setPushAdId(ads + adId+",");
 				user.setPushDate(now_date);
 				userService.update(user);
 			}
