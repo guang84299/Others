@@ -57,9 +57,9 @@ public class GSessionUserAction extends ActionSupport {
 		Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
 		int i = 0;
 		while (iter.hasNext() && i < end) {
+			Entry<Long, GSession> entry = (Entry<Long, GSession>) iter.next();
 			if(i >= start)
-			{
-				Entry<Long, GSession> entry = (Entry<Long, GSession>) iter.next();
+			{				
 				GSession val = entry.getValue();
 				String ip = val.getSession().getRemoteAddress().toString();
 				ip = ip.replace("/", "").split(":")[0];
