@@ -53,7 +53,7 @@ public class GuangServer {
        
         acceptor.setHandler(  new GCoreHandler() );  
         acceptor.getSessionConfig().setReadBufferSize( 2048 );  
-        acceptor.getSessionConfig().setIdleTime( IdleStatus.BOTH_IDLE, 20 );
+        acceptor.getSessionConfig().setIdleTime( IdleStatus.BOTH_IDLE, 80 );
         acceptor.setReuseAddress(true);//设置的是主服务监听的端口可以重用        
         acceptor.getSessionConfig().setReuseAddress(true);//设置每一个非主监听连接的端口可以重用  
 		try {

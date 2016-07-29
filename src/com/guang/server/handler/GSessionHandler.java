@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.guang.server.GuangServer;
-import com.guang.server.controller.GUserController;
 import com.guang.server.protocol.GModeUser;
 import com.guang.server.protocol.GProtocol;
 import com.guang.server.session.GSession;
@@ -43,14 +42,18 @@ public class GSessionHandler {
 
 	public void create(IoSession session) {
 		logger.info(session.getId() + " create...");
-		sessions.put(session.getId(), new GSession(session));
+		synchronized (sessions) {
+			sessions.put(session.getId(), new GSession(session));
+		}
 	}
 
 	public void close(IoSession session) {
 		logger.info(session.getId() + "  close...");
-		GSession gs = sessions.get(session.getId());
-		GModeUser.getInstance().loginOut(gs.getName());
-		sessions.remove(session.getId());
+		synchronized (sessions) {
+			GSession gs = sessions.get(session.getId());
+			GModeUser.getInstance().loginOut(gs.getName());
+			sessions.remove(session.getId());
+		}		
 		logger.info("map size=" + sessions.size());
 	}
 
@@ -68,36 +71,39 @@ public class GSessionHandler {
 	//根据name关闭session
 	public void closeSession(String name)
 	{
-		Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
-		GSession session = null;
-		while (iter.hasNext()) {
-			Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
-			GSession val = entry.getValue();
-			if(name.equals(val.getName()))
+		synchronized (sessions) {
+			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
+			GSession session = null;
+			while (iter.hasNext()) {
+				Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
+				GSession val = entry.getValue();
+				if(name.equals(val.getName()))
+				{
+					session = val;
+					break;
+				}
+			}
+			if(session != null)
 			{
-				session = val;
-				break;
+				logger.info(session.getSession().getId() + "  close...");
+				GModeUser.getInstance().loginOut(name);
+				sessions.remove(session.getSession().getId());
+				logger.info("map size=" + sessions.size());
 			}
 		}
-		if(session != null)
-		{
-			logger.info(session.getSession().getId() + "  close...");
-			GModeUser.getInstance().loginOut(name);
-			sessions.remove(session.getSession().getId());
-			logger.info("map size=" + sessions.size());
-		}
-		
 	}
 
 	// 判断是否在线
 	public boolean judeOnline(String name) {
-		Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
-		while (iter.hasNext()) {
-			Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
-			GSession val = entry.getValue();
-			if(name.equals(val.getName()))
-			{
-				return true;
+		synchronized (sessions) {
+			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
+			while (iter.hasNext()) {
+				Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
+				GSession val = entry.getValue();
+				if(name.equals(val.getName()))
+				{
+					return true;
+				}
 			}
 		}
 		return false;
@@ -106,13 +112,15 @@ public class GSessionHandler {
 	// 根据name 获得在线session
 	public GSession getSessionByName(String name)
 	{
-		Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
-		while (iter.hasNext()) {
-			Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
-			GSession val = entry.getValue();
-			if(name.equals(val.getName()))
-			{
-				return val;
+		synchronized (sessions) {
+			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
+			while (iter.hasNext()) {
+				Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
+				GSession val = entry.getValue();
+				if(name.equals(val.getName()))
+				{
+					return val;
+				}
 			}
 		}
 		return null;

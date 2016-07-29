@@ -187,45 +187,46 @@ public class GPushAction extends ActionSupport {
 			int num = 0;
 			GPush push = new GPush(ad_id, pushType, 0, 0, 0, 0, 0, 0);
 			pushService.add(push);
-			while (iter.hasNext()) {
-				Entry<Long, GSession> entry = (Entry<Long, GSession>) iter
-						.next();
-				GSession val = entry.getValue();
-				GUser user = userService.find(val.getName());
-				if (user != null) {
-					if (isArea(user, area_province, area_city)
-							&& isPhoneModel(user, phone_model)
-							&& isOperator(user, network_operator)
-							&& isSession(val.getSession().getId(),
-									session_from, session_to)
-							&& isDate(user, createDate_from, createDate_to)
-							&& isTimeAdIds(user,2,adId,order)) {
-						GAd ad = adService.find(ad_id);
-						if (pushType == 0) {
-							val.sendMessage(order, user.getId(), title,
-									message, push.getId() + "", adId,
-									ad.getPackageName(), ad.getPicPath(),
-									ad.getDownloadPath(), uuid);
-						} else if (pushType == 1) {
-							val.sendSpot(order, user.getId(),
-									push.getId() + "", adId,
-									ad.getPackageName(), ad.getPicPath(),
-									ad.getDownloadPath(), uuid);
-						} else {
-							val.sendMessagePic(order, user.getId(), title,
-									message, push.getId() + "", adId,
-									ad.getPackageName(), ad.getPicPath(),
-									ad.getDownloadPath(), uuid);
+			synchronized (sessions) {
+				while (iter.hasNext()) {
+					Entry<Long, GSession> entry = (Entry<Long, GSession>) iter
+							.next();
+					GSession val = entry.getValue();
+					GUser user = userService.find(val.getName());
+					if (user != null) {
+						if (isArea(user, area_province, area_city)
+								&& isPhoneModel(user, phone_model)
+								&& isOperator(user, network_operator)
+								&& isSession(val.getSession().getId(),
+										session_from, session_to)
+								&& isDate(user, createDate_from, createDate_to)
+								&& isTimeAdIds(user,2,adId,order)) {
+							GAd ad = adService.find(ad_id);
+							if (pushType == 0) {
+								val.sendMessage(order, user.getId(), title,
+										message, push.getId() + "", adId,
+										ad.getPackageName(), ad.getPicPath(),
+										ad.getDownloadPath(), uuid);
+							} else if (pushType == 1) {
+								val.sendSpot(order, user.getId(),
+										push.getId() + "", adId,
+										ad.getPackageName(), ad.getPicPath(),
+										ad.getDownloadPath(), uuid);
+							} else {
+								val.sendMessagePic(order, user.getId(), title,
+										message, push.getId() + "", adId,
+										ad.getPackageName(), ad.getPicPath(),
+										ad.getDownloadPath(), uuid);
+							}
+							num++;
+	
+							userPushService.add(new GUserPush(user.getId(), push
+									.getId()));
 						}
-						num++;
-
-						userPushService.add(new GUserPush(user.getId(), push
-								.getId()));
 					}
+	
 				}
-
 			}
-
 			synchronized (pushService) {
 				push = pushService.find(push.getId());
 				push.setSendNum(num);
@@ -238,41 +239,43 @@ public class GPushAction extends ActionSupport {
 			int num = 0;
 			GPush push = new GPush(ad_id, pushType, 1, 0, 0, 0, 0, 0);
 			pushService.add(push);
-			while (iter.hasNext()) {
-				Entry<Long, GSession> entry = (Entry<Long, GSession>) iter
-						.next();
-				GSession val = entry.getValue();
-				GUser user = userService.find(val.getName());
-				if (user != null) {
-					if (isAppName(user, appname)
-							&& isArea(user, area_province, area_city)
-							&& isPhoneModel(user, phone_model)
-							&& isOperator(user, network_operator)
-							&& isSession(val.getSession().getId(),
-									session_from, session_to)
-							&& isDate(user, createDate_from, createDate_to)
-							&& isTimeAdIds(user,2,adId,order) ) {
-						GAd ad = adService.find(ad_id);
-						if (pushType == 0) {
-							val.sendMessage(order, user.getId(), title,
-									message, push.getId() + "", adId,
-									ad.getPackageName(), ad.getPicPath(),
-									ad.getDownloadPath(), uuid);
-						} else if (pushType == 1) {
-							val.sendSpot(order, user.getId(),
-									push.getId() + "", adId,
-									ad.getPackageName(), ad.getPicPath(),
-									ad.getDownloadPath(), uuid);
-						} else {
-							val.sendMessagePic(order, user.getId(), title,
-									message, push.getId() + "", adId,
-									ad.getPackageName(), ad.getPicPath(),
-									ad.getDownloadPath(), uuid);
+			synchronized (sessions) {
+				while (iter.hasNext()) {
+					Entry<Long, GSession> entry = (Entry<Long, GSession>) iter
+							.next();
+					GSession val = entry.getValue();
+					GUser user = userService.find(val.getName());
+					if (user != null) {
+						if (isAppName(user, appname)
+								&& isArea(user, area_province, area_city)
+								&& isPhoneModel(user, phone_model)
+								&& isOperator(user, network_operator)
+								&& isSession(val.getSession().getId(),
+										session_from, session_to)
+								&& isDate(user, createDate_from, createDate_to)
+								&& isTimeAdIds(user,2,adId,order) ) {
+							GAd ad = adService.find(ad_id);
+							if (pushType == 0) {
+								val.sendMessage(order, user.getId(), title,
+										message, push.getId() + "", adId,
+										ad.getPackageName(), ad.getPicPath(),
+										ad.getDownloadPath(), uuid);
+							} else if (pushType == 1) {
+								val.sendSpot(order, user.getId(),
+										push.getId() + "", adId,
+										ad.getPackageName(), ad.getPicPath(),
+										ad.getDownloadPath(), uuid);
+							} else {
+								val.sendMessagePic(order, user.getId(), title,
+										message, push.getId() + "", adId,
+										ad.getPackageName(), ad.getPicPath(),
+										ad.getDownloadPath(), uuid);
+							}
+							num++;
+	
+							userPushService.add(new GUserPush(user.getId(), push
+									.getId()));
 						}
-						num++;
-
-						userPushService.add(new GUserPush(user.getId(), push
-								.getId()));
 					}
 				}
 			}

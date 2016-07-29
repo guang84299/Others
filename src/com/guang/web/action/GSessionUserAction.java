@@ -54,20 +54,22 @@ public class GSessionUserAction extends ActionSupport {
 				end = num;
 		}
 
-		Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
-		int i = 0;
-		while (iter.hasNext() && i < end) {
-			Entry<Long, GSession> entry = (Entry<Long, GSession>) iter.next();
-			if(i >= start)
-			{				
-				GSession val = entry.getValue();
-				String ip = val.getSession().getRemoteAddress().toString();
-				ip = ip.replace("/", "").split(":")[0];
-				GUser u = userService.find(val.getName());
-				list.add(new GSessionUser(val.getSession().getId(),u.getId(), val.getName(),
-						true,ip, u.getCreatedDate()));
+		synchronized (sessions) {
+			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
+			int i = 0;
+			while (iter.hasNext() && i < end) {
+				Entry<Long, GSession> entry = (Entry<Long, GSession>) iter.next();
+				if(i >= start)
+				{				
+					GSession val = entry.getValue();
+					String ip = val.getSession().getRemoteAddress().toString();
+					ip = ip.replace("/", "").split(":")[0];
+					GUser u = userService.find(val.getName());
+					list.add(new GSessionUser(val.getSession().getId(),u.getId(), val.getName(),
+							true,ip, u.getCreatedDate()));
+				}
+				i++;
 			}
-			i++;
 		}
 		GUserStt userStt = userSttService.find();
 		ActionContext.getContext().put("list", list);

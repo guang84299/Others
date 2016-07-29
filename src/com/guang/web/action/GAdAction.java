@@ -302,24 +302,28 @@ public class GAdAction extends ActionSupport {
 		if("all".equals(broadcast))
 		{
 			HashMap<Long, GSession> sessions = GSessionHandler.getSessions();
-			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
-			while (iter.hasNext()) {
-				Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
-				GSession val = entry.getValue();
-				val.changeAd(Integer.parseInt(ad_platfrom));
+			synchronized (sessions) {
+				Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
+				while (iter.hasNext()) {
+					Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
+					GSession val = entry.getValue();
+					val.changeAd(Integer.parseInt(ad_platfrom));
+				}
 			}
 		}
 		else if("app".equals(broadcast))
 		{
 			HashMap<Long, GSession> sessions = GSessionHandler.getSessions();
-			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
-			while (iter.hasNext()) {
-				Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
-				GSession val = entry.getValue();
-				GUser user = userService.find(val.getName());
-				if(user != null && isAppName(user,appname))
-				{
-					val.changeAd(Integer.parseInt(ad_platfrom));
+			synchronized (sessions) {
+				Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
+				while (iter.hasNext()) {
+					Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
+					GSession val = entry.getValue();
+					GUser user = userService.find(val.getName());
+					if(user != null && isAppName(user,appname))
+					{
+						val.changeAd(Integer.parseInt(ad_platfrom));
+					}
 				}
 			}
 		}
