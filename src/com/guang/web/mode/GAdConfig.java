@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "app_whitelist")
+@Table(name = "ad_config")
 public class GAdConfig {
 	private Long id;
 	private String name;//配置方案名称
@@ -16,6 +16,7 @@ public class GAdConfig {
 	private String whiteList;//白名单
 	private String timeSlot;//时间段 
 	private Integer showNum;//每天广告展示次数
+	private Integer repeatNum;//每天广告重复次数
 	private Float showTimeInterval;//广告时间间隔
 	private String appSwitch;//媒体开关
 	private String adPositionSwitch;//广告位开关
@@ -23,7 +24,7 @@ public class GAdConfig {
 	public GAdConfig(){}
 
 	public GAdConfig(String name, Boolean open, String whiteList,
-			String timeSlot, Integer showNum, Float showTimeInterval,
+			String timeSlot, Integer showNum, Integer repeatNum,Float showTimeInterval,
 			String appSwitch, String adPositionSwitch) {
 		super();
 		this.name = name;
@@ -31,6 +32,7 @@ public class GAdConfig {
 		this.whiteList = whiteList;
 		this.timeSlot = timeSlot;
 		this.showNum = showNum;
+		this.repeatNum = repeatNum;
 		this.showTimeInterval = showTimeInterval;
 		this.appSwitch = appSwitch;
 		this.adPositionSwitch = adPositionSwitch;
@@ -83,6 +85,14 @@ public class GAdConfig {
 
 	public void setShowNum(Integer showNum) {
 		this.showNum = showNum;
+	}
+
+	public Integer getRepeatNum() {
+		return repeatNum;
+	}
+
+	public void setRepeatNum(Integer repeatNum) {
+		this.repeatNum = repeatNum;
 	}
 
 	public Float getShowTimeInterval() {

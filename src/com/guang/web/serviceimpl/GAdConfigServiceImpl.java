@@ -1,6 +1,7 @@
 package com.guang.web.serviceimpl;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -33,5 +34,12 @@ public class GAdConfigServiceImpl implements GAdConfigService{
 		LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
 		lhm.put("id", "desc");
 		return daoTools.find(GAdConfig.class, null, null, firstindex, 20, lhm);
+	}
+
+	public GAdConfig find() {
+		List<GAdConfig> list = daoTools.find(GAdConfig.class, "open", 1+"", 0, 1, null).getList();
+		if(list != null && list.size() > 0)
+			return list.get(0);
+		return null;
 	}
 }

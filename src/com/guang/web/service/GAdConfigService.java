@@ -11,5 +11,6 @@ public interface GAdConfigService {
 	void delete(Long id);
 	void update(GAdConfig adConfig);
 	GAdConfig find(Long id);
+	GAdConfig find();
 	QueryResult<GAdConfig> findAlls(int firstindex);
 }

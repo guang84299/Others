@@ -1,6 +1,6 @@
 /*--------------------config-----------------*/
 
-#d_addConfig
+#d_addConfig,#d_updateConfig
 {
 	width:700px;
 	margin-left: auto;
