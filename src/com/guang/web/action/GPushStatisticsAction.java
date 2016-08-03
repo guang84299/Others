@@ -52,7 +52,7 @@ public class GPushStatisticsAction extends ActionSupport{
 		ActionContext.getContext().put("pages", "pushStatistics");
 		return "index";
 	}
-	//É¾³ýpushStatistics
+	//åˆ é™¤pushStatistics
 	public void deletePushStatistics()
 	{
 		String id = ServletActionContext.getRequest().getParameter("data");
@@ -67,7 +67,7 @@ public class GPushStatisticsAction extends ActionSupport{
 		}
 	}
 	
-	//É¾³ýpushStatistics
+	//åˆ é™¤pushStatistics
 	public String deletePushStatisticsById()
 	{
 		String from_id = ServletActionContext.getRequest().getParameter("from_id");

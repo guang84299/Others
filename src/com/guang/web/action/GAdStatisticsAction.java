@@ -73,7 +73,7 @@ public class GAdStatisticsAction extends ActionSupport{
 			e.printStackTrace();
 		}
 	}
-	//É¾³ıAdStatistics
+	//åˆ é™¤AdStatistics
 	public void deleteAdStatistics()
 	{
 		String id = ServletActionContext.getRequest().getParameter("data");
@@ -119,7 +119,7 @@ public class GAdStatisticsAction extends ActionSupport{
 			
 			String img_relpath = ServletActionContext.getServletContext().getRealPath(
 					"images/"+company_py);
-			//ÉÏ´«Í¼Æ¬
+			//ä¸Šä¼ å›¾ç‰‡
 			if(pic != null)
 			{
 				File file = new File(new File(img_relpath), picFileName);
@@ -130,7 +130,7 @@ public class GAdStatisticsAction extends ActionSupport{
 				ad.setPicPath(picPath);
 			}
 			
-			//ÉÏ´«ºáÍ¼
+			//ä¸Šä¼ æ¨ªå›¾
 			if(picHorizontal != null)
 			{
 				File file = new File(new File(img_relpath), picHorizontalFileName);
@@ -140,7 +140,7 @@ public class GAdStatisticsAction extends ActionSupport{
 				String picHorizontalPath = "images/"+company_py + "/" + picHorizontalFileName;
 				ad.setPicHorizontalPath(picHorizontalPath);
 			}
-			//ÉÏ´«Í¨ÖªÍ¼
+			//ä¸Šä¼ é€šçŸ¥å›¾
 			if(picNotify != null)
 			{
 				File file = new File(new File(img_relpath), picNotifyFileName);
@@ -152,12 +152,12 @@ public class GAdStatisticsAction extends ActionSupport{
 			}
 			
 			adService.update(ad);
-			ActionContext.getContext().put("updateAdStatistics","¸ü¸Ä³É¹¦£¡");
+			ActionContext.getContext().put("updateAdStatistics","æ›´æ”¹æˆåŠŸï¼");
 			list();
 			return "index";
 		}
 		
-		ActionContext.getContext().put("updateAdStatistics","¸ü¸ÄÊ§°Ü£¡");
+		ActionContext.getContext().put("updateAdStatistics","æ›´æ”¹å¤±è´¥ï¼");
 		list();
 		return "index";
 	}

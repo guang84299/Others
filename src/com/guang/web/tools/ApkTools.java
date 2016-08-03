@@ -13,21 +13,21 @@ import android.util.TypedValue;
 
 public class ApkTools {
 	/**
-	 * ½âÑ¹ zip ÎÄ¼ş(apk¿ÉÒÔµ±³ÉÒ»¸özipÎÄ¼ş)£¬×¢Òâ²»ÄÜ½âÑ¹ rar ÎÄ¼şÅ¶£¬Ö»ÄÜ½âÑ¹ zip ÎÄ¼ş ½âÑ¹ rar ÎÄ¼ş »á³öÏÖ
-	 * java.io.IOException: Negative seek offset Òì³£ create date:2009- 6- 9
+	 * è§£å‹ zip æ–‡ä»¶(apkå¯ä»¥å½“æˆä¸€ä¸ªzipæ–‡ä»¶)ï¼Œæ³¨æ„ä¸èƒ½è§£å‹ rar æ–‡ä»¶å“¦ï¼Œåªèƒ½è§£å‹ zip æ–‡ä»¶ è§£å‹ rar æ–‡ä»¶ ä¼šå‡ºç°
+	 * java.io.IOException: Negative seek offset å¼‚å¸¸ create date:2009- 6- 9
 	 * author:Administrator
 	 * 
 	 * @param apkUrl
-	 *            zip ÎÄ¼ş£¬×¢ÒâÒªÊÇÕı×ÚµÄ zip ÎÄ¼şÅ¶£¬²»ÄÜÊÇ°Ñ rar µÄÖ±½Ó¸ÄÎª zip ÕâÑù»á³öÏÖ
-	 *            java.io.IOException: Negative seek offset Òì³£
+	 *            zip æ–‡ä»¶ï¼Œæ³¨æ„è¦æ˜¯æ­£å®—çš„ zip æ–‡ä»¶å“¦ï¼Œä¸èƒ½æ˜¯æŠŠ rar çš„ç›´æ¥æ”¹ä¸º zip è¿™æ ·ä¼šå‡ºç°
+	 *            java.io.IOException: Negative seek offset å¼‚å¸¸
 	 * @param logoUrl
-	 *            Í¼±êÉú³ÉµÄµØÖ·
+	 *            å›¾æ ‡ç”Ÿæˆçš„åœ°å€
 	 * @throws Exception
 	 * @throws IOException
 	 */
 	public static String[] unZip(String apkUrl, String logoUrl)
 			throws Exception {
-		// [0]:°æ±¾ºÅ;[1]°üÃû;[2]Ç©Ãû
+		// [0]:ç‰ˆæœ¬å·;[1]åŒ…å;[2]ç­¾å
 		String[] st = new String[3];
 		byte b[] = new byte[1024];
 		int length;

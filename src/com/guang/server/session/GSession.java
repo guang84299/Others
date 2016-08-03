@@ -9,7 +9,7 @@ import com.guang.server.protocol.GProtocol;
 
 public class GSession {
 	private IoSession session;
-	private long heartBeatTime;//ÉÏ´ÎÐÄÌø¼ì²âÊ±¼ä
+	private long heartBeatTime;//ä¸Šæ¬¡å¿ƒè·³æ£€æµ‹æ—¶é—´
 	private String name;
 	
 	public GSession(IoSession session) {

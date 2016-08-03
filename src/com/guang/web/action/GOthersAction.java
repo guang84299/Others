@@ -9,7 +9,7 @@ public class GOthersAction extends ActionSupport{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//·ÛËéÌÇ¹û
+	//ç²‰ç¢ç³–æœ
 	public String fensui()
 	{
 		return "fensui";

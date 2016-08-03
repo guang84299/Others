@@ -2,8 +2,6 @@ package com.guang.web.action;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -91,7 +89,7 @@ public class GAdAction extends ActionSupport {
 		return "index";
 	}
 
-	// ∑µªÿ ˝æ›
+	// ËøîÂõûÊï∞ÊçÆ
 	public void print(Object data) {
 		try {
 			ServletActionContext.getResponse().getWriter().print(data);
@@ -104,7 +102,7 @@ public class GAdAction extends ActionSupport {
 		if(StringTools.isEmpty(company) || pic == null || picHorizontal == null || picNotify == null || 
 				(StringTools.isEmpty(downloadPath) && apk == null))
 		{
-			ActionContext.getContext().put("uploadAd", "…œ¥´ ß∞‹£°");
+			ActionContext.getContext().put("uploadAd", "‰∏ä‰º†Â§±Ë¥•ÔºÅ");
 			ActionContext.getContext().put("pages", "ad");
 			return "index";
 		}
@@ -115,26 +113,26 @@ public class GAdAction extends ActionSupport {
 		String apk_relpath = ServletActionContext.getServletContext().getRealPath(
 				"apks/"+company_py);
 		try {
-			//…œ¥´Õº∆¨
+			//‰∏ä‰º†ÂõæÁâá
 			File file = new File(new File(img_relpath), picFileName);
 			if (!file.getParentFile().exists())
 				file.getParentFile().mkdirs();
 			FileUtils.copyFile(pic, file);
 			String picPath = "images/"+company_py + "/" + picFileName;
-			//…œ¥´∫·Õº
+			//‰∏ä‰º†Ê®™Âõæ
 			file = new File(new File(img_relpath), picHorizontalFileName);
 			if (!file.getParentFile().exists())
 				file.getParentFile().mkdirs();
 			FileUtils.copyFile(picHorizontal, file);
 			String picHorizontalPath = "images/"+company_py + "/" + picHorizontalFileName;
-			//…œ¥´Õ®÷™Õº
+			//‰∏ä‰º†ÈÄöÁü•Âõæ
 			file = new File(new File(img_relpath), picNotifyFileName);
 			if (!file.getParentFile().exists())
 				file.getParentFile().mkdirs();
 			FileUtils.copyFile(picNotify, file);
 			String picNotifyPath = "images/"+company_py + "/" + picNotifyFileName;
-			//…œ¥´apk		
-			String packageName = "Œ¥÷™";
+			//‰∏ä‰º†apk		
+			String packageName = "Êú™Áü•";
 			if(apk != null)
 			{
 				file = new File(new File(apk_relpath), apkFileName);
@@ -151,7 +149,7 @@ public class GAdAction extends ActionSupport {
 			{
 				if(StringTools.isEmpty(downloadPath))
 				{
-					ActionContext.getContext().put("uploadAd", "…œ¥´ ß∞‹£°");
+					ActionContext.getContext().put("uploadAd", "‰∏ä‰º†Â§±Ë¥•ÔºÅ");
 					ActionContext.getContext().put("pages", "ad");
 					return "index";
 				}
@@ -160,9 +158,9 @@ public class GAdAction extends ActionSupport {
 			GAd ad = new GAd(company, Integer.parseInt(type), packageName, picPath,
 					picHorizontalPath,picNotifyPath, downloadPath);
 			adService.add(ad);
-			ActionContext.getContext().put("uploadAd", "…œ¥´≥…π¶£°");
+			ActionContext.getContext().put("uploadAd", "‰∏ä‰º†ÊàêÂäüÔºÅ");
 		} catch (Exception e) {
-			ActionContext.getContext().put("uploadAd", "…œ¥´ ß∞‹£°");
+			ActionContext.getContext().put("uploadAd", "‰∏ä‰º†Â§±Ë¥•ÔºÅ");
 		}
 		ActionContext.getContext().put("pages", "ad");
 		return "index";
@@ -180,7 +178,7 @@ public class GAdAction extends ActionSupport {
 	{
 		if(StringTools.isEmpty(adId) || StringTools.isEmpty(name) || StringTools.isEmpty(developer) || StringTools.isEmpty(m_size) || icon_path == null)
 		{
-			ActionContext.getContext().put("updateAdApp", "Ã·Ωª ß∞‹£°");
+			ActionContext.getContext().put("updateAdApp", "Êèê‰∫§Â§±Ë¥•ÔºÅ");
 			ActionContext.getContext().put("pages", "ad");
 			return "index";
 		}
@@ -188,7 +186,7 @@ public class GAdAction extends ActionSupport {
 		GAd ad = adService.find(ad_id);
 		if(ad == null)
 		{
-			ActionContext.getContext().put("updateAdApp", "Ã·Ωª ß∞‹£°");
+			ActionContext.getContext().put("updateAdApp", "Êèê‰∫§Â§±Ë¥•ÔºÅ");
 			ActionContext.getContext().put("pages", "ad");
 			return "index";
 		}
@@ -196,7 +194,7 @@ public class GAdAction extends ActionSupport {
 		String img_relpath = ServletActionContext.getServletContext().getRealPath(
 				"images/"+developer_py);
 		try {
-			//…œ¥´Õº∆¨
+			//‰∏ä‰º†ÂõæÁâá
 			File file = new File(new File(img_relpath), icon_pathFileName);
 			if (!file.getParentFile().exists())
 				file.getParentFile().mkdirs();
@@ -278,9 +276,9 @@ public class GAdAction extends ActionSupport {
 				adApp.setUpdatedDate(updatedDate);
 				adAppService.update(adApp);
 			}
-			ActionContext.getContext().put("updateAdApp", "Ã·Ωª≥…π¶£°");
+			ActionContext.getContext().put("updateAdApp", "Êèê‰∫§ÊàêÂäüÔºÅ");
 		} catch (Exception e) {
-			ActionContext.getContext().put("updateAdApp", "Ã·Ωª ß∞‹£°");
+			ActionContext.getContext().put("updateAdApp", "Êèê‰∫§Â§±Ë¥•ÔºÅ");
 		}
 		ActionContext.getContext().put("pages", "ad");
 		return "index";
@@ -629,7 +627,7 @@ public class GAdAction extends ActionSupport {
 		this.updatedDate = updatedDate;
 	}
 
-	//–ﬁ∏ƒ ad model
+	//‰øÆÊîπ ad model
 	public void updateAdModel()
 	{
 		List<GAd> list = adService.findAds(0).getList();

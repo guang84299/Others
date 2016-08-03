@@ -29,7 +29,7 @@ public class GuangServer {
 	
 	public GuangServer()
 	{
-		//³õÊ¼»¯ÈÕÖ¾ÏµÍ³
+		//åˆå§‹åŒ–æ—¥å¿—ç³»ç»Ÿ
 		URL url = GuangServer.class.getClassLoader().getResource("log4j.properties");		
 		PropertyConfigurator.configure( url.getPath() );
 		
@@ -41,7 +41,7 @@ public class GuangServer {
 	{
 		if(acceptor == null)
 		{
-			logger.error("·şÎñ¶Ë»¹Î´Æô¶¯...");
+			logger.error("æœåŠ¡ç«¯è¿˜æœªå¯åŠ¨...");
 		}
 		return acceptor;
 	}
@@ -54,13 +54,13 @@ public class GuangServer {
         acceptor.setHandler(  new GCoreHandler() );  
         acceptor.getSessionConfig().setReadBufferSize( 2048 );  
         acceptor.getSessionConfig().setIdleTime( IdleStatus.BOTH_IDLE, 80 );
-        acceptor.setReuseAddress(true);//ÉèÖÃµÄÊÇÖ÷·şÎñ¼àÌıµÄ¶Ë¿Ú¿ÉÒÔÖØÓÃ        
-        acceptor.getSessionConfig().setReuseAddress(true);//ÉèÖÃÃ¿Ò»¸ö·ÇÖ÷¼àÌıÁ¬½ÓµÄ¶Ë¿Ú¿ÉÒÔÖØÓÃ  
+        acceptor.setReuseAddress(true);//è®¾ç½®çš„æ˜¯ä¸»æœåŠ¡ç›‘å¬çš„ç«¯å£å¯ä»¥é‡ç”¨        
+        acceptor.getSessionConfig().setReuseAddress(true);//è®¾ç½®æ¯ä¸€ä¸ªéä¸»ç›‘å¬è¿æ¥çš„ç«¯å£å¯ä»¥é‡ç”¨  
 		try {
 			acceptor.bind(new InetSocketAddress(PORT));
-			logger.info("·şÎñ¶ËÆô¶¯³É¹¦...     ¶Ë¿ÚºÅÎª£º" + PORT);
+			logger.info("æœåŠ¡ç«¯å¯åŠ¨æˆåŠŸ...     ç«¯å£å·ä¸ºï¼š" + PORT);
 		} catch (IOException e) {
-			logger.error("·şÎñ¶ËÆô¶¯Òì³£....", e);
+			logger.error("æœåŠ¡ç«¯å¯åŠ¨å¼‚å¸¸....", e);
 			e.printStackTrace();
 		}
 	}

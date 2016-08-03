@@ -68,7 +68,7 @@ public class GSessionHandler {
 	public void send(IoSession session, Object message) {
 
 	}
-	//根据name关闭session
+	//鏍规嵁name鍏抽棴session
 	public void closeSession(String name)
 	{
 		synchronized (sessions) {
@@ -93,7 +93,7 @@ public class GSessionHandler {
 		}
 	}
 
-	// 判断是否在线
+	// 鍒ゆ柇鏄惁鍦ㄧ嚎
 	public boolean judeOnline(String name) {
 		synchronized (sessions) {
 			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
@@ -109,7 +109,7 @@ public class GSessionHandler {
 		return false;
 	}
 	
-	// 根据name 获得在线session
+	// 鏍规嵁name 鑾峰緱鍦ㄧ嚎session
 	public GSession getSessionByName(String name)
 	{
 		synchronized (sessions) {

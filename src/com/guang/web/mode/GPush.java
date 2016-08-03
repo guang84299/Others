@@ -17,19 +17,19 @@ public class GPush {
 	
 	private Long adId;
 	
-	private int type;//0:push messg 1:push spot 2£ºpush messg pic
+	private int type;//0:push messg 1:push spot 2ï¼špush messg pic
 	
-	private int userType;//0:ËùÓĞÔÚÏß 1£º°üÓÃ»§ 2£ºµ¥ÈË 3:ÆäËû
+	private int userType;//0:æ‰€æœ‰åœ¨çº¿ 1ï¼šåŒ…ç”¨æˆ· 2ï¼šå•äºº 3:å…¶ä»–
 	
-	private int sendNum;//ÍÆËÍÈËÊı
+	private int sendNum;//æ¨é€äººæ•°
 	
-	private int showNum;//Õ¹Ê¾´ÎÊı
+	private int showNum;//å±•ç¤ºæ¬¡æ•°
 	
-	private int clickNum;//µã»÷´ÎÊı
+	private int clickNum;//ç‚¹å‡»æ¬¡æ•°
 	
-	private int downloadNum;//ÏÂÔØ´ÎÊı
+	private int downloadNum;//ä¸‹è½½æ¬¡æ•°
 	
-	private int installNum;//°²×°´ÎÊı
+	private int installNum;//å®‰è£…æ¬¡æ•°
 		
     private Date createdDate = new Date();
 	

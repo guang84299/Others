@@ -5,7 +5,7 @@ import com.guang.server.session.GSession;
 
 public class GUserController {
 	private static final int HEART_TIME = 20000;
-	//ÐÄÌø¼ì²â
+	//å¿ƒè·³æ£€æµ‹
 	public static void updateHeartBeat(long id)
 	{
 		GSession session = GSessionHandler.getSessions().get(id);

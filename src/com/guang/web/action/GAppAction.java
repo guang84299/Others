@@ -47,7 +47,7 @@ public class GAppAction extends ActionSupport{
 		return "index";
 	}
 		
-	//É¾³ýapp
+	//åˆ é™¤app
 	public void deleteApp()
 	{
 		String id = ServletActionContext.getRequest().getParameter("data");

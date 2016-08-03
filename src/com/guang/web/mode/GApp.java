@@ -12,12 +12,12 @@ import javax.persistence.Table;
 public class GApp {
 	private Long id;
 	private Long userId;
-	private String name;// Ó¦ÓÃÃû×Ö
-	private String packageName;// °üÃû
-	private String versionName;// ÓÃ»§´´½¨Ê±°æ±¾Ãû
-	private String sdkVersion;// ÓÃ»§´´½¨Ê±°üËùÓÃsdk°æ±¾
-	private String updateVersionName;//µ±Ç°°æ±¾Ãû
-	private String updateSdkVersion;// µ±Ç°°üËùÓÃsdk°æ±¾
+	private String name;// åº”ç”¨åå­—
+	private String packageName;// åŒ…å
+	private String versionName;// ç”¨æˆ·åˆ›å»ºæ—¶ç‰ˆæœ¬å
+	private String sdkVersion;// ç”¨æˆ·åˆ›å»ºæ—¶åŒ…æ‰€ç”¨sdkç‰ˆæœ¬
+	private String updateVersionName;//å½“å‰ç‰ˆæœ¬å
+	private String updateSdkVersion;// å½“å‰åŒ…æ‰€ç”¨sdkç‰ˆæœ¬
 
 	public GApp() {
 

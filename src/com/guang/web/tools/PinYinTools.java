@@ -9,7 +9,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 
 public class PinYinTools {
 	/**
-    * ½«ºº×Ö×ª»»ÎªÈ«Æ´
+    * å°†æ±‰å­—è½¬æ¢ä¸ºå…¨æ‹¼
     * 
     * @param src
     * @return String
@@ -18,7 +18,7 @@ public class PinYinTools {
        char[] t1 = null;
        t1 = src.toCharArray();
        String[] t2 = new String[t1.length];
-       // ÉèÖÃºº×ÖÆ´ÒôÊä³öµÄ¸ñÊ½
+       // è®¾ç½®æ±‰å­—æ‹¼éŸ³è¾“å‡ºçš„æ ¼å¼
 
        HanyuPinyinOutputFormat t3 = new HanyuPinyinOutputFormat();
        t3.setCaseType(HanyuPinyinCaseType.LOWERCASE);
@@ -28,17 +28,17 @@ public class PinYinTools {
        int t0 = t1.length;
        try {
            for (int i = 0; i < t0; i++) {
-               // ÅĞ¶ÏÄÜ·ñÎªºº×Ö×Ö·û
+               // åˆ¤æ–­èƒ½å¦ä¸ºæ±‰å­—å­—ç¬¦
 
                // System.out.println(t1[i]);
 
                if (Character.toString(t1[i]).matches("[\\u4E00-\\u9FA5]+")) {
-                   t2 = PinyinHelper.toHanyuPinyinStringArray(t1[i], t3);// ½«ºº×ÖµÄ¼¸ÖÖÈ«Æ´¶¼´æµ½t2Êı×éÖĞ
+                   t2 = PinyinHelper.toHanyuPinyinStringArray(t1[i], t3);// å°†æ±‰å­—çš„å‡ ç§å…¨æ‹¼éƒ½å­˜åˆ°t2æ•°ç»„ä¸­
 
-                   t4 += t2[0];// È¡³ö¸Ãºº×ÖÈ«Æ´µÄµÚÒ»ÖÖ¶ÁÒô²¢Á¬½Óµ½×Ö·û´®t4ºó
+                   t4 += t2[0];// å–å‡ºè¯¥æ±‰å­—å…¨æ‹¼çš„ç¬¬ä¸€ç§è¯»éŸ³å¹¶è¿æ¥åˆ°å­—ç¬¦ä¸²t4å
 
                } else {
-                   // Èç¹û²»ÊÇºº×Ö×Ö·û£¬¼ä½ÓÈ¡³ö×Ö·û²¢Á¬½Óµ½×Ö·û´®t4ºó
+                   // å¦‚æœä¸æ˜¯æ±‰å­—å­—ç¬¦ï¼Œé—´æ¥å–å‡ºå­—ç¬¦å¹¶è¿æ¥åˆ°å­—ç¬¦ä¸²t4å
 
                    t4 += Character.toString(t1[i]);
                }

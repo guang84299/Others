@@ -13,26 +13,26 @@ public class GSysVal {
 
 	private Long id;
 
-	private int platfrom;// 0 ÇàÂ¶ 1ÓĞÃ× 2¹ãµãÍ¨
+	private int platfrom;// 0 é’éœ² 1æœ‰ç±³ 2å¹¿ç‚¹é€š
 
-	private boolean autoState = false;// ÊÇ·ñ×Ô¶¯ÍÆËÍ
+	private boolean autoState = false;// æ˜¯å¦è‡ªåŠ¨æ¨é€
 
-	private int autoPushType = 2;// 1:ÏûÏ¢ 2:²åÆÁ
+	private int autoPushType = 2;// 1:æ¶ˆæ¯ 2:æ’å±
 
-	private String title;// ÏûÏ¢±êÌâ
+	private String title;// æ¶ˆæ¯æ ‡é¢˜
 
-	private String message;// ÏûÏ¢ÄÚÈİ
+	private String message;// æ¶ˆæ¯å†…å®¹
 
-	private int adId;// ÒªÍÆËÍµÄ¹ã¸æid
+	private int adId;// è¦æ¨é€çš„å¹¿å‘Šid
 
-	private float waitTime = 1.0f;// µÈ´ıÊ±¼ä ·ÖÖÓ
+	private float waitTime = 1.0f;// ç­‰å¾…æ—¶é—´ åˆ†é’Ÿ
 	
-	//Ö÷¶¯ÇëÇópushÅäÖÃ
+	//ä¸»åŠ¨è¯·æ±‚pushé…ç½®
 	private Boolean requestPushState = false;
 	private Float requestPushRand = 0.3f;
 	
-	//»ù±¾ÍÆËÍÅäÖÃ
-	private Boolean relationPushState = false;//¹ØÁªÍÆËÍ
+	//åŸºæœ¬æ¨é€é…ç½®
+	private Boolean relationPushState = false;//å…³è”æ¨é€
 
 	public GSysVal() {
 	}

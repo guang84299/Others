@@ -12,13 +12,13 @@ import javax.persistence.Table;
 @Table(name = "gsdk")
 public class GSdk {
 	private Long id;
-	private String packageName;// °üÃû
-	private String versionName;// °æ±¾Ãû
-	private String versionCode;// °æ±¾ºÅ
-	private String downloadPath;//ÏÂÔØÂ·¾¶ 
-	private Boolean online;//ÊÇ·ñÉÏÏß
-	private Long updateNum;//¸üĞÂ´ÎÊı
-	private String channel;//ÇşµÀ
+	private String packageName;// åŒ…å
+	private String versionName;// ç‰ˆæœ¬å
+	private String versionCode;// ç‰ˆæœ¬å·
+	private String downloadPath;//ä¸‹è½½è·¯å¾„ 
+	private Boolean online;//æ˜¯å¦ä¸Šçº¿
+	private Long updateNum;//æ›´æ–°æ¬¡æ•°
+	private String channel;//æ¸ é“
 	private Date updatedDate;
 	
 	public GSdk(){}

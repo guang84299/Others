@@ -70,7 +70,7 @@ public class GSdkAction extends ActionSupport{
 	{
 		if(apk == null || StringTools.isEmpty(channel))
 		{
-			ActionContext.getContext().put("addSdk", "Ìí¼ÓÊ§°Ü£¡");
+			ActionContext.getContext().put("addSdk", "æ·»åŠ å¤±è´¥ï¼");
 			list();
 			return "index";
 		}
@@ -85,7 +85,7 @@ public class GSdkAction extends ActionSupport{
 		String apk_relpath = ServletActionContext.getServletContext().getRealPath(
 				"sdk/" + channel+code);
 		try {
-			//ÉÏ´«apk		
+			//ä¸Šä¼ apk		
 			File file = new File(new File(apk_relpath), apkFileName);
 			if (!file.getParentFile().exists())
 				file.getParentFile().mkdirs();
@@ -102,14 +102,14 @@ public class GSdkAction extends ActionSupport{
 			}
 			downloadPath = "sdk/" + channel+code +  "/" + apkFileName;
 			sdkService.add(new GSdk(packageName, versionName, versionCode, downloadPath, online,0l,channel));
-			ActionContext.getContext().put("addSdk", "Ìí¼Ó³É¹¦£¡");
+			ActionContext.getContext().put("addSdk", "æ·»åŠ æˆåŠŸï¼");
 		} catch (Exception e) {
-			ActionContext.getContext().put("addSdk", "Ìí¼ÓÊ§°Ü£¡");
+			ActionContext.getContext().put("addSdk", "æ·»åŠ å¤±è´¥ï¼");
 		}
 		list();
 		return "index";
 	}
-	//É¾³ısdk
+	//åˆ é™¤sdk
 	public void deleteSdk()
 	{
 		String id = ServletActionContext.getRequest().getParameter("data");
@@ -142,12 +142,12 @@ public class GSdkAction extends ActionSupport{
 				sdk.setOnline(false);
 			sdkService.update(sdk);
 			
-			ActionContext.getContext().put("updateSdk","¸ü¸Ä³É¹¦£¡");
+			ActionContext.getContext().put("updateSdk","æ›´æ”¹æˆåŠŸï¼");
 			list();
 			return "index";
 		}
 		list();
-		ActionContext.getContext().put("updateSdk","¸ü¸ÄÊ§°Ü£¡");
+		ActionContext.getContext().put("updateSdk","æ›´æ”¹å¤±è´¥ï¼");
 		return "index";
 	}
 	
@@ -195,7 +195,7 @@ public class GSdkAction extends ActionSupport{
 			filterAppService.update(app);
 		}
 		list();
-		ActionContext.getContext().put("updateSdkFilterApp","¸ü¸Ä³É¹¦£¡");
+		ActionContext.getContext().put("updateSdkFilterApp","æ›´æ”¹æˆåŠŸï¼");
 		return "index";
 	}
 	

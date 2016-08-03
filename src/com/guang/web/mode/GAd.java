@@ -15,30 +15,30 @@ public class GAd {
 	private Long id;
 	
 	 
-	private String company;//公司
+	private String company;//鍏徃
 	
-	private int type;//广告类型
-	
-	
-	private String picPath;//图片路径 竖屏
-	private String picHorizontalPath;//横屏
-	private String picNotifyPath;//通知图片
+	private int type;//骞垮憡绫诲瀷
 	
 	
-	private String downloadPath;//下载路径
+	private String picPath;//鍥剧墖璺緞 绔栧睆
+	private String picHorizontalPath;//妯睆
+	private String picNotifyPath;//閫氱煡鍥剧墖
+	
+	
+	private String downloadPath;//涓嬭浇璺緞
 	
 	
 	private String packageName;
 	
-	private int showNum;//展示次数
+	private int showNum;//灞曠ず娆℃暟
 	
-	private int clickNum;//点击次数
+	private int clickNum;//鐐瑰嚮娆℃暟
 	
-	private int downloadNum;//下载次数
+	private int downloadNum;//涓嬭浇娆℃暟
 	
-	private int installNum;//安装次数
+	private int installNum;//瀹夎娆℃暟
 	
-	private Integer showLevel = 0;//广告显示级别
+	private Integer showLevel = 0;//骞垮憡鏄剧ず绾у埆
 	
 	
 

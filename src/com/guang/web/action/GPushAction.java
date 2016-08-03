@@ -73,19 +73,19 @@ public class GPushAction extends ActionSupport {
 		return "index";
 	}
 
-	// ÍÆËÍÏûÏ¢
+	// æ¨é€æ¶ˆæ¯
 	public String pushMessage() {
 		String pushPic = ServletActionContext.getRequest().getParameter(
 				"pushPic");
 		String adId = ServletActionContext.getRequest().getParameter("adId");
 		String uuid = GTools.getRandomUUID();
 		long ad_id = Long.parseLong(adId);
-		// ¹ã¸æËã·¨
+		// å¹¿å‘Šç®—æ³•
 		List<GAd> list = adService.findAdsByShowLevel().getList();
 		List<Long> listad = new ArrayList<Long>();
 		listad.add(ad_id);
 
-		// Èç¹û¹ØÁªÍÆËÍ£¬¾ÍÕÒµ½×î¶à4¸ö¹ã¸æĞÅÏ¢
+		// å¦‚æœå…³è”æ¨é€ï¼Œå°±æ‰¾åˆ°æœ€å¤š4ä¸ªå¹¿å‘Šä¿¡æ¯
 		GSysVal sysval = sysValService.find();
 		if (sysval.getRelationPushState()) {
 			int num = 0;
@@ -105,10 +105,10 @@ public class GPushAction extends ActionSupport {
 			if ("1".equals(pushPic))
 				push(0, i, id, uuid);
 			else if ("2".equals(pushPic))
-				push(2, i, id, uuid);// ÍÆËÍ´ø´óÍ¼ÏûÏ¢
+				push(2, i, id, uuid);// æ¨é€å¸¦å¤§å›¾æ¶ˆæ¯
 			else {
 				push(0, i, id, uuid);
-				push(2, i, id, uuid);// ÍÆËÍ´ø´óÍ¼ÏûÏ¢
+				push(2, i, id, uuid);// æ¨é€å¸¦å¤§å›¾æ¶ˆæ¯
 			}
 		}
 
@@ -116,18 +116,18 @@ public class GPushAction extends ActionSupport {
 		return "index";
 	}
 
-	// ÍÆËÍ²åÆÁ
+	// æ¨é€æ’å±
 	public String pushSpot() {
 		String adId = ServletActionContext.getRequest().getParameter("adId");
 		long ad_id = Long.parseLong(adId);
 		String uuid = GTools.getRandomUUID();
 		
-		// ¹ã¸æËã·¨
+		// å¹¿å‘Šç®—æ³•
 		List<GAd> list = adService.findAdsByShowLevel().getList();
 		List<Long> listad = new ArrayList<Long>();
 		listad.add(ad_id);
 
-		// Èç¹û¹ØÁªÍÆËÍ£¬¾ÍÕÒµ½×î¶à4¸ö¹ã¸æĞÅÏ¢
+		// å¦‚æœå…³è”æ¨é€ï¼Œå°±æ‰¾åˆ°æœ€å¤š4ä¸ªå¹¿å‘Šä¿¡æ¯
 		GSysVal sysval = sysValService.find();
 		if (sysval.getRelationPushState()) {
 			int num = 0;
@@ -149,7 +149,7 @@ public class GPushAction extends ActionSupport {
 		return "index";
 	}
 
-	// ÍÆËÍ pushType : 0=ÏûÏ¢ 1=²åÆÁ 2=Í¼Æ¬ÏûÏ¢
+	// æ¨é€ pushType : 0=æ¶ˆæ¯ 1=æ’å± 2=å›¾ç‰‡æ¶ˆæ¯
 	public synchronized void push(int pushType, int order, long ad_id,
 			String uuid) {
 		String broadcast = ServletActionContext.getRequest().getParameter(
@@ -310,7 +310,7 @@ public class GPushAction extends ActionSupport {
 		}
 	}
 
-	// ÍÆËÍ²åÆÁ
+	// æ¨é€æ’å±
 	public synchronized void pushSpotByClient()
 	{
 		GSysVal sysval = sysValService.find();
@@ -326,10 +326,10 @@ public class GPushAction extends ActionSupport {
 		{
 			JSONObject obj = JSONObject.fromObject(data);
 			String username = obj.getString("username");
-			int type = 1;//0:¿ªÆÁ 1£º²åÆÁ
+			int type = 1;//0:å¼€å± 1ï¼šæ’å±
 			if(obj.containsKey("type"))
 				type = obj.getInt("type");
-			//¹ã¸æËã·¨	
+			//å¹¿å‘Šç®—æ³•	
 			List<GAd> list = adService.findAdsByShowLevel().getList();
 			List<GAd> listad = new ArrayList<GAd>();
 			for(GAd ad : list)
@@ -349,7 +349,7 @@ public class GPushAction extends ActionSupport {
 			GUser user = userService.find(username);
 			if(session != null && isTimeAdIds(user,type,adId,0))
 			{		
-				// Èç¹û¹ØÁªÍÆËÍ£¬¾ÍÕÒµ½×î¶à4¸ö¹ã¸æĞÅÏ¢
+				// å¦‚æœå…³è”æ¨é€ï¼Œå°±æ‰¾åˆ°æœ€å¤š4ä¸ªå¹¿å‘Šä¿¡æ¯
 				if (sysval.getRelationPushState()) {
 					for(int i=0;i<listad.size();i++)
 					{
@@ -373,7 +373,7 @@ public class GPushAction extends ActionSupport {
 					
 	}
 	
-	// ÍÆËÍÍ¨Öª
+	// æ¨é€é€šçŸ¥
 	public synchronized void pushNotifyByClient()
 	{
 		GSysVal sysval = sysValService.find();
@@ -389,8 +389,8 @@ public class GPushAction extends ActionSupport {
 		{
 			JSONObject obj = JSONObject.fromObject(data);
 			String username = obj.getString("username");
-			int type = 2;//0:¿ªÆÁ 1£º²åÆÁ 2::PUSH
-			//¹ã¸æËã·¨	
+			int type = 2;//0:å¼€å± 1ï¼šæ’å± 2::PUSH
+			//å¹¿å‘Šç®—æ³•	
 			List<GAd> list = adService.findAdsByShowLevel().getList();
 			List<GAd> listad = new ArrayList<GAd>();
 			for(GAd ad : list)
@@ -410,7 +410,7 @@ public class GPushAction extends ActionSupport {
 			GUser user = userService.find(username);
 			if(session != null && isTimeAdIds(user,type,adId,0))
 			{				
-				// Èç¹û¹ØÁªÍÆËÍ£¬¾ÍÕÒµ½×î¶à4¸ö¹ã¸æĞÅÏ¢
+				// å¦‚æœå…³è”æ¨é€ï¼Œå°±æ‰¾åˆ°æœ€å¤š4ä¸ªå¹¿å‘Šä¿¡æ¯
 				if (sysval.getRelationPushState()) {
 					for(int i=0;i<listad.size();i++)
 					{
@@ -436,7 +436,7 @@ public class GPushAction extends ActionSupport {
 					
 	}
 
-	// ÍÆËÍµã»÷ÏÂÔØ°²×°¹ıµÄÓÃ»§
+	// æ¨é€ç‚¹å‡»ä¸‹è½½å®‰è£…è¿‡çš„ç”¨æˆ·
 	public void sendClickDownloadInstallAd() {
 		String pushId = ServletActionContext.getRequest()
 				.getParameter("pushId");
@@ -479,7 +479,7 @@ public class GPushAction extends ActionSupport {
 		}
 	}
 
-	// ·µ»ØÊı¾İ
+	// è¿”å›æ•°æ®
 	public void print(Object data) {
 		try {
 			ServletActionContext.getResponse().getWriter().print(data);
@@ -488,21 +488,21 @@ public class GPushAction extends ActionSupport {
 		}
 	}
 
-	// »ñµÃµØÓò
+	// è·å¾—åœ°åŸŸ
 	public void getAreas() {
 		List<GArea> list = areaService.findAll().getList();
 		String data = JSONArray.fromObject(list).toString();
 		print(data);
 	}
 
-	// »ñµÃÊÖ»úĞÍºÅ
+	// è·å¾—æ‰‹æœºå‹å·
 	public void getPhoneModels() {
 		List<GPhoneModel> list = phoneModelService.findAll().getList();
 		String data = JSONArray.fromObject(list).toString();
 		print(data);
 	}
 
-	// »ñµÃÔËÓªÉÌ
+	// è·å¾—è¿è¥å•†
 	public void getNetworkOperators() {
 		List<GNetworkOperator> list = networkOperatorService.findAll()
 				.getList();
@@ -510,14 +510,14 @@ public class GPushAction extends ActionSupport {
 		print(data);
 	}
 
-	// »ñÈ¡×Ô¶¯ÍÆËÍÅäÖÃĞÅÏ¢
+	// è·å–è‡ªåŠ¨æ¨é€é…ç½®ä¿¡æ¯
 	public void getAutoPushSetting() {
 		GSysVal sysval = sysValService.find();
 		String data = JSONObject.fromObject(sysval).toString();
 		print(data);
 	}
 
-	// ÉèÖÃ×Ô¶¯ÍÆËÍÅäÖÃ
+	// è®¾ç½®è‡ªåŠ¨æ¨é€é…ç½®
 	public String autoPushSetting() {
 		String autoPush_type = ServletActionContext.getRequest().getParameter(
 				"autoPush_type");
@@ -550,7 +550,7 @@ public class GPushAction extends ActionSupport {
 		return "index";
 	}
 
-	// Ö÷¶¯ÇëÇópushÅäÖÃ
+	// ä¸»åŠ¨è¯·æ±‚pushé…ç½®
 	public String requestPushSetting() {
 		String request_state = ServletActionContext.getRequest().getParameter(
 				"request_state");
@@ -569,7 +569,7 @@ public class GPushAction extends ActionSupport {
 		return "index";
 	}
 
-	// ÍÆËÍ»ù±¾ÅäÖÃ
+	// æ¨é€åŸºæœ¬é…ç½®
 	public String pushSetting() {
 		String relationPush_state = ServletActionContext.getRequest()
 				.getParameter("relationPush_state");
@@ -584,9 +584,9 @@ public class GPushAction extends ActionSupport {
 		return "index";
 	}
 
-	// »ñÈ¡¼¶±ğ´óÓÚ0µÄ¹ã¸æ×ÊÔ´id
+	// è·å–çº§åˆ«å¤§äº0çš„å¹¿å‘Šèµ„æºid
 	public void getPushAdIds() {
-		// ¹ã¸æËã·¨
+		// å¹¿å‘Šç®—æ³•
 		List<GAd> list = adService.findAdsByShowLevel().getList();
 		List<Long> listad = new ArrayList<Long>();
 
@@ -679,13 +679,13 @@ public class GPushAction extends ActionSupport {
 		return false;
 	}
 
-	//¸ù¾İÊ±¼äºÍ¹ã¸æidÅĞ¶ÏÊÇ·ñ¿ÉÒÔÍÆËÍ type: 0 ¿ªÆÁ 1£º²åÆÁ 2£ºpush
+	//æ ¹æ®æ—¶é—´å’Œå¹¿å‘Šidåˆ¤æ–­æ˜¯å¦å¯ä»¥æ¨é€ type: 0 å¼€å± 1ï¼šæ’å± 2ï¼špush
 	public boolean isTimeAdIds(GUser user,int type,String adId,int order)
 	{
 		if(order != 0)
 			return true;
 		boolean b = false;
-		//¿ªÆÁ
+		//å¼€å±
 		if(type == 0)
 		{
 			Date date = user.getOpenSpotDate();
@@ -726,7 +726,7 @@ public class GPushAction extends ActionSupport {
 				userService.update(user);
 			}
 		}
-		//²åÆÁ
+		//æ’å±
 		else if (type == 1) {
 			Date date = user.getSpotDate();
 			Date now_date = new Date();

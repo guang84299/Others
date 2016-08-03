@@ -18,8 +18,8 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<link rel="stylesheet" type="text/css"
-	href="<%=basePath%>styles/console.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>styles/console.css" />
+
 <script type="text/javascript" src="<%=basePath%>scripts/jquery.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=basePath%>styles/tablesorter/style.css" />
 <script type="text/javascript" src="<%=basePath%>scripts/jquery.tablesorter.js"></script>
@@ -78,6 +78,12 @@
 					<s:if test="#session.admin.permission.model_admin == true">
 						<li><a href="sdk_list"
 						class="<s:if test="#request.pages == 'sdk'">current</s:if>">SDK管理</a>
+						</li>
+					</s:if>
+					
+					<s:if test="#session.admin.permission.model_admin == true">
+						<li><a href="config_list"
+						class="<s:if test="#request.pages == 'config'">current</s:if>">配置</a>
 						</li>
 					</s:if>
 				

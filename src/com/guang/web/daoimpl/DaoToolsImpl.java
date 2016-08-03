@@ -91,7 +91,7 @@ public class DaoToolsImpl implements DaoTools{
 		return qr;
 	}
 	
-	//°´Ìõ¼ş²éÑ¯
+	//æŒ‰æ¡ä»¶æŸ¥è¯¢
 		protected String getOrderBy(LinkedHashMap<String, String> orderby)
 		{
 			StringBuffer orderbysq = new StringBuffer("");
@@ -104,7 +104,7 @@ public class DaoToolsImpl implements DaoTools{
 			}
 			return orderbysq.toString();			
 		}
-	//»ñÈ¡ÊµÌå¶ÔÏóÔÚÊı¾İ¿âÖĞµÄ±íÃû
+	//è·å–å®ä½“å¯¹è±¡åœ¨æ•°æ®åº“ä¸­çš„è¡¨å
 	protected <T> String getEntityName(Class<T> entityclass){
 		String entityname = entityclass.getSimpleName();
 		Entity entity = entityclass.getAnnotation(Entity.class);

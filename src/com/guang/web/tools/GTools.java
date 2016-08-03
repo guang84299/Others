@@ -3,7 +3,7 @@ package com.guang.web.tools;
 import java.util.UUID;
 
 public class GTools {
-	//»ñÈ¡·¶Î§Ëæ»úÊı
+	//è·å–èŒƒå›´éšæœºæ•°
 	public static int getRand(int start, int end) {
 		int num = (int) (Math.random() * end);
 		if (num < start)
@@ -18,7 +18,7 @@ public class GTools {
 		return num;
 	}
 	
-	//Éú³ÉÒ»¸öÎ¨Ò»Ãû×Ö
+	//ç”Ÿæˆä¸€ä¸ªå”¯ä¸€åå­—
 	 public static String getRandomUUID() {
 	        String uuidRaw = UUID.randomUUID().toString();
 	        return uuidRaw.replaceAll("-", "");

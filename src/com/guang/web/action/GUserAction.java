@@ -17,11 +17,9 @@ import org.apache.struts2.ServletActionContext;
 import com.guang.server.handler.GSessionHandler;
 import com.guang.web.dao.QueryResult;
 import com.guang.web.mode.GApp;
-import com.guang.web.mode.GSysVal;
 import com.guang.web.mode.GUser;
 import com.guang.web.mode.GUserStt;
 import com.guang.web.service.GAppService;
-import com.guang.web.service.GSysValService;
 import com.guang.web.service.GUserService;
 import com.guang.web.service.GUserSttService;
 import com.guang.web.tools.StringTools;
@@ -34,7 +32,6 @@ public class GUserAction extends ActionSupport{
 	private static final long serialVersionUID = -6570772391551890119L;
 	@Resource private  GUserService userService;
 	@Resource private GAppService appService;
-	@Resource private GSysValService sysValService;
 	@Resource private GUserSttService userSttService;
 	
 	public String list()
@@ -64,7 +61,7 @@ public class GUserAction extends ActionSupport{
 				u.setOnline(false);
 			}
 			if(u.getPhoneNumber() == null || "".equals(u.getPhoneNumber()))
-				u.setPhoneNumber("δ֪");
+				u.setPhoneNumber("未知");
 		}
 		
 		ActionContext.getContext().put("maxNum", num);
@@ -74,7 +71,7 @@ public class GUserAction extends ActionSupport{
 		return "index";
 	}
 	
-	//�ϴ�app��Ϣ
+	//
 	public void uploadAppInfos()
 	{
 		String data = ServletActionContext.getRequest().getParameter("data");
@@ -85,7 +82,6 @@ public class GUserAction extends ActionSupport{
 		String versionName = null;
 		String sdkVersion = null;	
 		
-		//����֮ǰ�汾�������һ���ж�
 		if(obj.containsKey("versionName"))
 			versionName = obj.getString("versionName");
 		if(obj.containsKey("sdkVersion"))
@@ -122,7 +118,7 @@ public class GUserAction extends ActionSupport{
 		}
 	}
 	
-	//ɾ��user
+	//删除user
 	public void deleteUser()
 	{
 		String id = ServletActionContext.getRequest().getParameter("data");
@@ -139,7 +135,7 @@ public class GUserAction extends ActionSupport{
 		}
 	}
 	
-	//��ʼ�������
+	//初始化数据
 	public void init()
 	{
 //		GSysVal sysVal = new GSysVal(0, false, 2, "", "", 0, 1.0f);
@@ -148,7 +144,7 @@ public class GUserAction extends ActionSupport{
 		userSttService.add(new GUserStt(0l,0l,0l, 0l, 0l, 0l));
 	}
 
-	//�޸�app model
+	//更新app model
 	public void updateAppModel()
 	{
 		List<GApp> list = appService.findApps(0, 100000000).getList();
@@ -179,7 +175,7 @@ public class GUserAction extends ActionSupport{
 		String loginTo = ServletActionContext.getRequest().getParameter("loginDate_to");
 		
 		List<GUser> gUser = null ; 
-		//登录时间
+		//注册时间
 		Date date = new Date();
 		if (null!=loginFrom&&!"".equals(loginFrom)) {
 			LinkedHashMap<String, String> colvals = new LinkedHashMap<String, String>();			
@@ -193,7 +189,7 @@ public class GUserAction extends ActionSupport{
 			 
 		}
 		if (null!=regFrom&&!"".equals(regFrom)) {
-			//注册时间
+			//登录时间
 			LinkedHashMap<String, String> colvals2 = new LinkedHashMap<String, String>();			
 			colvals2.put("updatedDate >=", "'"+regFrom+"'");
 			colvals2.put("updatedDate <", "'"+regTo+"'");

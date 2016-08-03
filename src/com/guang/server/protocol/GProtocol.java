@@ -11,7 +11,7 @@ import com.guang.server.handler.GSessionHandler;
 import net.sf.json.JSONObject;
 
 /**
- * ×Ô¶¨ÒåĞ­Òé »ùÓÚjson
+ * è‡ªå®šä¹‰åè®® åŸºäºjson
  * @author guang
  *
  */
@@ -47,7 +47,7 @@ public class GProtocol {
 			m = c.getMethod(methodName, args);	
 			m.invoke(obj,session,data.getString("body"));
 		} catch (Exception e) {
-			logger.error("Êı¾İ½âÎöÊ§°Ü£¡"+e.getMessage() + "  data="+message.toString());
+			logger.error("æ•°æ®è§£æå¤±è´¥ï¼"+e.getMessage() + "  data="+message.toString());
 		}
 	}
 }

@@ -56,11 +56,11 @@ public class GAdminAction extends ActionSupport{
 				GPermission permission = permissionService.find(admin.getPermissionsId());
 				admin.setPermission(permission);
 				ActionContext.getContext().getSession().put("admin", admin);
-				ActionContext.getContext().put("login","µÇÂ¼³É¹¦£¡");
+				ActionContext.getContext().put("login","ç™»å½•æˆåŠŸï¼");
 				return "index";
 			}
 		}
-		ActionContext.getContext().put("login","ÓÃ»§Ãû»òÃÜÂë²»ÕıÈ·£¡");
+		ActionContext.getContext().put("login","ç”¨æˆ·åæˆ–å¯†ç ä¸æ­£ç¡®ï¼");
 		return "index";
 	}
 	
@@ -75,7 +75,7 @@ public class GAdminAction extends ActionSupport{
 		GAdmin admin = (GAdmin) ActionContext.getContext().getSession().get("admin");
 		if(!admin.getPermission().isAddUser())
 		{
-			ActionContext.getContext().put("addUser","Ã»ÓĞÈ¨ÏŞ£¡");
+			ActionContext.getContext().put("addUser","æ²¡æœ‰æƒé™ï¼");
 			list();
 			return "index";
 		}
@@ -97,13 +97,13 @@ public class GAdminAction extends ActionSupport{
 			permissionService.add(permission);
 			
 			adminService.add(new GAdmin(permission.getId(),name, password));
-			ActionContext.getContext().put("addUser","ÓÃ»§Ìí¼Ó³É¹¦£¡");
+			ActionContext.getContext().put("addUser","ç”¨æˆ·æ·»åŠ æˆåŠŸï¼");
 			ActionContext.getContext().put("pages", "admin");
 			list();
 			return "index";
 		}
 		list();
-		ActionContext.getContext().put("addUser","ÓÃ»§Ìí¼ÓÊ§°Ü£¡");
+		ActionContext.getContext().put("addUser","ç”¨æˆ·æ·»åŠ å¤±è´¥ï¼");
 		ActionContext.getContext().put("pages", "admin");
 		return "index";
 	}
@@ -113,7 +113,7 @@ public class GAdminAction extends ActionSupport{
 		GAdmin user = (GAdmin) ActionContext.getContext().getSession().get("admin");
 		if(!user.getPermission().isDeleteUser())
 		{
-			ActionContext.getContext().put("deleteUser","Ã»ÓĞÈ¨ÏŞ£¡");
+			ActionContext.getContext().put("deleteUser","æ²¡æœ‰æƒé™ï¼");
 			list();
 			return "index";
 		}
@@ -124,7 +124,7 @@ public class GAdminAction extends ActionSupport{
 			GAdmin u = adminService.find(Long.parseLong(data));
 			adminService.delete(u.getId());
 			permissionService.delete(u.getPermissionsId());
-			ActionContext.getContext().put("deleteUser","ÓÃ»§É¾³ı³É¹¦£¡");
+			ActionContext.getContext().put("deleteUser","ç”¨æˆ·åˆ é™¤æˆåŠŸï¼");
 		}
 		list();
 		return "index";
@@ -147,7 +147,7 @@ public class GAdminAction extends ActionSupport{
 		GAdmin admin = (GAdmin) ActionContext.getContext().getSession().get("admin");
 		if(!admin.getPermission().isDeleteUser())
 		{
-			ActionContext.getContext().put("updateUser","Ã»ÓĞÈ¨ÏŞ£¡");
+			ActionContext.getContext().put("updateUser","æ²¡æœ‰æƒé™ï¼");
 			list();
 			return "index";
 		}
@@ -174,12 +174,12 @@ public class GAdminAction extends ActionSupport{
 			
 			adminService.update(u);
 			
-			ActionContext.getContext().put("updateUser","ÓÃ»§¸ü¸Ä³É¹¦£¡");
+			ActionContext.getContext().put("updateUser","ç”¨æˆ·æ›´æ”¹æˆåŠŸï¼");
 			list();
 			return "index";
 		}
 		list();
-		ActionContext.getContext().put("updateUser","ÓÃ»§¸ü¸ÄÊ§°Ü£¡");
+		ActionContext.getContext().put("updateUser","ç”¨æˆ·æ›´æ”¹å¤±è´¥ï¼");
 		return "index";
 	}
 

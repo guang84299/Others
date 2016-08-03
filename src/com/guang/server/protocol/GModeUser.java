@@ -68,7 +68,7 @@ public class GModeUser {
 		}					
 		return instance;
 	}
-	//ÑéÖ¤ÊÇ·ñÒÑ¾­×¢²á
+	//éªŒè¯æ˜¯å¦å·²ç»æ³¨å†Œ
 	public void validate(IoSession session, String data)
 	{
 		JSONObject obj = JSONObject.fromObject(data);
@@ -82,7 +82,7 @@ public class GModeUser {
 			result.put("result", true);
 			gdata = new GData(GProtocol.MODE_USER_LOGIN_VALIDATERESULT, result.toString());
 			
-			//Èç¹ûÒÑ¾­ÔÚÏß ¹Ø±Õ
+			//å¦‚æœå·²ç»åœ¨çº¿ å…³é—­
 			if(GSessionHandler.getInstance().judeOnline(name))
 			{
 				GSessionHandler.getInstance().closeSession(name);
@@ -101,7 +101,7 @@ public class GModeUser {
 		}
 		session.write(gdata.pack());
 	}
-	//µÇÂ¼
+	//ç™»å½•
 	public void login(IoSession session, String data)
 	{
 		JSONObject obj = JSONObject.fromObject(data);
@@ -116,7 +116,7 @@ public class GModeUser {
 			obj.put("result", true);
 			gdata = new GData(GProtocol.MODE_USER_LOGIN_RESULT, obj.toString());			
 			
-			//Èç¹ûÒÑ¾­ÔÚÏß ¹Ø±Õ
+			//å¦‚æœå·²ç»åœ¨çº¿ å…³é—­
 			if(GSessionHandler.getInstance().judeOnline(name))
 			{
 				GSessionHandler.getInstance().closeSession(name);
@@ -135,7 +135,7 @@ public class GModeUser {
 		session.write(gdata.pack());
 	}
 
-	//×¢²á
+	//æ³¨å†Œ
 	public void register(IoSession session, String data)
 	{
 		GUser user = (GUser) JSONObject.toBean(JSONObject.fromObject(data),GUser.class);
@@ -150,19 +150,19 @@ public class GModeUser {
 		loginSuccess(session,user.getName());		
 	}
 	
-	//µÇÂ¼³É¹¦
+	//ç™»å½•æˆåŠŸ
 	public void loginSuccess(IoSession session,final String name)
 	{
 		final GSession gsession = GSessionHandler.getSessions().get(session.getId());
 		gsession.setName(name);	
 		
-		logger.info(name+" µÇÂ¼³É¹¦£¡");
+		logger.info(name+" ç™»å½•æˆåŠŸï¼");
 		
 		updateActive();
 		//autoPush(name);  
 	}
 	
-	//ÍË³öµÇÂ¼
+	//é€€å‡ºç™»å½•
 	public void loginOut(String name)
 	{
 		GUser user = userService.find(name);
@@ -185,14 +185,14 @@ public class GModeUser {
 		}
 	}
 	
-	//ĞÄÌø¼ì²â
+	//å¿ƒè·³æ£€æµ‹
 	public void heartBeat(IoSession session, String data)
 	{
 //		GSession gsession = GSessionHandler.getSessions().get(session.getId());
 //		gsession.setHeartBeatTime(System.currentTimeMillis());
 	}
 	
-	//¸üĞÂÈÕ»î
+	//æ›´æ–°æ—¥æ´»
 	public synchronized void updateActive()
 	{
 		GUserStt userStt = userSttService.find();
@@ -235,7 +235,7 @@ public class GModeUser {
 		userSttService.update(userStt);
 	}
 	
-	//×Ô¶¯ÍÆËÍ
+	//è‡ªåŠ¨æ¨é€
 	public void autoPush(final String name)
 	{
 		final GSysVal val = sysValService.find();
@@ -250,12 +250,12 @@ public class GModeUser {
 						if(session == null)
 							return;
 						GUser user = userService.find(name);
-						//»ñµÃ¸ÃÓÃ»§°üÃû
+						//è·å¾—è¯¥ç”¨æˆ·åŒ…å
 						List<GApp> list = appService.findAppsByUserId(user.getId()).getList();
-						//»ñµÃ¹ã¸æ°üÃû
+						//è·å¾—å¹¿å‘ŠåŒ…å
 						long adId = val.getAdId();
 						GAd ad = adService.find(adId);
-						//Èç¹û¸ÃÓÃ»§ÒÑ¾­°²×°¸ÃÓ¦ÓÃ£¬Ôò²»ÔÙÍÆ¼ö
+						//å¦‚æœè¯¥ç”¨æˆ·å·²ç»å®‰è£…è¯¥åº”ç”¨ï¼Œåˆ™ä¸å†æ¨è
 						for(GApp app : list)
 						{
 							if(app.getPackageName().equals(ad.getPackageName()))

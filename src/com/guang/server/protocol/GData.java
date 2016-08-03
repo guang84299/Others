@@ -3,10 +3,10 @@ package com.guang.server.protocol;
 import net.sf.json.JSONObject;
 
 public class GData {
-	private String mode;//Ä£¿é
-	private long length;//Êı¾İ³¤¶È
-	private String body;//Êı¾İÌå
-	private long bodyLength;//Êı¾İÌå³¤¶È
+	private String mode;//æ¨¡å—
+	private long length;//æ•°æ®é•¿åº¦
+	private String body;//æ•°æ®ä½“
+	private long bodyLength;//æ•°æ®ä½“é•¿åº¦
 	
 	public GData()
 	{

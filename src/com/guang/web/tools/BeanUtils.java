@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BeanUtils implements BeanFactoryAware {
-    // SpringµÄbean¹¤³§
+    // Springçš„beanå·¥åŽ‚
     private static BeanFactory beanFactory;
     
     public void setBeanFactory(BeanFactory factory) throws BeansException {

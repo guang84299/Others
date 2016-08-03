@@ -14,8 +14,8 @@ uniqueConstraints={@UniqueConstraint(columnNames = {"province","city"})})
 public class GArea {
 	
 	private Integer id;		
-	private String province;//省份
-	private String city;//城市
+	private String province;//鐪佷唤
+	private String city;//鍩庡競
 	
 	public GArea(){}
 	public GArea(String province, String city) {

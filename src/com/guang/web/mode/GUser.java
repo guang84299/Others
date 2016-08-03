@@ -24,33 +24,33 @@ public class GUser {
 	private String onlineTime = "0";
 	private String lastOnlineTime = "0";
 	private boolean online;
-	// Éè±¸Ïà¹Ø
+	// è®¾å¤‡ç›¸å…³
 	private String deviceId;// imei
-	private String phoneNumber;// ÊÖ»úºÅÂë
-	private String networkOperatorName;// ÔËÓªÉÌÃû³Æ
-	private String simSerialNumber;// sim¿¨ĞòÁĞºÅ
-	private String networkCountryIso;// sim¿¨ËùÔÚ¹ú¼Ò
-	private String networkOperator;// ÔËÓªÉÌ±àºÅ
-	private String networkType;// ÍøÂçÀàĞÍ
-	private String location;// ÒÆ¶¯ÖÕ¶ËµÄÎ»ÖÃ
+	private String phoneNumber;// æ‰‹æœºå·ç 
+	private String networkOperatorName;// è¿è¥å•†åç§°
+	private String simSerialNumber;// simå¡åºåˆ—å·
+	private String networkCountryIso;// simå¡æ‰€åœ¨å›½å®¶
+	private String networkOperator;// è¿è¥å•†ç¼–å·
+	private String networkType;// ç½‘ç»œç±»å‹
+	private String location;// ç§»åŠ¨ç»ˆç«¯çš„ä½ç½®
 	/**
-	 * ÒÆ¶¯ÖÕ¶ËµÄÀàĞÍ PHONE_TYPE_CDMA ÊÖ»úÖÆÊ½ÎªCDMA£¬µçĞÅ 2 PHONE_TYPE_GSM ÊÖ»úÖÆÊ½ÎªGSM£¬ÒÆ¶¯ºÍÁªÍ¨ 1
-	 * PHONE_TYPE_NONE ÊÖ»úÖÆÊ½Î´Öª 0
+	 * ç§»åŠ¨ç»ˆç«¯çš„ç±»å‹ PHONE_TYPE_CDMA æ‰‹æœºåˆ¶å¼ä¸ºCDMAï¼Œç”µä¿¡ 2 PHONE_TYPE_GSM æ‰‹æœºåˆ¶å¼ä¸ºGSMï¼Œç§»åŠ¨å’Œè”é€š 1
+	 * PHONE_TYPE_NONE æ‰‹æœºåˆ¶å¼æœªçŸ¥ 0
 	 */
 	private int phoneType;//
-	private String model;// ÊÖ»úĞÍºÅ
-	private String release;// ÏµÍ³°æ±¾
-	private String province;// Ê¡·İ
-	private String city;// ³ÇÊĞ
-	private String district;// ÇøÏØ
-	private String street;// ½ÖµÀ
+	private String model;// æ‰‹æœºå‹å·
+	private String release;// ç³»ç»Ÿç‰ˆæœ¬
+	private String province;// çœä»½
+	private String city;// åŸå¸‚
+	private String district;// åŒºå¿
+	private String street;// è¡—é“
 	
-	private Date spotDate;//²åÆÁÊ±¼ä
-	private String spotAdId;//²åÆÁ¹ã¸æid
-	private Date openSpotDate;//¿ªÆÁÊ±¼ä
-	private String openSpotAdId;//¿ªÆÁ¹ã¸æid
-	private Date pushDate;//pushÊ±¼ä
-	private String pushAdId;//push¹ã¸æid
+	private Date spotDate;//æ’å±æ—¶é—´
+	private String spotAdId;//æ’å±å¹¿å‘Šid
+	private Date openSpotDate;//å¼€å±æ—¶é—´
+	private String openSpotAdId;//å¼€å±å¹¿å‘Šid
+	private Date pushDate;//pushæ—¶é—´
+	private String pushAdId;//pushå¹¿å‘Šid
 	
 	
 	public GUser() {

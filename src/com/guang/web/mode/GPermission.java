@@ -10,10 +10,10 @@ import javax.persistence.Table;
 @Table(name = "g_permission")
 public class GPermission {
 	private long id;
-	private boolean addUser = false;//Ìí¼ÓÓÃ»§È¨ÏŞ
+	private boolean addUser = false;//æ·»åŠ ç”¨æˆ·æƒé™
 	private boolean deleteUser = false;
 	private boolean updateUser = false;
-	private boolean model_admin = false;//¹ÜÀíÔ±Ä£¿é
+	private boolean model_admin = false;//ç®¡ç†å‘˜æ¨¡å—
 	
 	@Id
 	@GeneratedValue
