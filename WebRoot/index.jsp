@@ -86,6 +86,12 @@
 						class="<s:if test="#request.pages == 'config'">current</s:if>">配置</a>
 						</li>
 					</s:if>
+					
+					<s:if test="#session.admin.permission.model_admin == true">
+						<li><a href="offer_list"
+						class="<s:if test="#request.pages == 'offer'">current</s:if>">offer</a>
+						</li>
+					</s:if>
 				
 				</s:if>
 			</ul>
