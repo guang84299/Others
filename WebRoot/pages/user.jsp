@@ -137,7 +137,7 @@ laydate({
 $("#delete").click(function()
 {
 	var data = $("#div_update").attr("title");
-	
+	alert(data);
 	var urll = "<%out.print(basePath); %>user_deleteUser?data=";
 	urll = urll + data;
 	$.ajax({url:urll,async:false});
@@ -153,7 +153,6 @@ $(".thUpdate").click(function(){
 	div.css("top",x + "px");
 	var preall = $(this).prevAll();
 	var id = preall[preall.length-2].innerHTML;
-	
 	div.attr("title",id);
 	div.show();
 });
@@ -219,7 +218,6 @@ a_0.href = "user_list?index=" + 0;
 a_1.href = "user_list?index=" + (parseInt(index)-1);
 a_2.href = "user_list?index=" + (parseInt(index)+1);	
 a_3.href = "user_list?index=" + maxIndex;
-	
 }
 
 resf();

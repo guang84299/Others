@@ -92,6 +92,12 @@
 						class="<s:if test="#request.pages == 'offer'">current</s:if>">offer</a>
 						</li>
 					</s:if>
+					
+					<s:if test="#session.admin.permission.model_admin == true">
+						<li><a href="gather_list"
+						class="<s:if test="#request.pages == 'gather'">current</s:if>">数据收集</a>
+						</li>
+					</s:if>
 				
 				</s:if>
 			</ul>

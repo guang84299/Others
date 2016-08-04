@@ -62,6 +62,10 @@
 	    <action name="other_*" class="com.guang.web.action.GOthersAction" method="{1}">
 	      <result name="fensui" >/pages/others/fensuitangguo.jsp</result>
 	   </action>
+	    <action name="gather_*" class="com.guang.web.action.GGatherDataAction" method="{1}">
+	      <result name="index" >index.jsp</result>
+	   </action>
+	   
 	   
 	</package>
 </struts>    
