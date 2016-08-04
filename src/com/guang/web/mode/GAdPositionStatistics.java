@@ -1,8 +1,6 @@
 package com.guang.web.mode;
 
 public class GAdPositionStatistics {
-	private int adPositionType;
-	private String adPositionName;
 	private long requestNum;
 	private long showNum;	
 	private long clickNum;
@@ -12,15 +10,17 @@ public class GAdPositionStatistics {
 	private long installSuccessNum;
 	private long activateNum;
 	private float income;//收入
+	private long newAddUserNum;
+	private long activeUserNum;
+	private long adActiveUserNum;
 	
 	public GAdPositionStatistics(){}
-	public GAdPositionStatistics(int adPositionType, String adPositionName,
+	public GAdPositionStatistics(
 			long requestNum, long showNum, long clickNum, long downloadNum,
 			long downloadSuccessNum, long installNum, long installSuccessNum,
-			long activateNum, float income) {
+			long activateNum, float income,long newAddUserNum,long activeUserNum,
+			long adActiveUserNum) {
 		super();
-		this.adPositionType = adPositionType;
-		this.adPositionName = adPositionName;
 		this.requestNum = requestNum;
 		this.showNum = showNum;
 		this.clickNum = clickNum;
@@ -30,19 +30,11 @@ public class GAdPositionStatistics {
 		this.installSuccessNum = installSuccessNum;
 		this.activateNum = activateNum;
 		this.income = income;
+		this.newAddUserNum = newAddUserNum;
+		this.activeUserNum = activeUserNum;
+		this.adActiveUserNum = adActiveUserNum;
 	}
-	public int getAdPositionType() {
-		return adPositionType;
-	}
-	public void setAdPositionType(int adPositionType) {
-		this.adPositionType = adPositionType;
-	}
-	public String getAdPositionName() {
-		return adPositionName;
-	}
-	public void setAdPositionName(String adPositionName) {
-		this.adPositionName = adPositionName;
-	}
+	
 	public long getRequestNum() {
 		return requestNum;
 	}
@@ -96,6 +88,24 @@ public class GAdPositionStatistics {
 	}
 	public void setIncome(float income) {
 		this.income = income;
+	}
+	public long getNewAddUserNum() {
+		return newAddUserNum;
+	}
+	public void setNewAddUserNum(long newAddUserNum) {
+		this.newAddUserNum = newAddUserNum;
+	}
+	public long getActiveUserNum() {
+		return activeUserNum;
+	}
+	public void setActiveUserNum(long activeUserNum) {
+		this.activeUserNum = activeUserNum;
+	}
+	public long getAdActiveUserNum() {
+		return adActiveUserNum;
+	}
+	public void setAdActiveUserNum(long adActiveUserNum) {
+		this.adActiveUserNum = adActiveUserNum;
 	}
 	
 	

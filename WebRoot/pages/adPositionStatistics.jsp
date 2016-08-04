@@ -8,8 +8,17 @@
 %>
 <script type="text/javascript"
 	src="<%=basePath%>scripts/laydate.dev.js"></script>
-<h1>offer统计</h1>
+<h1>广告位统计</h1>
 <div style="width:600px;float:right;font-size: 14px;text-align:right;margin-top: -40px;">
+<select id="adPosition_sel">
+  <option value ="0">广告位选择</option>
+  <option value ="1">开屏</option>
+  <option value ="2">banner</option>
+  <option value ="3">充电锁</option>
+  <option value ="4">快捷方式</option>
+  <option value ="5">浏览器截取</option>
+  <option value ="6">安装卸载</option>
+</select>
 <input type="button" value="今日" id="today"/>
 <input type="button" value="一周内" id="oneWeek"/>
 <input type="button" value="一月内" id="oneMonth"/>
@@ -19,9 +28,7 @@
 </div>
 <table id="tableList" class="tablesorter" cellspacing="1">
 	<thead>
-		<tr>			
-			<th>ID</th>
-			<th>名称</th>
+		<tr>						
 			<th>请求</th>
 			<th>展示</th>
 			<th>点击</th>
@@ -30,14 +37,15 @@
 			<th>安装</th>
 			<th>安装成功</th>
 			<th>激活</th>
-			<th>收入</th>			
+			<th>收入</th>	
+			<th>新增用户</th>
+			<th>活跃用户</th>
+			<th>广告活跃用户</th>
 		</tr>
 	</thead>
 	<tbody id="tbody">
 		<s:iterator value="list" var="user">
-			<tr>				
-				<td><s:property value="#user.offerId" /></td>
-				<td><s:property value="#user.offerName" /></td>
+			<tr>								
 				<td><s:property value="#user.requestNum" /></td>
 				<td><s:property value="#user.showNum" /></td>
 				<td><s:property value="#user.clickNum" /></td>
@@ -47,18 +55,15 @@
 				<td><s:property value="#user.installSuccessNum" /></td>
 				<td><s:property value="#user.activateNum" /></td>
 				<td><s:property value="#user.income" /></td>
+				<td><s:property value="#user.newAddUserNum" /></td>
+				<td><s:property value="#user.activeUserNum" /></td>
+				<td><s:property value="#user.adActiveUserNum" /></td>
 			</tr>
 		</s:iterator>
 	</tbody>
 </table>
 
-<div id="my_div" title="${maxNum}">
 
-<a id="a_1" href="#" > 上一页    </a>
-<a id="a_2" href="#"> 下一页</a>
-
-<a  herf="#">总记录数：${maxNum}</a>
-</div>
 
 
 <script type="text/javascript">
@@ -78,10 +83,11 @@ laydate({
 			istime: true,
             elem: '#to_date',
             format: 'YYYY-MM-DD'
-        });        
+        });   
  $("#to_date").click(function(){
  	laydate.resetPosition(-100);
- });       
+ });            
+        
 </script>
 
-<script type="text/javascript" src="<%=basePath%>scripts/offerStatistics.js"></script>
+<script type="text/javascript" src="<%=basePath%>scripts/adPositionStatistics.js"></script>

@@ -851,7 +851,20 @@ laydate.reset = function(){
     (Dates.box && Dates.elem) && Dates.follow(Dates.box);
 };
 
-//返回指定日期
+laydate.resetPosition = function(pos){
+	var obj = Dates.box;
+	 var tops, rect = Dates.elem.getBoundingClientRect();
+		obj.style.left = (rect.left + pos) +  Dates.scroll(1) + 'px';
+		if (rect.bottom + obj.offsetHeight / 1.5 <= Dates.winarea()) {
+			tops = rect.bottom - 1;
+		} else {
+			tops = rect.top > obj.offsetHeight / 1.5 ? rect.top
+					- obj.offsetHeight + 1 : Dates.winarea() - obj.offsetHeight;
+		}
+		obj.style.top = tops + (Dates.scroll()) + 'px';
+};
+
+// 返回指定日期
 laydate.now = function(timestamp, format){
     var De = new Date((timestamp|0) ? function(tamp){
         return tamp < 86400000 ? (+new Date + tamp*86400000) : tamp;

@@ -28,7 +28,6 @@ public class GGatherDataAction {
 	public String list(){
 		QueryResult<GatherAppInfo>  qr = dataService.findAlls(0);
 		String sindex = ServletActionContext.getRequest().getParameter("index");
-		System.out.println("sindex~~~~~~~~~~~~~~:"+sindex);
 		int index = 0;
 		if (sindex != null && !"".equals(sindex))
 			index = Integer.parseInt(sindex);
@@ -80,7 +79,6 @@ public class GGatherDataAction {
 		//app运行信息
 		QueryResult<GatherAppRunInfo>  qrg = appInfoService.findAlls(0);
 		String rSindex = ServletActionContext.getRequest().getParameter("index");
-		System.out.println("rSindex~~~~~~~~~~~~~"+rSindex);
 		int rIndex = 0;
 		if (rSindex != null && !"".equals(rSindex))
 			rIndex = Integer.parseInt(rSindex);
@@ -89,9 +87,7 @@ public class GGatherDataAction {
 		if (starts > sNum) {
 			starts = 0;
 		}
-		System.out.println("starts~~~~~~~~~~~~~"+starts);
 		List<GatherAppRunInfo> runInfoList = appInfoService.findAlls(starts).getList();
-		System.out.println("runInfoList~~~~~~~~~~~~~"+runInfoList);
 		ActionContext.getContext().put("runInfoList", runInfoList);
 		ActionContext.getContext().put("rmaxNum", sNum);
 		ActionContext.getContext().put("pages", "gather");

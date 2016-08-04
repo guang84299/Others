@@ -15,13 +15,31 @@ import com.guang.web.tools.ApkTools;
 public class GTest {
 
 	public static void main(String[] args) {
-		
-		String s = "  825  0   0% S   115 1830792K 175400K  fg system   system_server";
-		s = s.replaceFirst("[\\s]+", "");
-		System.out.println(s);
-		String[] arr = s.split("[\\s]+");
-		System.out.println(arr.length);
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(1);
+		list.add(2);
+		list.add(1);
+		list.add(2);
+		list.add(1);
+		list.add(1);
+		list.add(1);
+		list.add(3);
+		list.add(1);
+		list.add(1);
+		removeDuplicate(list);
 	}
+	
+	public static void removeDuplicate(List list) {  
+		   for ( int i = 0 ; i < list.size() - 1 ; i ++ ) {  
+		     for ( int j = list.size() - 1 ; j > i; j -- ) {  
+		       if (list.get(j).equals(list.get(i))) {  
+		         list.remove(j);  
+		       }   
+		      }   
+		    }   
+		    System.out.println(list);  
+		}   
 	
 	public static String getColVals(LinkedHashMap<String, String> colvals)
 	{

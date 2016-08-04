@@ -2,6 +2,7 @@ package com.guang.web.action;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class GOfferStatisticsAction extends ActionSupport{
 	@Resource private GStatisticsService statisticsService;	
 	@Resource private GOfferService offerService;
 	
+	@SuppressWarnings("deprecation")
 	public String list() 
 	{		
 		QueryResult<GOffer>  qr = offerService.findAlls(0);
@@ -39,9 +41,20 @@ public class GOfferStatisticsAction extends ActionSupport{
 			start = 0;
 		}
 		
+		Date date = new Date();	
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+		
+		String from = date.toLocaleString();
+		date.setDate(date.getDate()+1);
+		String to = date.toLocaleString();
+		
 		List<GOffer> list = offerService.findAlls(start).getList();
 		List<GOfferStatistics> slist = new ArrayList<GOfferStatistics>();
 		LinkedHashMap<String, String> colvals = new LinkedHashMap<String, String>();
+		colvals.put("uploadTime >=", "'"+from+"'");
+		colvals.put("uploadTime <", "'"+to+"'");
 		for(GOffer offer : list)
 		{
 			long offerId = offer.getId();

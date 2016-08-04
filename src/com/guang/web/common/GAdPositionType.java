@@ -8,6 +8,4 @@ public class GAdPositionType {
 	public static final int BROWSER_INTERCEPTION = 5;//浏览器截取
 	public static final int INSTALL_UNINSTALL = 6;//安装卸载
 	
-	
-	
 }
