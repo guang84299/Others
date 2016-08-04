@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.guang.web.dao.DaoTools;
 import com.guang.web.dao.QueryResult;
 import com.guang.web.mode.GStatistics;
+import com.guang.web.mode.GUser;
 import com.guang.web.service.GStatisticsService;
 @Service
 public class GStatisticsServiceImpl implements GStatisticsService{
@@ -33,5 +34,10 @@ public class GStatisticsServiceImpl implements GStatisticsService{
 		LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
 		lhm.put("id", "desc");
 		return daoTools.find(GStatistics.class, null, null, firstindex, 20, lhm);
+	}
+
+	public QueryResult<GStatistics> findAlls(
+			LinkedHashMap<String, String> colvals) {
+		return daoTools.find(GStatistics.class, colvals, 0, 100000000, null);
 	}
 }

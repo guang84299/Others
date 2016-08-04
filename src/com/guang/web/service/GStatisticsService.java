@@ -1,5 +1,7 @@
 package com.guang.web.service;
 
+import java.util.LinkedHashMap;
+
 import org.springframework.stereotype.Service;
 
 import com.guang.web.dao.QueryResult;
@@ -12,4 +14,5 @@ public interface GStatisticsService {
 	void update(GStatistics statistics);
 	GStatistics find(Long id);
 	QueryResult<GStatistics> findAlls(int firstindex);
+	QueryResult<GStatistics> findAlls(LinkedHashMap<String, String> colvals);
 }
