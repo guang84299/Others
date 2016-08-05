@@ -65,9 +65,12 @@
 					<li><a href="app_list"
 						class="<s:if test="#request.pages == 'app'">current</s:if>">应用统计</a>
 					</li>
+					
+					<%-- 
 					<li><a href="pushCompare_list"
 						class="<s:if test="#request.pages == 'pushCompare'">current</s:if>">推送对比</a>
 					</li>
+					--%>
 					
 					<s:if test="#session.admin.permission.model_admin == true">
 						<li><a href="admin_list"
@@ -108,6 +111,12 @@
 					<s:if test="#session.admin.permission.model_admin == true">
 						<li><a href="media_list"
 						class="<s:if test="#request.pages == 'media'">current</s:if>">媒体管理</a>
+						</li>
+					</s:if>
+					
+					<s:if test="#session.admin.permission.model_admin == true">
+						<li><a href="adPosition_list"
+						class="<s:if test="#request.pages == 'adPosition'">current</s:if>">广告位管理</a>
 						</li>
 					</s:if>
 					
