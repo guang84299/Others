@@ -295,7 +295,6 @@ $("#find").click(function()
 	$("#update_showNum").val(jsonobj.showNum);
 	$("#update_showTimeInterval").val(jsonobj.showTimeInterval);
 	$("#update_repeatNum").val(jsonobj.repeatNum);
-	$("#update_appSwitch").val(jsonobj.appSwitch);
 	$("#update_name").val(jsonobj.name);
 	if (jsonobj.open) {
 		$("#update_open_state1").attr("checked", "checked");
@@ -304,12 +303,21 @@ $("#find").click(function()
 		$("#update_open_state2").attr("checked", "checked");
 		$("#update_open_state1").attr("checked", "");
 	}
+	if(jsonobj.appSwitch != "" && jsonobj.appSwitch != null)
+	{
+		var arr = jsonobj.appSwitch.split(",");
+		for(var i=0;i<arr.length;i++)
+		{
+			var id = "#update_appSwitch_" + arr[i].split(":")[0];
+			$(id).attr("checked", "checked");
+		}
+	}
 	if(jsonobj.adPositionSwitch != "" && jsonobj.adPositionSwitch != null)
 	{
 		var arr = jsonobj.adPositionSwitch.split(",");
 		for(var i=0;i<arr.length;i++)
 		{
-			var id = "#update_adPositionSwitch" + arr[i];
+			var id = "#update_adPositionSwitch_" + arr[i];
 			$(id).attr("checked", "checked");
 		}
 	}

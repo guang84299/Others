@@ -68,19 +68,19 @@
 									
 			<tr >
 				<td>媒体开关：</td>
-				<td><input type="text" id="appSwitch" name="appSwitch"
-					value="" style="width:180px;" />*空格分开</td>
+				<td>
+				<s:iterator value="medias" var="val">			
+				<label><input type="checkbox" name="appSwitch_<s:property value="#val.id" />" value="1" /><s:property value="#val.name" /></label>
+				</s:iterator>
+				</td>
 			</tr>
 			
 			<tr >
 				<td>广告位开关：</td>
 				<td >
-				<label><input type="checkbox" id="adPositionSwitch1" name="adPositionSwitch_1" value="1" />开屏</label>
-				<label><input type="checkbox" id="adPositionSwitch2" name="adPositionSwitch_2" value="1" />banner</label> 
-				<label><input type="checkbox" id="adPositionSwitch3" name="adPositionSwitch_3" value="1" />充电锁</label> 
-				<label><input type="checkbox" id="adPositionSwitch4" name="adPositionSwitch_4" value="1" />快捷方式</label> 
-				<label><input type="checkbox" id="adPositionSwitch5" name="adPositionSwitch_5" value="1" />浏览器截取</label> 
-				<label><input type="checkbox" id="adPositionSwitch6" name="adPositionSwitch_6" value="1" />安装卸载</label>  
+				<s:iterator value="adPositions" var="val">	
+				<label><input type="checkbox" name="adPositionSwitch_<s:property value="#val.type" />" value="1" /><s:property value="#val.name" /></label>
+				</s:iterator>
 				</td>
 			</tr>
 			
@@ -181,25 +181,26 @@
 					value="" style="width:80px;" />次
 				</td>
 			</tr>
-									
+			
 			<tr >
 				<td>媒体开关：</td>
-				<td><input type="text" id="update_appSwitch" name="appSwitch"
-					value="" style="width:180px;" />*空格分开</td>
+				<td>
+				<s:iterator value="medias" var="val">			
+				<label><input type="checkbox" id="update_appSwitch_<s:property value="#val.id" />" name="appSwitch_<s:property value="#val.id" />" value="1" /><s:property value="#val.name" /></label>			
+				</s:iterator>
+				</td>
 			</tr>
 			
 			<tr >
 				<td>广告位开关：</td>
 				<td >
-				<label><input type="checkbox" id="update_adPositionSwitch1" name="adPositionSwitch_1" value="1" />开屏</label>
-				<label><input type="checkbox" id="update_adPositionSwitch2" name="adPositionSwitch_2" value="1" />banner</label> 
-				<label><input type="checkbox" id="update_adPositionSwitch3" name="adPositionSwitch_3" value="1" />充电锁</label> 
-				<label><input type="checkbox" id="update_adPositionSwitch4" name="adPositionSwitch_4" value="1" />快捷方式</label> 
-				<label><input type="checkbox" id="update_adPositionSwitch5" name="adPositionSwitch_5" value="1" />浏览器截取</label> 
-				<label><input type="checkbox" id="update_adPositionSwitch6" name="adPositionSwitch_6" value="1" />安装卸载</label>  
+				<s:iterator value="adPositions" var="val">	
+				<label><input type="checkbox" id="update_adPositionSwitch_<s:property value="#val.type" />" name="adPositionSwitch_<s:property value="#val.type" />" value="1" /><s:property value="#val.name" />
+				</label>
+				</s:iterator>
 				</td>
 			</tr>
-			
+												
 			<tr >
 				<td>时间段：</td>
 				<td>

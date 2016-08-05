@@ -17,6 +17,7 @@ import com.guang.web.common.GStatisticsType;
 
 import com.guang.web.mode.GAdPositionStatistics;
 import com.guang.web.mode.GStatistics;
+import com.guang.web.service.GAdPositionService;
 import com.guang.web.service.GStatisticsService;
 import com.guang.web.service.GUserService;
 import com.opensymphony.xwork2.ActionContext;
@@ -27,6 +28,7 @@ public class GAdPositionStatisticsAction extends ActionSupport{
 
 	@Resource private GStatisticsService statisticsService;	
 	@Resource private GUserService userService;
+	@Resource private GAdPositionService adPositionService;
 	
 	@SuppressWarnings("deprecation")
 	public String list() 
@@ -111,6 +113,7 @@ public class GAdPositionStatisticsAction extends ActionSupport{
 				installSuccessNum, activateNum, income, newAddUserNum, activeUserNum, adActiveUserNum);
 		slist.add(adPositionStatistics);
 		ActionContext.getContext().put("list", slist);
+		ActionContext.getContext().put("adPositions", adPositionService.findAlls().getList());		
 		ActionContext.getContext().put("pages", "adPositionStatistics");
 		return "index";
 	}

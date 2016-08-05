@@ -35,4 +35,8 @@ public class GAdPositionServiceImpl implements GAdPositionService{
 		return daoTools.find(GAdPosition.class, null, null, firstindex, 20, lhm);
 	}
 
+	public QueryResult<GAdPosition> findAlls() {
+		return daoTools.find(GAdPosition.class, null, null, 0, 20, null);
+	}
+
 }

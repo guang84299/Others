@@ -12,12 +12,9 @@
 <div style="width:600px;float:right;font-size: 14px;text-align:right;margin-top: -40px;">
 <select id="adPosition_sel">
   <option value ="0">广告位选择</option>
-  <option value ="1">开屏</option>
-  <option value ="2">banner</option>
-  <option value ="3">充电锁</option>
-  <option value ="4">快捷方式</option>
-  <option value ="5">浏览器截取</option>
-  <option value ="6">安装卸载</option>
+  <s:iterator value="adPositions" var="adPosition">
+  	<option value ="<s:property value="#adPosition.type" />"><s:property value="#adPosition.name" /></option>
+  </s:iterator>
 </select>
 <input type="button" value="今日" id="today"/>
 <input type="button" value="一周内" id="oneWeek"/>

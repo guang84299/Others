@@ -11,4 +11,5 @@ public interface GAdPositionService {
 	void update(GAdPosition adPosition);
 	GAdPosition find(Long id);
 	QueryResult<GAdPosition> findAlls(int firstindex);
+	QueryResult<GAdPosition> findAlls();
 }

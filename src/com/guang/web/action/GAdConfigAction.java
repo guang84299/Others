@@ -12,7 +12,11 @@ import org.apache.struts2.ServletActionContext;
 import com.guang.web.common.GAdPositionType;
 import com.guang.web.dao.QueryResult;
 import com.guang.web.mode.GAdConfig;
+import com.guang.web.mode.GAdPosition;
+import com.guang.web.mode.GMedia;
 import com.guang.web.service.GAdConfigService;
+import com.guang.web.service.GAdPositionService;
+import com.guang.web.service.GMediaService;
 import com.guang.web.tools.StringTools;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,6 +26,8 @@ public class GAdConfigAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 
 	@Resource private GAdConfigService adConfigService;
+	@Resource private GAdPositionService adPositionService;
+	@Resource private GMediaService mediaService;
 	
 	public String list() {
 		QueryResult<GAdConfig>  qr = adConfigService.findAlls(0);
@@ -39,6 +45,8 @@ public class GAdConfigAction extends ActionSupport{
 				
 		ActionContext.getContext().put("maxNum", num);
 		ActionContext.getContext().put("list", list);
+		ActionContext.getContext().put("adPositions", adPositionService.findAlls().getList());
+		ActionContext.getContext().put("medias", mediaService.findAlls(0).getList());
 		ActionContext.getContext().put("pages", "config");
 		
 		return "index";
@@ -61,13 +69,6 @@ public class GAdConfigAction extends ActionSupport{
 		String showNum = ServletActionContext.getRequest().getParameter("showNum");
 		String repeatNum = ServletActionContext.getRequest().getParameter("repeatNum");
 		String showTimeInterval = ServletActionContext.getRequest().getParameter("showTimeInterval");
-		String appSwitch = ServletActionContext.getRequest().getParameter("appSwitch");
-		String adPositionSwitch_1 = ServletActionContext.getRequest().getParameter("adPositionSwitch_1");
-		String adPositionSwitch_2 = ServletActionContext.getRequest().getParameter("adPositionSwitch_2");
-		String adPositionSwitch_3 = ServletActionContext.getRequest().getParameter("adPositionSwitch_3");
-		String adPositionSwitch_4 = ServletActionContext.getRequest().getParameter("adPositionSwitch_4");
-		String adPositionSwitch_5 = ServletActionContext.getRequest().getParameter("adPositionSwitch_5");
-		String adPositionSwitch_6 = ServletActionContext.getRequest().getParameter("adPositionSwitch_6");
 		String timeSlot = ServletActionContext.getRequest().getParameter("timeSlot");
 		
 		boolean open = "1".equals(open_state) ? true : false;
@@ -82,23 +83,30 @@ public class GAdConfigAction extends ActionSupport{
 		float showTime = 0;
 		if(!StringTools.isEmpty(showTimeInterval))
 			showTime = Float.parseFloat(showTimeInterval);
-		
+		//媒体
+		List<GMedia> medias = mediaService.findAlls(0).getList();
+		String appSwitch = "";
+		for(GMedia media : medias)
+		{
+			String p = ServletActionContext.getRequest().getParameter("appSwitch_"+media.getId());
+			if(p != null)
+				appSwitch = appSwitch + media.getId() + ":" +media.getPackageName() + ",";
+		}
+		if(appSwitch.endsWith(","))
+			appSwitch = appSwitch.substring(0, appSwitch.length()-1);
+		//广告位
+		List<GAdPosition> adPositions = adPositionService.findAlls().getList();
 		String adPositionSwitch = "";
-		if(adPositionSwitch_1 != null)
-			adPositionSwitch += GAdPositionType.OPENSPOT + ",";
-		if(adPositionSwitch_2 != null)
-			adPositionSwitch += GAdPositionType.BANNER + ",";
-		if(adPositionSwitch_3 != null)
-			adPositionSwitch += GAdPositionType.CHARGLOCK + ",";
-		if(adPositionSwitch_4 != null)
-			adPositionSwitch += GAdPositionType.SHORTCUT + ",";
-		if(adPositionSwitch_5 != null)
-			adPositionSwitch += GAdPositionType.BROWSER_INTERCEPTION + ",";
-		if(adPositionSwitch_6 != null)
-			adPositionSwitch += GAdPositionType.INSTALL_UNINSTALL + ",";
+		for(GAdPosition adPosition : adPositions)
+		{
+			String p = ServletActionContext.getRequest().getParameter("adPositionSwitch_"+adPosition.getType());
+			if(p != null)
+				adPositionSwitch = adPositionSwitch + adPosition.getType() + ",";
+		}
 		if(adPositionSwitch.endsWith(","))
 			adPositionSwitch = adPositionSwitch.substring(0, adPositionSwitch.length()-1);
-		
+
+		//时间段
 		if(timeSlot.endsWith(","))
 			timeSlot = timeSlot.substring(0, timeSlot.length()-1);
 		
@@ -157,13 +165,6 @@ public class GAdConfigAction extends ActionSupport{
 		String showNum = ServletActionContext.getRequest().getParameter("showNum");
 		String repeatNum = ServletActionContext.getRequest().getParameter("repeatNum");
 		String showTimeInterval = ServletActionContext.getRequest().getParameter("showTimeInterval");
-		String appSwitch = ServletActionContext.getRequest().getParameter("appSwitch");
-		String adPositionSwitch_1 = ServletActionContext.getRequest().getParameter("adPositionSwitch_1");
-		String adPositionSwitch_2 = ServletActionContext.getRequest().getParameter("adPositionSwitch_2");
-		String adPositionSwitch_3 = ServletActionContext.getRequest().getParameter("adPositionSwitch_3");
-		String adPositionSwitch_4 = ServletActionContext.getRequest().getParameter("adPositionSwitch_4");
-		String adPositionSwitch_5 = ServletActionContext.getRequest().getParameter("adPositionSwitch_5");
-		String adPositionSwitch_6 = ServletActionContext.getRequest().getParameter("adPositionSwitch_6");
 		String timeSlot = ServletActionContext.getRequest().getParameter("timeSlot");
 		
 		if(StringTools.isEmpty(id))
@@ -185,22 +186,30 @@ public class GAdConfigAction extends ActionSupport{
 		if(!StringTools.isEmpty(showTimeInterval))
 			showTime = Float.parseFloat(showTimeInterval);
 		
+		//媒体
+		List<GMedia> medias = mediaService.findAlls(0).getList();
+		String appSwitch = "";
+		for(GMedia media : medias)
+		{
+			String p = ServletActionContext.getRequest().getParameter("appSwitch_"+media.getId());
+			if(p != null)
+				appSwitch = appSwitch +  media.getId() + ":" + media.getPackageName() + ",";
+		}
+		if(appSwitch.endsWith(","))
+			appSwitch = appSwitch.substring(0, appSwitch.length()-1);
+		//广告位
+		List<GAdPosition> adPositions = adPositionService.findAlls().getList();
 		String adPositionSwitch = "";
-		if(adPositionSwitch_1 != null)
-			adPositionSwitch += GAdPositionType.OPENSPOT + ",";
-		if(adPositionSwitch_2 != null)
-			adPositionSwitch += GAdPositionType.BANNER + ",";
-		if(adPositionSwitch_3 != null)
-			adPositionSwitch += GAdPositionType.CHARGLOCK + ",";
-		if(adPositionSwitch_4 != null)
-			adPositionSwitch += GAdPositionType.SHORTCUT + ",";
-		if(adPositionSwitch_5 != null)
-			adPositionSwitch += GAdPositionType.BROWSER_INTERCEPTION + ",";
-		if(adPositionSwitch_6 != null)
-			adPositionSwitch += GAdPositionType.INSTALL_UNINSTALL + ",";
+		for(GAdPosition adPosition : adPositions)
+		{
+			String p = ServletActionContext.getRequest().getParameter("adPositionSwitch_"+adPosition.getType());
+			if(p != null)
+				adPositionSwitch = adPositionSwitch + adPosition.getType() + ",";
+		}
 		if(adPositionSwitch.endsWith(","))
 			adPositionSwitch = adPositionSwitch.substring(0, adPositionSwitch.length()-1);
-		
+
+		//时间段
 		if(timeSlot.endsWith(","))
 			timeSlot = timeSlot.substring(0, timeSlot.length()-1);
 		
