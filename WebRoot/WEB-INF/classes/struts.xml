@@ -75,6 +75,10 @@
 	      <result name="index" >/index.jsp</result>
 	   </action>
 	   
+	    <action name="statistics_*" class="com.guang.web.action.GStatisticsAction" method="{1}">
+	      <result name="index" >/index.jsp</result>
+	   </action>
+	   
 	    <action name="other_*" class="com.guang.web.action.GOthersAction" method="{1}">
 	      <result name="fensui" >/pages/others/fensuitangguo.jsp</result>
 	   </action>

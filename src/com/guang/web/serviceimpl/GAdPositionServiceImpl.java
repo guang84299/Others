@@ -1,6 +1,7 @@
 package com.guang.web.serviceimpl;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -37,6 +38,13 @@ public class GAdPositionServiceImpl implements GAdPositionService{
 
 	public QueryResult<GAdPosition> findAlls() {
 		return daoTools.find(GAdPosition.class, null, null, 0, 20, null);
+	}
+
+	public GAdPosition find(int adPositionType) {
+		List<GAdPosition> list = daoTools.find(GAdPosition.class, "type", adPositionType+"", 0, 1, null).getList();
+		if(list != null && list.size() > 0)
+			return list.get(0);
+		return null;
 	}
 
 }

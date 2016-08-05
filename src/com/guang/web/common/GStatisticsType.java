@@ -10,4 +10,8 @@ public class GStatisticsType {
 	public static final int INSTALL = 5;//安装
 	public static final int INSTALL_SUCCESS = 6;//安装成功
 	public static final int ACTIVATE = 7;//激活
+	
+	public static final String Types[] = {
+		"请求","展示","点击","下载成功","安装","安装成功","激活"
+	};
 }

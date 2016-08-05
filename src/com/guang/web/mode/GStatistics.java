@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "offer_statistics")
@@ -19,6 +20,10 @@ public class GStatistics {
 	private String packageName;
 	private String appName;
 	private Date uploadTime;
+	
+	private String statisticsType;
+	private String adPosition;
+	private String offer;
 	
 	public GStatistics(){}
 	public GStatistics(Integer type, Long userId, Integer adPositionType,
@@ -83,6 +88,28 @@ public class GStatistics {
 	}
 	public void setUploadTime(Date uploadTime) {
 		this.uploadTime = uploadTime;
+	}
+	
+	@Transient
+	public String getStatisticsType() {
+		return statisticsType;
+	}
+	public void setStatisticsType(String statisticsType) {
+		this.statisticsType = statisticsType;
+	}
+	@Transient
+	public String getAdPosition() {
+		return adPosition;
+	}
+	public void setAdPosition(String adPosition) {
+		this.adPosition = adPosition;
+	}
+	@Transient
+	public String getOffer() {
+		return offer;
+	}
+	public void setOffer(String offer) {
+		this.offer = offer;
 	}
 	
 	

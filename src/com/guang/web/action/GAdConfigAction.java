@@ -9,7 +9,6 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.guang.web.common.GAdPositionType;
 import com.guang.web.dao.QueryResult;
 import com.guang.web.mode.GAdConfig;
 import com.guang.web.mode.GAdPosition;

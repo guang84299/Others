@@ -10,6 +10,7 @@ public interface GAdPositionService {
 	void delete(Long id);
 	void update(GAdPosition adPosition);
 	GAdPosition find(Long id);
+	GAdPosition find(int adPositionType);
 	QueryResult<GAdPosition> findAlls(int firstindex);
 	QueryResult<GAdPosition> findAlls();
 }
