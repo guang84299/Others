@@ -10,6 +10,7 @@
 	src="<%=basePath%>scripts/laydate.dev.js"></script>
 <h1>offer统计</h1>
 <div style="width:600px;float:right;font-size: 14px;text-align:right;margin-top: -40px;">
+<label><input type="checkbox" id="doubleSta" name="doubleSta" value="1" />间接</label>
 <input type="button" value="今日" id="today"/>
 <input type="button" value="一周内" id="oneWeek"/>
 <input type="button" value="一月内" id="oneMonth"/>
@@ -28,7 +29,6 @@
 			<th>下载</th>
 			<th>下载成功</th>
 			<th>安装</th>
-			<th>安装成功</th>
 			<th>激活</th>
 			<th>收入</th>			
 		</tr>
@@ -44,7 +44,6 @@
 				<td><s:property value="#user.downloadNum" /></td>
 				<td><s:property value="#user.downloadSuccessNum" /></td>
 				<td><s:property value="#user.installNum" /></td>
-				<td><s:property value="#user.installSuccessNum" /></td>
 				<td><s:property value="#user.activateNum" /></td>
 				<td><s:property value="#user.income" /></td>
 			</tr>

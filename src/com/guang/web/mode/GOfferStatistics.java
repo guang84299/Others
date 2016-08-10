@@ -9,14 +9,13 @@ public class GOfferStatistics {
 	private long downloadNum;
 	private long downloadSuccessNum;
 	private long installNum;
-	private long installSuccessNum;
 	private long activateNum;
 	private float income;//收入
 	
 	public GOfferStatistics(){}
 	public GOfferStatistics(long offerId, String offerName, long requestNum,
 			long showNum, long clickNum, long downloadNum,
-			long downloadSuccessNum, long installNum, long installSuccessNum,
+			long downloadSuccessNum, long installNum,
 			long activateNum, float income) {
 		super();
 		this.offerId = offerId;
@@ -27,7 +26,6 @@ public class GOfferStatistics {
 		this.downloadNum = downloadNum;
 		this.downloadSuccessNum = downloadSuccessNum;
 		this.installNum = installNum;
-		this.installSuccessNum = installSuccessNum;
 		this.activateNum = activateNum;
 		this.income = income;
 	}
@@ -78,12 +76,6 @@ public class GOfferStatistics {
 	}
 	public void setInstallNum(long installNum) {
 		this.installNum = installNum;
-	}
-	public long getInstallSuccessNum() {
-		return installSuccessNum;
-	}
-	public void setInstallSuccessNum(long installSuccessNum) {
-		this.installSuccessNum = installSuccessNum;
 	}
 	public long getActivateNum() {
 		return activateNum;

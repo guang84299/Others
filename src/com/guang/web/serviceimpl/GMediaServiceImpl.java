@@ -34,4 +34,10 @@ public class GMediaServiceImpl implements GMediaService{
 		lhm.put("id", "desc");
 		return daoTools.find(GMedia.class, null, null, firstindex, 20, lhm);
 	}
+
+	public QueryResult<GMedia> findAlls() {
+		LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
+		lhm.put("id", "desc");
+		return daoTools.find(GMedia.class, null, null, 0, 100, lhm);
+	}
 }

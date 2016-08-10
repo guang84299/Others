@@ -9,11 +9,18 @@
 <script type="text/javascript"
 	src="<%=basePath%>scripts/laydate.dev.js"></script>
 <h1>广告位统计</h1>
-<div style="width:600px;float:right;font-size: 14px;text-align:right;margin-top: -40px;">
+<div style="width:800px;float:right;font-size: 14px;text-align:right;margin-top: -40px;">
+<label><input type="checkbox" id="doubleSta" name="doubleSta" value="1" />间接</label>
 <select id="adPosition_sel">
   <option value ="0">广告位选择</option>
   <s:iterator value="adPositions" var="adPosition">
   	<option value ="<s:property value="#adPosition.type" />"><s:property value="#adPosition.name" /></option>
+  </s:iterator>
+</select>
+<select id="media_sel">
+  <option value ="0">媒体选择</option>
+  <s:iterator value="medias" var="media">
+  	<option value ="<s:property value="#media.packageName" />"><s:property value="#media.name" /></option>
   </s:iterator>
 </select>
 <input type="button" value="今日" id="today"/>
@@ -32,7 +39,6 @@
 			<th>下载</th>
 			<th>下载成功</th>
 			<th>安装</th>
-			<th>安装成功</th>
 			<th>激活</th>
 			<th>收入</th>	
 			<th>新增用户</th>
@@ -49,7 +55,6 @@
 				<td><s:property value="#user.downloadNum" /></td>
 				<td><s:property value="#user.downloadSuccessNum" /></td>
 				<td><s:property value="#user.installNum" /></td>
-				<td><s:property value="#user.installSuccessNum" /></td>
 				<td><s:property value="#user.activateNum" /></td>
 				<td><s:property value="#user.income" /></td>
 				<td><s:property value="#user.newAddUserNum" /></td>

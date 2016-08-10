@@ -86,19 +86,39 @@ public class GOfferStatisticsAction extends ActionSupport{
 			colvals.remove("type =");
 			colvals.put("type =", GStatisticsType.INSTALL+"");
 			long installNum = statisticsService.findAlls(colvals).getNum();
-			
-			colvals.remove("type =");
-			colvals.put("type =", GStatisticsType.INSTALL_SUCCESS+"");
-			long installSuccessNum = statisticsService.findAlls(colvals).getNum();
-			
+					
 			colvals.remove("type =");
 			colvals.put("type =", GStatisticsType.ACTIVATE+"");
 			long activateNum = statisticsService.findAlls(colvals).getNum();
 			
+			colvals.remove("type =");
+			colvals.put("type =", GStatisticsType.DOUBLE_SHOW + "");
+			showNum += statisticsService.findAlls(colvals).getNum();
+
+			colvals.remove("type =");
+			colvals.put("type =", GStatisticsType.DOUBLE_CLICK + "");
+			clickNum += statisticsService.findAlls(colvals).getNum();
+
+			colvals.remove("type =");
+			colvals.put("type =", GStatisticsType.DOUBLE_DOWNLOAD + "");
+			downloadNum += statisticsService.findAlls(colvals).getNum();
+
+			colvals.remove("type =");
+			colvals.put("type =", GStatisticsType.DOUBLE_DOWNLOAD_SUCCESS + "");
+			downloadSuccessNum += statisticsService.findAlls(colvals).getNum();
+
+			colvals.remove("type =");
+			colvals.put("type =", GStatisticsType.DOUBLE_INSTALL + "");
+			installNum += statisticsService.findAlls(colvals).getNum();
+
+			colvals.remove("type =");
+			colvals.put("type =", GStatisticsType.DOUBLE_ACTIVATE + "");
+			activateNum += statisticsService.findAlls(colvals).getNum();
+			
 			float income = activateNum;
 			
 			GOfferStatistics offerStatistics = new GOfferStatistics(offerId, offerName, requestNum, showNum, clickNum, downloadNum,
-					downloadSuccessNum, installNum, installSuccessNum, activateNum, income);
+					downloadSuccessNum, installNum, activateNum, income);
 			slist.add(offerStatistics);
 		}
 				
@@ -121,6 +141,7 @@ public class GOfferStatisticsAction extends ActionSupport{
 	{		
 		String from = ServletActionContext.getRequest().getParameter("from");
 		String to = ServletActionContext.getRequest().getParameter("to");
+		String doubleSta = ServletActionContext.getRequest().getParameter("doubleSta");
 						
 		List<GOffer> list = offerService.findAlls(0).getList();
 		List<GOfferStatistics> slist = new ArrayList<GOfferStatistics>();
@@ -158,18 +179,42 @@ public class GOfferStatisticsAction extends ActionSupport{
 			colvals.remove("type =");
 			colvals.put("type =", GStatisticsType.INSTALL+"");
 			long installNum = statisticsService.findAlls(colvals).getNum();
-			
-			colvals.remove("type =");
-			colvals.put("type =", GStatisticsType.INSTALL_SUCCESS+"");
-			long installSuccessNum = statisticsService.findAlls(colvals).getNum();
-			
+						
 			colvals.remove("type =");
 			colvals.put("type =", GStatisticsType.ACTIVATE+"");
 			long activateNum = statisticsService.findAlls(colvals).getNum();
+			
+			if(doubleSta != null && "1".equals(doubleSta))
+			{
+				colvals.remove("type =");
+				colvals.put("type =", GStatisticsType.DOUBLE_SHOW + "");
+				showNum += statisticsService.findAlls(colvals).getNum();
+
+				colvals.remove("type =");
+				colvals.put("type =", GStatisticsType.DOUBLE_CLICK + "");
+				clickNum += statisticsService.findAlls(colvals).getNum();
+
+				colvals.remove("type =");
+				colvals.put("type =", GStatisticsType.DOUBLE_DOWNLOAD + "");
+				downloadNum += statisticsService.findAlls(colvals).getNum();
+
+				colvals.remove("type =");
+				colvals.put("type =", GStatisticsType.DOUBLE_DOWNLOAD_SUCCESS + "");
+				downloadSuccessNum += statisticsService.findAlls(colvals).getNum();
+
+				colvals.remove("type =");
+				colvals.put("type =", GStatisticsType.DOUBLE_INSTALL + "");
+				installNum += statisticsService.findAlls(colvals).getNum();
+
+				colvals.remove("type =");
+				colvals.put("type =", GStatisticsType.DOUBLE_ACTIVATE + "");
+				activateNum += statisticsService.findAlls(colvals).getNum();
+			}
+			
 			float income = activateNum;
 			
 			GOfferStatistics offerStatistics = new GOfferStatistics(offerId, offerName, requestNum, showNum, clickNum, downloadNum,
-					downloadSuccessNum, installNum, installSuccessNum, activateNum, income);
+					downloadSuccessNum, installNum, activateNum, income);
 			slist.add(offerStatistics);
 		}
 				

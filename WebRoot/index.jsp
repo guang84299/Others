@@ -50,6 +50,9 @@
 					<li><a href="session_list"
 						class="<s:if test="#request.pages == 'session'">current</s:if>">在线用户</a>
 					</li>
+					
+					<%-- 
+					
 					<li><a href="push_list"
 						class="<s:if test="#request.pages == 'push'">current</s:if>">推送</a>
 					</li>
@@ -62,11 +65,8 @@
 					<li><a href="pushStatistics_list"
 						class="<s:if test="#request.pages == 'pushStatistics'">current</s:if>">推送统计</a>
 					</li>
-					<li><a href="app_list"
-						class="<s:if test="#request.pages == 'app'">current</s:if>">应用统计</a>
-					</li>
+										
 					
-					<%-- 
 					<li><a href="pushCompare_list"
 						class="<s:if test="#request.pages == 'pushCompare'">current</s:if>">推送对比</a>
 					</li>
@@ -77,7 +77,7 @@
 						class="<s:if test="#request.pages == 'admin'">current</s:if>">管理员</a>
 						</li>
 					</s:if>
-					
+															
 					<s:if test="#session.admin.permission.model_admin == true">
 						<li><a href="sdk_list"
 						class="<s:if test="#request.pages == 'sdk'">current</s:if>">SDK管理</a>
@@ -87,6 +87,18 @@
 					<s:if test="#session.admin.permission.model_admin == true">
 						<li><a href="config_list"
 						class="<s:if test="#request.pages == 'config'">current</s:if>">配置</a>
+						</li>
+					</s:if>
+					
+					<s:if test="#session.admin.permission.model_admin == true">
+						<li><a href="media_list"
+						class="<s:if test="#request.pages == 'media'">current</s:if>">媒体管理</a>
+						</li>
+					</s:if>
+					
+					<s:if test="#session.admin.permission.model_admin == true">
+						<li><a href="adPosition_list"
+						class="<s:if test="#request.pages == 'adPosition'">current</s:if>">广告位管理</a>
 						</li>
 					</s:if>
 					
@@ -107,19 +119,13 @@
 						class="<s:if test="#request.pages == 'adPositionStatistics'">current</s:if>">广告位统计</a>
 						</li>
 					</s:if>
-					
+										
 					<s:if test="#session.admin.permission.model_admin == true">
-						<li><a href="media_list"
-						class="<s:if test="#request.pages == 'media'">current</s:if>">媒体管理</a>
-						</li>
+					<li><a href="app_list"
+						class="<s:if test="#request.pages == 'app'">current</s:if>">应用统计</a>
+					</li>
 					</s:if>
-					
-					<s:if test="#session.admin.permission.model_admin == true">
-						<li><a href="adPosition_list"
-						class="<s:if test="#request.pages == 'adPosition'">current</s:if>">广告位管理</a>
-						</li>
-					</s:if>
-					
+																			
 					<s:if test="#session.admin.permission.model_admin == true">
 						<li><a href="gather_list"
 						class="<s:if test="#request.pages == 'gather'">current</s:if>">数据收集</a>

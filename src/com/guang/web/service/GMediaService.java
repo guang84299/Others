@@ -11,4 +11,5 @@ public interface GMediaService {
 	void update(GMedia media);
 	GMedia find(Long id);
 	QueryResult<GMedia> findAlls(int firstindex);
+	QueryResult<GMedia> findAlls();
 }

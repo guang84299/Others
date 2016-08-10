@@ -2,19 +2,26 @@ package com.guang.web.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
+import com.guang.web.common.GStatisticsType;
 import com.guang.web.dao.QueryResult;
 import com.guang.web.mode.GOffer;
+import com.guang.web.mode.GStatistics;
 import com.guang.web.service.GOfferService;
+import com.guang.web.service.GStatisticsService;
+import com.guang.web.service.GUserService;
 import com.guang.web.tools.ApkTools;
+import com.guang.web.tools.GTools;
 import com.guang.web.tools.PinYinTools;
 import com.guang.web.tools.StringTools;
 import com.opensymphony.xwork2.ActionContext;
@@ -25,6 +32,8 @@ public class GOfferAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	
 	@Resource private GOfferService offerService;
+	@Resource private GUserService userService;
+	@Resource private GStatisticsService statisticsService;
 	
 	private Long id;
 	private String name;
@@ -391,7 +400,51 @@ public class GOfferAction extends ActionSupport{
 			GOffer offer = offerService.find(Long.parseLong(data));
 			print(JSONObject.fromObject(offer).toString());
 		}
-	}		
+	}	
+	
+	public void getRandOffer()
+	{
+		String data = ServletActionContext.getRequest().getParameter("data");
+		JSONObject obj = JSONObject.fromObject(data);
+		String name = obj.getString("name");
+		String packageName = obj.getString("packageName");
+		String appName = obj.getString("appName");
+		long userId = userService.find(name).getId();
+		
+		List<GOffer> listo = offerService.findAlls(0).getList();		
+		if(listo.size() > 5)
+		{
+			List<GOffer> list2 = new ArrayList<GOffer>();
+			List<Integer> list = new ArrayList<Integer>();
+			for(int i=0;i<20;i++)
+			{
+				list.add(GTools.getRand(0, listo.size()));
+			}
+			//移除重复数据
+			for ( int i = 0 ; i < list.size() - 1 ; i ++ ) 
+			{  
+			     for ( int j = list.size() - 1 ; j > i; j -- ) 
+			     {  
+			       if (list.get(j).equals(list.get(i)))
+			       {  
+			    	   list.remove(j); 
+			       }
+			     }   
+			} 
+			for(int i=0;i<5;i++)
+			{
+				list2.add(listo.get(list.get(i)));
+			}
+			listo = list2;
+		}	
+		
+		for(int i=0;i<listo.size();i++)
+		{
+			GOffer offer = listo.get(i);
+			statisticsService.add(new GStatistics(GStatisticsType.REQUEST, userId, 1, offer.getId(), packageName, appName));
+		}
+		print(JSONArray.fromObject(listo).toString());
+	}	
 	
 	
 	public Long getId() {

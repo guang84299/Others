@@ -7,7 +7,6 @@ public class GAdPositionStatistics {
 	private long downloadNum;
 	private long downloadSuccessNum;
 	private long installNum;
-	private long installSuccessNum;
 	private long activateNum;
 	private float income;//收入
 	private long newAddUserNum;
@@ -17,7 +16,7 @@ public class GAdPositionStatistics {
 	public GAdPositionStatistics(){}
 	public GAdPositionStatistics(
 			long requestNum, long showNum, long clickNum, long downloadNum,
-			long downloadSuccessNum, long installNum, long installSuccessNum,
+			long downloadSuccessNum, long installNum, 
 			long activateNum, float income,long newAddUserNum,long activeUserNum,
 			long adActiveUserNum) {
 		super();
@@ -27,7 +26,6 @@ public class GAdPositionStatistics {
 		this.downloadNum = downloadNum;
 		this.downloadSuccessNum = downloadSuccessNum;
 		this.installNum = installNum;
-		this.installSuccessNum = installSuccessNum;
 		this.activateNum = activateNum;
 		this.income = income;
 		this.newAddUserNum = newAddUserNum;
@@ -70,12 +68,6 @@ public class GAdPositionStatistics {
 	}
 	public void setInstallNum(long installNum) {
 		this.installNum = installNum;
-	}
-	public long getInstallSuccessNum() {
-		return installSuccessNum;
-	}
-	public void setInstallSuccessNum(long installSuccessNum) {
-		this.installSuccessNum = installSuccessNum;
 	}
 	public long getActivateNum() {
 		return activateNum;

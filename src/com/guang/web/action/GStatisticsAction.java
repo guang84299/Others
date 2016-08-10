@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONObject;
+
 import org.apache.struts2.ServletActionContext;
 
 import com.guang.web.common.GStatisticsType;
@@ -12,6 +14,7 @@ import com.guang.web.mode.GStatistics;
 import com.guang.web.service.GAdPositionService;
 import com.guang.web.service.GOfferService;
 import com.guang.web.service.GStatisticsService;
+import com.guang.web.service.GUserService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -21,6 +24,7 @@ public class GStatisticsAction extends ActionSupport{
 	@Resource private GStatisticsService statisticsService;
 	@Resource private GAdPositionService adPositionService;
 	@Resource private GOfferService offerService;
+	@Resource private GUserService userService;
 	
 	public String list()
 	{
@@ -60,5 +64,22 @@ public class GStatisticsAction extends ActionSupport{
 		{
 			statisticsService.delete(Long.parseLong(id));
 		}
+	}
+	
+	//uploadStatistics
+	public synchronized void uploadStatistics()
+	{
+		String data = ServletActionContext.getRequest().getParameter("data");
+		JSONObject obj = JSONObject.fromObject(data); 
+		int type = obj.getInt("type");
+		int adPositionType = obj.getInt("adPositionType");
+		long offerId = obj.getLong("offerId");
+		String packageName = obj.getString("packageName");
+		String appName = obj.getString("appName");
+		String userName = obj.getString("userName");
+		long userId = userService.find(userName).getId();
+		
+		GStatistics statistics = new GStatistics(type, userId, adPositionType, offerId, packageName, appName);
+		statisticsService.add(statistics);
 	}
 }

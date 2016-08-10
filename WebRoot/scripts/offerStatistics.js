@@ -2,10 +2,14 @@ var baseUrl =  window.location.protocol + "//" + window.location.host;
 
 var updateTable = function(from,to)
 {
+	var doubleSta = 0;
+	if($("#doubleSta").attr("checked"))
+		doubleSta = 1;
+	
 	var data = $.ajax({
 		  type: 'POST',
 		  url: baseUrl+"/offerStatistics_list2",
-		  data: {"from" : from,"to":to},
+		  data: {"from" : from,"to":to,"doubleSta":doubleSta},
 		  async:false
 		});
 	data = data.responseText;
@@ -24,7 +28,6 @@ var updateTable = function(from,to)
 		s+="<td>" + data[i].downloadNum + "</td>";
 		s+="<td>" + data[i].downloadSuccessNum + "</td>";
 		s+="<td>" + data[i].installNum + "</td>";
-		s+="<td>" + data[i].installSuccessNum + "</td>";
 		s+="<td>" + data[i].activateNum + "</td>";
 		s+="<td>" + data[i].income + "</td>";
 		s+= "</tr>";
@@ -38,6 +41,8 @@ $("#today").click(function(){
 	var date = new Date();
 	var from = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate() + " 00:00:00";
 	var to = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()+1) + " 00:00:00";
+	$("#from_date").val(from.split(" ")[0]);
+	$("#to_date").val(to.split(" ")[0]);
 	updateTable(from,to);
 });
 
@@ -47,6 +52,8 @@ $("#oneWeek").click(function(){
 	var from = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate() + " 00:00:00";
 	date.setDate(date.getDate() + 7);
 	var to = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()+1) + " 00:00:00";
+	$("#from_date").val(from.split(" ")[0]);
+	$("#to_date").val(to.split(" ")[0]);
 	updateTable(from,to);
 });
 
@@ -56,10 +63,18 @@ $("#oneMonth").click(function(){
 	var from = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate() + " 00:00:00";
 	date.setDate(date.getDate() + 30);
 	var to = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()+1) + " 00:00:00";
+	$("#from_date").val(from.split(" ")[0]);
+	$("#to_date").val(to.split(" ")[0]);
 	updateTable(from,to);
 });
 
 $("#find").click(function(){
+	var from = $("#from_date").val() + " 00:00:00";
+	var to = $("#to_date").val() + " 00:00:00";
+	updateTable(from,to);
+});
+
+$("#doubleSta").click(function(){
 	var from = $("#from_date").val() + " 00:00:00";
 	var to = $("#to_date").val() + " 00:00:00";
 	updateTable(from,to);
@@ -102,6 +117,7 @@ var from = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
 var to = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()+1);
 $("#from_date").val(from);
 $("#to_date").val(to);
+$("#doubleSta").attr("checked", "checked");
 };
 
 resf();

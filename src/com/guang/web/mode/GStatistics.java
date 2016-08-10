@@ -27,7 +27,7 @@ public class GStatistics {
 	
 	public GStatistics(){}
 	public GStatistics(Integer type, Long userId, Integer adPositionType,
-			Long offerId, String packageName, String appName, Date uploadTime) {
+			Long offerId, String packageName, String appName) {
 		super();
 		this.type = type;
 		this.userId = userId;
@@ -35,7 +35,7 @@ public class GStatistics {
 		this.offerId = offerId;
 		this.packageName = packageName;
 		this.appName = appName;
-		this.uploadTime = uploadTime;
+		this.uploadTime = new Date();
 	}
 	@Id
 	@GeneratedValue
