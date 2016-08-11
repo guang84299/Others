@@ -17,11 +17,11 @@ public class GatherAppRunInfo {
 	private Date gdate;
 	private String packageName;
 	private String appName;
-	private String className;
+	private String clazName;
 	private boolean inlay;
 	private Date startTime;
 	private long useTime;
-	private boolean isWifi;
+	private boolean wifi;
 	
 	private String useTimes;
 	
@@ -31,16 +31,16 @@ public class GatherAppRunInfo {
 
 
 	public GatherAppRunInfo(String deviceId, String packageName,
-			String appName,String className, boolean inlay, Date startTime, long useTime,
-			boolean isWifi) {
+			String appName,String clazName, boolean inlay, Date startTime, long useTime,
+			boolean wifi) {
 		this.deviceId = deviceId;
 		this.packageName = packageName;
 		this.appName = appName;
-		this.className = className;
+		this.clazName = clazName;
 		this.inlay = inlay;
 		this.startTime = startTime;
 		this.useTime = useTime;
-		this.isWifi = isWifi;
+		this.wifi = wifi;
 		this.gdate = new Date();
 	}
 
@@ -96,19 +96,21 @@ public class GatherAppRunInfo {
 	}
 
 	@Column(length =128)
-	public String getClassName() {
-		return className;
+	public String getClazName() {
+		return clazName;
 	}
 
 
-	public void setClassName(String className) {
-		this.className = className;
+	public void setClazName(String clazName) {
+		this.clazName = clazName;
 	}
-
 
 	public boolean isInlay() {
 		return inlay;
 	}
+
+
+	
 
 
 	public void setInlay(boolean inlay) {
@@ -136,14 +138,17 @@ public class GatherAppRunInfo {
 	}
 
 
+	
+
 	public boolean isWifi() {
-		return isWifi;
+		return wifi;
 	}
 
 
-	public void setWifi(boolean isWifi) {
-		this.isWifi = isWifi;
+	public void setWifi(boolean wifi) {
+		this.wifi = wifi;
 	}
+
 
 	@Transient
 	public String getUseTimes() {

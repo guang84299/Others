@@ -28,8 +28,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"
 					<td><s:property value="#val.deviceId" /></td>
 					<td><s:property value="#val.packageName" /></td>
 					<td><s:property value="#val.appName" /></td>	
-					<td><s:property value="#rval.className" /></td>	
-					<s:if test="#val.inlay == true">是</s:if><s:else>否</s:else>		
+					<td><s:property value="#val.clazName" /></td>	
+					<td><s:if test="#val.inlay == true">是</s:if><s:else>否</s:else>	</td>		
 					<td align="center"><s:date name="#val.gdate" format="yyyy-MM-dd HH:mm:ss" /></td>
 					<td class="thUpdate"><input class="caozuo" type="button" value="操作" title="<s:property value="#val.id"/>"/></td>
 				</tr>
@@ -72,11 +72,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"
 					<td><s:property value="#rval.deviceId" /></td>
 					<td><s:property value="#rval.packageName" /></td>
 					<td><s:property value="#rval.appName" /></td>
-					<td><s:property value="#rval.className" /></td>	
+					<td><s:property value="#rval.clazName" /></td>	
 					<td align="center"><s:date name="#rval.startTime" format="yyyy-MM-dd HH:mm:ss" /></td>
 					<td><s:property value="#rval.useTimes" /></td>	
-					<s:if test="#rval.inlay == true">是</s:if><s:else>否</s:else>	
-					<s:if test="#rval.wifi == true">是</s:if><s:else>否</s:else>			
+					<td><s:if test="#rval.inlay == true">是</s:if><s:else>否</s:else></td>		
+					<td><s:if test="#rval.wifi == true">是</s:if><s:else>否</s:else>	</td>			
 					<td align="center"><s:date name="#rval.gdate" format="yyyy-MM-dd HH:mm:ss" /></td>
 					<td class="runUpdate"><input class="runUp" type="button" value="操作" title="<s:property value="#rval.id"/>"/></td>
 				</tr>

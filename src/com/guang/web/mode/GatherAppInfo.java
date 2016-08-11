@@ -15,7 +15,7 @@ public class GatherAppInfo {
 	private String deviceId;	
 	private String packageName;
 	private String appName;
-	private String className;
+	private String clazName;
 	private boolean inlay;
 	private Date gdate;
 	
@@ -24,11 +24,11 @@ public class GatherAppInfo {
 	public GatherAppInfo() {
 	}
 	public GatherAppInfo(String deviceId, String packageName,
-			String appName,String className, boolean inlay) {
+			String appName,String clazName, boolean inlay) {
 		this.deviceId = deviceId;
 		this.packageName = packageName;
 		this.appName = appName;
-		this.className = className;
+		this.clazName = clazName;
 		this.inlay = inlay;
 		this.gdate = new Date();
 	}
@@ -68,25 +68,19 @@ public class GatherAppInfo {
 	public void setAppName(String appName) {
 		this.appName = appName;
 	}
-	@Column(length = 128)
-	public String getClassName() {
-		return className;
+	@Column(length = 128)	
+	public String getClazName() {
+		return clazName;
 	}
-	public void setClassName(String className) {
-		this.className = className;
+	public void setClazName(String clazName) {
+		this.clazName = clazName;
 	}
 	public boolean isInlay() {
 		return inlay;
-	}
+	}	
 	public void setInlay(boolean inlay) {
 		this.inlay = inlay;
 	}
-	@Override
-	public String toString() {
-		return "GatherAppInfo [id=" + id + ", deviceId=" + deviceId
-				+ ", packageName=" + packageName + ", appName=" + appName
-				+ ", className=" + className + ", inlay=" + inlay + ", gdate="
-				+ gdate + "]";
-	}
+	
 	
 }

@@ -149,12 +149,12 @@ public class GGatherDataAction {
 		boolean inlay = obj.getBoolean("inlay");
 		boolean isWifi = obj.getBoolean("isWifi");
 		
-		String className = "";
-		if(obj.has("className"))
-			className = obj.getString("className");
+		String clazName = "";
+		if(obj.has("clazName"))
+			clazName = obj.getString("clazName");
 		Date startTime = new Date(time);
 		
-		GatherAppRunInfo appRunInfo = new GatherAppRunInfo(deviceId, packageName, appName, className, inlay, startTime, use_time, isWifi);
+		GatherAppRunInfo appRunInfo = new GatherAppRunInfo(deviceId, packageName, appName, clazName, inlay, startTime, use_time, isWifi);
 		appInfoService.add(appRunInfo);
 	}
 	
