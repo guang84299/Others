@@ -1,42 +1,47 @@
 package com.guang.web.mode;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="gather_runinfo")
 public class GatherAppRunInfo {
 	private long id;
-	private long deviceId;
-	private String gdate;
-	private String pack;
+	private String deviceId;
+	private Date gdate;
+	private String packageName;
+	private String appName;
 	private String className;
 	private boolean inlay;
-	private String startTime;
-	private String useTime;
+	private Date startTime;
+	private long useTime;
 	private boolean isWifi;
+	
+	private String useTimes;
 	
 	
 	public GatherAppRunInfo() {
-		super();
 	}
 
 
-	public GatherAppRunInfo(long id, long deviceId, String gdate, String pack,
-			String className, boolean inlay, String startTime, String useTime,
+	public GatherAppRunInfo(String deviceId, String packageName,
+			String appName,String className, boolean inlay, Date startTime, long useTime,
 			boolean isWifi) {
-		super();
-		this.id = id;
 		this.deviceId = deviceId;
-		this.gdate = gdate;
-		this.pack = pack;
+		this.packageName = packageName;
+		this.appName = appName;
 		this.className = className;
 		this.inlay = inlay;
 		this.startTime = startTime;
 		this.useTime = useTime;
 		this.isWifi = isWifi;
+		this.gdate = new Date();
 	}
 
 	@Id
@@ -49,38 +54,48 @@ public class GatherAppRunInfo {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-
-	public long getDeviceId() {
+	
+	@Column(length = 64)
+	public String getDeviceId() {
 		return deviceId;
 	}
 
 
-	public void setDeviceId(long deviceId) {
+	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
 	}
 
 
-	public String getGdate() {
+	public Date getGdate() {
 		return gdate;
 	}
 
 
-	public void setGdate(String gdate) {
+	public void setGdate(Date gdate) {
 		this.gdate = gdate;
 	}
 
-
-	public String getPack() {
-		return pack;
+	@Column(length = 64)
+	public String getPackageName() {
+		return packageName;
 	}
 
 
-	public void setPack(String pack) {
-		this.pack = pack;
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
+
+	@Column(length = 64)
+	public String getAppName() {
+		return appName;
 	}
 
 
+	public void setAppName(String appName) {
+		this.appName = appName;
+	}
+
+	@Column(length =128)
 	public String getClassName() {
 		return className;
 	}
@@ -101,22 +116,22 @@ public class GatherAppRunInfo {
 	}
 
 
-	public String getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
 
-	public String getUseTime() {
+	public long getUseTime() {
 		return useTime;
 	}
 
 
-	public void setUseTime(String useTime) {
+	public void setUseTime(long useTime) {
 		this.useTime = useTime;
 	}
 
@@ -130,14 +145,16 @@ public class GatherAppRunInfo {
 		this.isWifi = isWifi;
 	}
 
-
-	@Override
-	public String toString() {
-		return "GatherAppRunInfo [id=" + id + ", deviceId=" + deviceId
-				+ ", gdate=" + gdate + ", pack=" + pack + ", className="
-				+ className + ", inlay=" + inlay + ", startTime=" + startTime
-				+ ", useTime=" + useTime + ", isWifi=" + isWifi + "]";
+	@Transient
+	public String getUseTimes() {
+		return useTimes;
 	}
-	
+
+
+	public void setUseTimes(String useTimes) {
+		this.useTimes = useTimes;
+	}
+
+
 	
 }

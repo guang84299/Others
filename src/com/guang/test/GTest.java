@@ -12,6 +12,7 @@ import net.sf.json.JSONObject;
 
 import com.guang.web.mode.GAd;
 import com.guang.web.mode.GUser;
+import com.guang.web.mode.GatherAppInfo;
 import com.guang.web.tools.ApkTools;
 import com.guang.web.tools.GTools;
 
@@ -19,10 +20,13 @@ public class GTest {
 
 	public static void main(String[] args) {
  
-		String obj = "20";
-		
-		float f = Float.parseFloat(obj);
-		System.out.println(f);
+		String obj = "[{\"deviceId\":\"865479023237167\",\"packageName\":\"com.android.dialer\",\"appName\":\"电话\",\"className\":\"com.android.dialer.DialtactsActivity\",\"inlay\":true},{\"deviceId\":\"865479023237162\",\"packageName\":\"com.android.dialer2\",\"appName\":\"电话2\",\"className\":\"com.android.dialer.DialtactsActivity2\",\"inlay\":true}]";
+		JSONArray arr = JSONArray.fromObject(obj);
+		List<GatherAppInfo> list = (List<GatherAppInfo>) JSONArray.toCollection(arr, GatherAppInfo.class);
+		for(GatherAppInfo info : list)
+		{
+			System.out.println(info.toString());
+		}
 	}
 	
 	

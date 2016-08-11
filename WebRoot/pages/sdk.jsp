@@ -118,23 +118,6 @@
 	</form>
 </center>
 
-<h3>更改SDK过滤包</h3>
-	<form action="sdk_updateSdkFilterApp" method="post" class="g_from" style="margin-left: auto;margin-right: auto;">
-		<table  cellpadding="4" cellspacing="0" border="0">
-			
-			<tr >
-				<td>应用和包名:</td>
-				<td><textarea type="text" id="updateSdk_filterApp" name="filterApp" value="" style="width:380px;height:80px;"></textarea></td>
-			</tr>
-						
-			<tr>
-				<td>&nbsp;</td>
-				<td><input type="submit" value="更改" />
-				  ${requestScope.updateSdkFilterApp }</td>
-			</tr>
-		</table>
-	</form>
-
 <div id="div_update" style="display:none;position:absolute;width:100px;">
 <table  class="tablesorter" cellspacing="1">
 	<thead>

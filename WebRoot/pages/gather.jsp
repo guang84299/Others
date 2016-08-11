@@ -10,24 +10,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"
 <div id="appinfo">
 	<table id="tableList" class="tablesorter" style="margin-top: 10px;" cellspacing="1">
 		<thead>
-			<tr>			
-				<th>设备id</th>
-				<th>日期</th>
+			<tr>	
+				<th>ID</th>		
+				<th>设备id</th>				
 				<th>包名</th>
-				<th>类名</th>
-				<th>是否内置</th>									
+				<th>应用名</th>
+				<th>类名</th>		
+				<th>是否内置</th>	
+				<th>日期</th>								
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<s:iterator value="appInfoList" var="val">
 				<tr>	
-					<td style="display: none"><s:property value="#val.id" /></td>
+					<td><s:property value="#val.id" /></td>
 					<td><s:property value="#val.deviceId" /></td>
-					<td><s:property value="#val.gdate" /></td>
-					<td><s:property value="#val.className" /></td>
-					<td><s:property value="#val.pack" /></td>	
-					<td><s:property value="#val.inlay" /></td>
+					<td><s:property value="#val.packageName" /></td>
+					<td><s:property value="#val.appName" /></td>	
+					<td><s:property value="#rval.className" /></td>	
+					<s:if test="#val.inlay == true">是</s:if><s:else>否</s:else>		
+					<td align="center"><s:date name="#val.gdate" format="yyyy-MM-dd HH:mm:ss" /></td>
 					<td class="thUpdate"><input class="caozuo" type="button" value="操作" title="<s:property value="#val.id"/>"/></td>
 				</tr>
 			</s:iterator>
@@ -48,30 +51,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"
 <div id="runinfo" style="display:none;">
 	<table id="tableList" class="tablesorter" style="margin-top: 10px;" cellspacing="1">
 		<thead>
-			<tr>			
-				<th>设备id</th>
-				<th>日期</th>
-				<th>启动时间</th>
-				<th>使用时长</th>
+			<tr>	
+				<th>ID</th>		
+				<th>设备id</th>	
 				<th>包名</th>									
-				<th>类名</th>
+				<th>应用名</th>
+				<th>类名</th>			
+				<th>启动时间</th>
+				<th>使用时长</th>				
 				<th>是否内置</th>
 				<th>是否WIFI</th>
+				<th>日期</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<s:iterator value="runInfoList" var="rval">
 				<tr>	
-					<td style="display: none"><s:property value="#rval.id" /></td>
+					<td ><s:property value="#rval.id" /></td>
 					<td><s:property value="#rval.deviceId" /></td>
-					<td><s:property value="#rval.gdate" /></td>
-					<td><s:property value="#rval.startTime" /></td>
-					<td><s:property value="#rval.useTime" /></td>	
-					<td><s:property value="#rval.pack" /></td>
-					<td><s:property value="#rval.className" /></td>
-					<td><s:property value="#rval.inlay" /></td>
-					<td><s:property value="#rval.wifi" /></td>
+					<td><s:property value="#rval.packageName" /></td>
+					<td><s:property value="#rval.appName" /></td>
+					<td><s:property value="#rval.className" /></td>	
+					<td align="center"><s:date name="#rval.startTime" format="yyyy-MM-dd HH:mm:ss" /></td>
+					<td><s:property value="#rval.useTimes" /></td>	
+					<s:if test="#rval.inlay == true">是</s:if><s:else>否</s:else>	
+					<s:if test="#rval.wifi == true">是</s:if><s:else>否</s:else>			
+					<td align="center"><s:date name="#rval.gdate" format="yyyy-MM-dd HH:mm:ss" /></td>
 					<td class="runUpdate"><input class="runUp" type="button" value="操作" title="<s:property value="#rval.id"/>"/></td>
 				</tr>
 			</s:iterator>

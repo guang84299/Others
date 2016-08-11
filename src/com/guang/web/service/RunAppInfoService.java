@@ -11,6 +11,7 @@ import com.guang.web.mode.GatherAppRunInfo;
 
 @Service
 public interface RunAppInfoService {
+	void add(GatherAppRunInfo gatherAppRunInfo);
 	void delete(long id);
 	QueryResult<GatherAppRunInfo> findAll();
 	QueryResult<GatherAppRunInfo> findAlls(int firstindex);

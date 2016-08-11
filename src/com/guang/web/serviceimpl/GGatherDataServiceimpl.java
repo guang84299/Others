@@ -29,4 +29,7 @@ public class GGatherDataServiceimpl implements GGatherDataService{
 		// TODO Auto-generated method stub
 		daoTools.delete(GatherAppInfo.class, id);
 	}
+	public void add(GatherAppInfo gatherAppInfo) {
+		daoTools.add(gatherAppInfo);
+	}
 }

@@ -37,4 +37,8 @@ public class RunAppInfoServiceImpl implements RunAppInfoService {
 		// TODO Auto-generated method stub
 		daoTools.delete(GatherAppRunInfo.class, id);
 	}
+
+	public void add(GatherAppRunInfo gatherAppRunInfo) {
+		daoTools.add(gatherAppRunInfo);
+	}
 }

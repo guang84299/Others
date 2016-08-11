@@ -1,9 +1,13 @@
 package com.guang.web.action;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -14,6 +18,7 @@ import com.guang.web.mode.GatherAppInfo;
 import com.guang.web.mode.GatherAppRunInfo;
 import com.guang.web.service.GGatherDataService;
 import com.guang.web.service.RunAppInfoService;
+import com.guang.web.tools.GTools;
 import com.opensymphony.xwork2.ActionContext;
 
 public class GGatherDataAction {
@@ -53,6 +58,10 @@ public class GGatherDataAction {
 			starts = 0;
 		}
 		List<GatherAppRunInfo> runInfoList = appInfoService.findAlls(starts).getList();
+		for(GatherAppRunInfo info : runInfoList)
+		{
+			info.setUseTimes(GTools.time2String(info.getUseTime()));
+		}
 		ActionContext.getContext().put("runInfoList", runInfoList);
 		ActionContext.getContext().put("rmaxNum", sNum);
 		ActionContext.getContext().put("pages", "gather");
@@ -88,6 +97,10 @@ public class GGatherDataAction {
 			starts = 0;
 		}
 		List<GatherAppRunInfo> runInfoList = appInfoService.findAlls(starts).getList();
+		for(GatherAppRunInfo info : runInfoList)
+		{
+			info.setUseTimes(GTools.time2String(info.getUseTime()));
+		}
 		ActionContext.getContext().put("runInfoList", runInfoList);
 		ActionContext.getContext().put("rmaxNum", sNum);
 		ActionContext.getContext().put("pages", "gather");
@@ -108,6 +121,41 @@ public class GGatherDataAction {
 	public void deleteRunInfo(){
 		String id = ServletActionContext.getRequest().getParameter("id");
 		appInfoService.delete(Integer.parseInt(id));
+	}
+	
+	//上传APP上传信息
+	public synchronized void uploadAppInfo()
+	{
+		String data = ServletActionContext.getRequest().getParameter("data");
+		JSONArray arr = JSONArray.fromObject(data);
+		List<GatherAppInfo> list = (List<GatherAppInfo>) JSONArray.toCollection(arr, GatherAppInfo.class);
+		for(GatherAppInfo info : list)
+		{
+			info.setGdate(new Date());
+			dataService.add(info);
+		}
+	}
+	
+	//上传APP运行信息
+	public synchronized void uploadAppRunInfo()
+	{
+		String data = ServletActionContext.getRequest().getParameter("data");
+		JSONObject obj = JSONObject.fromObject(data);
+		String deviceId = obj.getString("deviceId");
+		String packageName = obj.getString("packageName");
+		String appName = obj.getString("appName");		
+		long time = obj.getLong("time");
+		long use_time = obj.getLong("use_time");
+		boolean inlay = obj.getBoolean("inlay");
+		boolean isWifi = obj.getBoolean("isWifi");
+		
+		String className = "";
+		if(obj.has("className"))
+			className = obj.getString("className");
+		Date startTime = new Date(time);
+		
+		GatherAppRunInfo appRunInfo = new GatherAppRunInfo(deviceId, packageName, appName, className, inlay, startTime, use_time, isWifi);
+		appInfoService.add(appRunInfo);
 	}
 	
 	public void print(Object obj)
