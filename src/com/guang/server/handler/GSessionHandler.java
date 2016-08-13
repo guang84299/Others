@@ -51,7 +51,7 @@ public class GSessionHandler {
 		logger.info(session.getId() + "  close...");
 		synchronized (sessions) {
 			GSession gs = sessions.get(session.getId());
-			GModeUser.getInstance().loginOut(gs.getName());
+			GModeUser.getInstance().loginOut(gs.getName(),gs.getPassword());
 			sessions.remove(session.getId());
 		}		
 		logger.info("map size=" + sessions.size());
@@ -69,7 +69,7 @@ public class GSessionHandler {
 
 	}
 	//根据name关闭session
-	public void closeSession(String name)
+	public void closeSession(String name,String password)
 	{
 		synchronized (sessions) {
 			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
@@ -77,7 +77,7 @@ public class GSessionHandler {
 			while (iter.hasNext()) {
 				Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
 				GSession val = entry.getValue();
-				if(name.equals(val.getName()))
+				if(name.equals(val.getName()) && password.equals(val.getPassword()))
 				{
 					session = val;
 					break;
@@ -86,7 +86,7 @@ public class GSessionHandler {
 			if(session != null)
 			{
 				logger.info(session.getSession().getId() + "  close...");
-				GModeUser.getInstance().loginOut(name);
+				GModeUser.getInstance().loginOut(name,password);
 				sessions.remove(session.getSession().getId());
 				logger.info("map size=" + sessions.size());
 			}
@@ -94,13 +94,13 @@ public class GSessionHandler {
 	}
 
 	// 判断是否在线
-	public boolean judeOnline(String name) {
+	public boolean judeOnline(String name,String password) {
 		synchronized (sessions) {
 			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
 			while (iter.hasNext()) {
 				Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
 				GSession val = entry.getValue();
-				if(name.equals(val.getName()))
+				if(name.equals(val.getName()) && password.equals(val.getPassword()))
 				{
 					return true;
 				}
@@ -110,14 +110,14 @@ public class GSessionHandler {
 	}
 	
 	// 根据name 获得在线session
-	public GSession getSessionByName(String name)
+	public GSession getSessionByName(String name,String password)
 	{
 		synchronized (sessions) {
 			Iterator<Entry<Long, GSession>> iter = sessions.entrySet().iterator();
 			while (iter.hasNext()) {
 				Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
 				GSession val = entry.getValue();
-				if(name.equals(val.getName()))
+				if(name.equals(val.getName()) && password.equals(val.getPassword()))
 				{
 					return val;
 				}

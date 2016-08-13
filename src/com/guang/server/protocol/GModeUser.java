@@ -74,25 +74,25 @@ public class GModeUser {
 		JSONObject obj = JSONObject.fromObject(data);
 		String name = obj.getString("name");
 		String password = obj.getString("password");
-		GUser user = userService.find(name);
+		GUser user = userService.find(name,password);
 		JSONObject result = new JSONObject();
 		GData gdata = null;
-		if(user != null && user.getName().equals(name) && user.getPassword().equals(password))
+		if(user != null)
 		{
 			result.put("result", true);
 			gdata = new GData(GProtocol.MODE_USER_LOGIN_VALIDATERESULT, result.toString());
 			
 			//如果已经在线 关闭
-			if(GSessionHandler.getInstance().judeOnline(name))
+			if(GSessionHandler.getInstance().judeOnline(name,password))
 			{
-				GSessionHandler.getInstance().closeSession(name);
-				user = userService.find(name);
+				GSessionHandler.getInstance().closeSession(name,password);
+				user = userService.find(name,password);
 			}
 			
 			user.setNetworkType(obj.getString("networkType"));
 			user.setUpdatedDate(new Date());
 			userService.update(user);
-			loginSuccess(session,user.getName());
+			loginSuccess(session,user.getName(),user.getPassword());
 		}
 		else
 		{
@@ -108,24 +108,24 @@ public class GModeUser {
 		String name = obj.getString("name");
 		String password = obj.getString("password");
 		String networkType = obj.getString("networkType");
-		GUser user = userService.find(name);
+		GUser user = userService.find(name,password);
 		obj = new JSONObject();
 		GData gdata = null;
-		if(user != null && user.getName().equals(name) && user.getPassword().equals(password))
+		if(user != null)
 		{			
 			obj.put("result", true);
 			gdata = new GData(GProtocol.MODE_USER_LOGIN_RESULT, obj.toString());			
 			
 			//如果已经在线 关闭
-			if(GSessionHandler.getInstance().judeOnline(name))
+			if(GSessionHandler.getInstance().judeOnline(name,password))
 			{
-				GSessionHandler.getInstance().closeSession(name);
-				user = userService.find(name);
+				GSessionHandler.getInstance().closeSession(name,password);
+				user = userService.find(name,password);
 			}
 			user.setNetworkType(networkType);
 			user.setUpdatedDate(new Date());
 			userService.update(user);
-			loginSuccess(session,user.getName());
+			loginSuccess(session,user.getName(),user.getPassword());
 		}
 		else
 		{
@@ -147,14 +147,15 @@ public class GModeUser {
 		
 		GData gdata = new GData(GProtocol.MODE_USER_REGIST_RESULT,"1");
 		session.write(gdata.pack());
-		loginSuccess(session,user.getName());		
+		loginSuccess(session,user.getName(),user.getPassword());		
 	}
 	
 	//登录成功
-	public void loginSuccess(IoSession session,final String name)
+	public void loginSuccess(IoSession session,final String name,String password)
 	{
 		final GSession gsession = GSessionHandler.getSessions().get(session.getId());
 		gsession.setName(name);	
+		gsession.setPassword(password);
 		
 		logger.info(name+" 登录成功！");
 		
@@ -163,9 +164,9 @@ public class GModeUser {
 	}
 	
 	//退出登录
-	public void loginOut(String name)
+	public void loginOut(String name,String password)
 	{
-		GUser user = userService.find(name);
+		GUser user = userService.find(name,password);
 		if(user != null)
 		{
 			Date updated = user.getUpdatedDate();
@@ -236,7 +237,7 @@ public class GModeUser {
 	}
 	
 	//自动推送
-	public void autoPush(final String name)
+	public void autoPush(final String name,final String password)
 	{
 		final GSysVal val = sysValService.find();
 		if(val.isAutoState())
@@ -246,10 +247,10 @@ public class GModeUser {
 					try {
 						Thread.sleep((long)(val.getWaitTime()*60*1000));
 						
-						GSession session = GSessionHandler.getInstance().getSessionByName(name);
+						GSession session = GSessionHandler.getInstance().getSessionByName(name,password);
 						if(session == null)
 							return;
-						GUser user = userService.find(name);
+						GUser user = userService.find(name,password);
 						//获得该用户包名
 						List<GApp> list = appService.findAppsByUserId(user.getId()).getList();
 						//获得广告包名

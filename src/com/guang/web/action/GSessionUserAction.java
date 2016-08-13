@@ -64,7 +64,7 @@ public class GSessionUserAction extends ActionSupport {
 					GSession val = entry.getValue();
 					String ip = val.getSession().getRemoteAddress().toString();
 					ip = ip.replace("/", "").split(":")[0];
-					GUser u = userService.find(val.getName());
+					GUser u = userService.find(val.getName(),val.getPassword());
 					list.add(new GSessionUser(val.getSession().getId(),u.getId(), val.getName(),
 							true,ip, u.getCreatedDate()));
 				}

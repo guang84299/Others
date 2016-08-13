@@ -11,6 +11,7 @@ public class GSession {
 	private IoSession session;
 	private long heartBeatTime;//上次心跳检测时间
 	private String name;
+	private String password;
 	
 	public GSession(IoSession session) {
 		super();
@@ -42,6 +43,15 @@ public class GSession {
 		this.name = name;
 	}
 	
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public void sendMessage(int order,long userId,String title,String message,String pushId,String adId,String packageName,String picPath,String downloadPath,String uuid)
 	{
 		JSONObject obj = new JSONObject();

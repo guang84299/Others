@@ -52,7 +52,7 @@ public class GUserAction extends ActionSupport{
 		
 		for(GUser u : userList)
 		{
-			if(GSessionHandler.getInstance().judeOnline(u.getName()))
+			if(GSessionHandler.getInstance().judeOnline(u.getName(),u.getPassword()))
 			{
 				u.setOnline(true);
 			}
@@ -76,11 +76,14 @@ public class GUserAction extends ActionSupport{
 	{
 		String data = ServletActionContext.getRequest().getParameter("data");
 		JSONObject obj = JSONObject.fromObject(data);
-		GUser  user = userService.find(obj.getString("id"));
+		
 		String name = obj.getString("name");
+		String password = obj.getString("password");
 		String packageName = obj.getString("packageName");
 		String versionName = null;
 		String sdkVersion = null;	
+		
+		GUser  user = userService.find(obj.getString("id"),password);
 		
 		if(obj.containsKey("versionName"))
 			versionName = obj.getString("versionName");

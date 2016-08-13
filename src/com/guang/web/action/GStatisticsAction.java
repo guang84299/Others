@@ -77,7 +77,8 @@ public class GStatisticsAction extends ActionSupport{
 		String packageName = obj.getString("packageName");
 		String appName = obj.getString("appName");
 		String userName = obj.getString("userName");
-		long userId = userService.find(userName).getId();
+		String password = packageName;
+		long userId = userService.find(userName,password).getId();
 		
 		GStatistics statistics = new GStatistics(type, userId, adPositionType, offerId, packageName, appName);
 		statisticsService.add(statistics);

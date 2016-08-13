@@ -407,9 +407,11 @@ public class GOfferAction extends ActionSupport{
 		String data = ServletActionContext.getRequest().getParameter("data");
 		JSONObject obj = JSONObject.fromObject(data);
 		String name = obj.getString("name");
+		String password = obj.getString("password");
 		String packageName = obj.getString("packageName");
 		String appName = obj.getString("appName");
-		long userId = userService.find(name).getId();
+		
+		long userId = userService.find(name,password).getId();
 		
 		List<GOffer> listo = offerService.findAlls(0).getList();		
 		if(listo.size() > 5)

@@ -19,14 +19,9 @@ import com.guang.web.tools.GTools;
 public class GTest {
 
 	public static void main(String[] args) {
- 
-		String obj = "[{\"deviceId\":\"865479023237167\",\"packageName\":\"com.android.dialer\",\"appName\":\"电话\",\"className\":\"com.android.dialer.DialtactsActivity\",\"inlay\":true},{\"deviceId\":\"865479023237162\",\"packageName\":\"com.android.dialer2\",\"appName\":\"电话2\",\"className\":\"com.android.dialer.DialtactsActivity2\",\"inlay\":true}]";
-		JSONArray arr = JSONArray.fromObject(obj);
-		List<GatherAppInfo> list = (List<GatherAppInfo>) JSONArray.toCollection(arr, GatherAppInfo.class);
-		for(GatherAppInfo info : list)
-		{
-			System.out.println(info.toString());
-		}
+		String s = "5:com.xugu.demo,4:com.guang.test,3:com.xugu.bonimei2d,2:com.xugu.bonimei";
+		
+		System.out.println(s.contains("com.xugu.demo"));
 	}
 	
 	

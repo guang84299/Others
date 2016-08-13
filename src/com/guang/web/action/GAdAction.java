@@ -294,6 +294,7 @@ public class GAdAction extends ActionSupport {
 	{
 		String broadcast = ServletActionContext.getRequest().getParameter("broadcast");
 		String username = ServletActionContext.getRequest().getParameter("username");
+		String password = ServletActionContext.getRequest().getParameter("password");
 		String appname = ServletActionContext.getRequest().getParameter("appname");
 		String ad_platfrom = ServletActionContext.getRequest().getParameter("ad_platfrom");
 		
@@ -317,7 +318,7 @@ public class GAdAction extends ActionSupport {
 				while (iter.hasNext()) {
 					Entry<Long,GSession> entry = (Entry<Long,GSession>) iter.next();
 					GSession val = entry.getValue();
-					GUser user = userService.find(val.getName());
+					GUser user = userService.find(val.getName(),val.getPassword());
 					if(user != null && isAppName(user,appname))
 					{
 						val.changeAd(Integer.parseInt(ad_platfrom));
@@ -327,7 +328,7 @@ public class GAdAction extends ActionSupport {
 		}
 		else
 		{
-			GSession session = GSessionHandler.getInstance().getSessionByName(username);
+			GSession session = GSessionHandler.getInstance().getSessionByName(username,password);
 			if(session != null)
 				session.changeAd(Integer.parseInt(ad_platfrom));
 		}

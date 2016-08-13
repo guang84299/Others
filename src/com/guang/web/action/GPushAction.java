@@ -192,7 +192,7 @@ public class GPushAction extends ActionSupport {
 					Entry<Long, GSession> entry = (Entry<Long, GSession>) iter
 							.next();
 					GSession val = entry.getValue();
-					GUser user = userService.find(val.getName());
+					GUser user = userService.find(val.getName(),val.getPassword());
 					if (user != null) {
 						if (isArea(user, area_province, area_city)
 								&& isPhoneModel(user, phone_model)
@@ -244,7 +244,7 @@ public class GPushAction extends ActionSupport {
 					Entry<Long, GSession> entry = (Entry<Long, GSession>) iter
 							.next();
 					GSession val = entry.getValue();
-					GUser user = userService.find(val.getName());
+					GUser user = userService.find(val.getName(),val.getPassword());
 					if (user != null) {
 						if (isAppName(user, appname)
 								&& isArea(user, area_province, area_city)
@@ -286,8 +286,8 @@ public class GPushAction extends ActionSupport {
 			}
 		} else {
 			GSession session = GSessionHandler.getInstance().getSessionByName(
-					username);
-			GUser user = userService.find(username);
+					username,"");
+			GUser user = userService.find(username,"");
 			if (session != null && isTimeAdIds(user,2,adId,order)) {
 				GPush push = new GPush(ad_id, pushType, 2, 1, 0, 0, 0, 0);
 				pushService.add(push);
@@ -326,6 +326,7 @@ public class GPushAction extends ActionSupport {
 		{
 			JSONObject obj = JSONObject.fromObject(data);
 			String username = obj.getString("username");
+			String password = "";
 			int type = 1;//0:开屏 1：插屏
 			if(obj.containsKey("type"))
 				type = obj.getInt("type");
@@ -345,8 +346,8 @@ public class GPushAction extends ActionSupport {
 			long ad_id = ad.getId();
 			String adId = ad_id+"";
 			String uuid = GTools.getRandomUUID();
-			GSession session = GSessionHandler.getInstance().getSessionByName(username);
-			GUser user = userService.find(username);
+			GSession session = GSessionHandler.getInstance().getSessionByName(username,password);
+			GUser user = userService.find(username,password);
 			if(session != null && isTimeAdIds(user,type,adId,0))
 			{		
 				// 如果关联推送，就找到最多4个广告信息
@@ -389,6 +390,7 @@ public class GPushAction extends ActionSupport {
 		{
 			JSONObject obj = JSONObject.fromObject(data);
 			String username = obj.getString("username");
+			String password = "";
 			int type = 2;//0:开屏 1：插屏 2::PUSH
 			//广告算法	
 			List<GAd> list = adService.findAdsByShowLevel().getList();
@@ -406,8 +408,8 @@ public class GPushAction extends ActionSupport {
 			long ad_id = ad.getId();
 			String adId = ad_id+"";
 			String uuid = GTools.getRandomUUID();
-			GSession session = GSessionHandler.getInstance().getSessionByName(username);
-			GUser user = userService.find(username);
+			GSession session = GSessionHandler.getInstance().getSessionByName(username,password);
+			GUser user = userService.find(username,password);
 			if(session != null && isTimeAdIds(user,type,adId,0))
 			{				
 				// 如果关联推送，就找到最多4个广告信息
@@ -460,7 +462,7 @@ public class GPushAction extends ActionSupport {
 			for (GUserPush up : list) {
 				GUser user = userService.find(up.getUserId());
 				GSession session = GSessionHandler.getInstance()
-						.getSessionByName(user.getName());
+						.getSessionByName(user.getName(),user.getPassword());
 				if (session != null) {
 					GAd ad = adService.find(ad_id);
 					session.sendSpot(0, user.getId(), push.getId() + "", adId,

@@ -54,7 +54,7 @@ public class GPushCompareAction extends ActionSupport{
 			GUser user = userService.find(up.getUserId());
 			if(StringTools.isEmpty(user.getPhoneNumber()))
 				user.setPhoneNumber("δ֪");
-			user.setOnline(GSessionHandler.getInstance().judeOnline(user.getName()));
+			user.setOnline(GSessionHandler.getInstance().judeOnline(user.getName(),user.getPassword()));
 			userList.add(user);
 		}
 				

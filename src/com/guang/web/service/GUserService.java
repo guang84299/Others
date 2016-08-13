@@ -15,7 +15,7 @@ public interface GUserService {
 	void delete(long id);
 	void update(GUser user);
 	GUser find(long id);
-	GUser find(String name);
+	GUser find(String name,String password);
 	QueryResult<GUser> findAlls(int firstindex);
 	QueryResult<GUser> find(LinkedHashMap<String, String> colvals);
 }

@@ -31,8 +31,8 @@ public class GUserServiceImpl implements GUserService{
 		return daoTools.find(GUser.class, id);
 	}
 
-	public GUser find(String name) {
-		QueryResult<GUser> qr = daoTools.find(GUser.class, "name",name, 0, 1, null);
+	public GUser find(String name,String password) {
+		QueryResult<GUser> qr = daoTools.find(GUser.class, "name",name,"password",password, 0, 1, null);
 		if(qr.getList() != null && qr.getList().size() > 0)
 		return qr.getList().get(0);
 		return null;
